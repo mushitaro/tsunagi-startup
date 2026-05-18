@@ -41,13 +41,8 @@ const sections = [
   jsonLd={[organizationSchema(), websiteSchema(locale)]}
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden border-b border-line bg-surface">
-    <div
-      class="pointer-events-none absolute -right-24 -top-24 hidden h-96 w-96 rounded-full bg-brand-soft blur-3xl md:block"
-      aria-hidden="true"
-    >
-    </div>
-    <div class="wrap relative grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:py-28">
+  <section class="border-b border-line bg-surface">
+    <div class="wrap grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:py-28">
       <div>
         <span
           class="inline-flex items-center rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand"
@@ -80,7 +75,7 @@ const sections = [
       <!-- 連結ノードの装飾 -->
       <div class="hidden items-center justify-center md:flex" aria-hidden="true">
         <svg viewBox="0 0 240 240" class="h-60 w-60">
-          <g stroke="#c7c4ee" stroke-width="2">
+          <g stroke="#d0d0d0" stroke-width="2">
             <line x1="60" y1="60" x2="180" y2="60" />
             <line x1="60" y1="60" x2="60" y2="180" />
             <line x1="180" y1="60" x2="180" y2="180" />
@@ -88,13 +83,13 @@ const sections = [
             <line x1="60" y1="60" x2="180" y2="180" />
             <line x1="120" y1="120" x2="180" y2="60" />
           </g>
-          <g fill="#4338ca">
-            <circle cx="60" cy="60" r="11" />
-            <circle cx="180" cy="60" r="11" />
-            <circle cx="60" cy="180" r="11" />
-            <circle cx="180" cy="180" r="11" />
-            <circle cx="120" cy="120" r="14" fill="#0d9488" />
+          <g fill="#0a0a0a">
+            <circle cx="60" cy="60" r="10" />
+            <circle cx="180" cy="60" r="10" />
+            <circle cx="60" cy="180" r="10" />
+            <circle cx="180" cy="180" r="10" />
           </g>
+          <circle cx="120" cy="120" r="13" fill="#ffffff" stroke="#0a0a0a" stroke-width="3" />
         </svg>
       </div>
     </div>

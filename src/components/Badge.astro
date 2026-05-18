@@ -5,11 +5,11 @@ interface Props {
 }
 const { tone = 'neutral', class: cls } = Astro.props;
 const tones: Record<string, string> = {
-  brand: 'bg-brand-soft text-brand',
-  neutral: 'bg-[#f1f0ec] text-muted',
-  live: 'bg-[#e7f5ec] text-ok',
-  dev: 'bg-[#fdf1e3] text-warn',
-  paid: 'bg-brand text-white',
+  brand: 'bg-brand-soft text-ink-soft',
+  neutral: 'border border-line-strong text-muted',
+  live: 'bg-ink text-white',
+  dev: 'bg-brand-soft text-ink-soft',
+  paid: 'bg-ink text-white',
 };
 ---
 

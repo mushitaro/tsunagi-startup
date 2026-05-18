@@ -14,21 +14,21 @@ const field =
 
 {
   status === 'ok' && (
-    <p class="mb-4 rounded-lg bg-[#e7f5ec] px-3 py-2 text-sm font-semibold text-ok">
+    <p class="mb-4 rounded-lg border border-line bg-brand-soft px-3 py-2 text-sm font-semibold text-ink-soft">
       {t('contact.ok')}
     </p>
   )
 }
 {
   status === 'error' && (
-    <p class="mb-4 rounded-lg bg-[#fdecec] px-3 py-2 text-sm font-semibold text-[#b42318]">
+    <p class="mb-4 rounded-lg border border-ink bg-surface px-3 py-2 text-sm font-semibold text-ink">
       {t('contact.error')}
     </p>
   )
 }
 {
   status === 'required' && (
-    <p class="mb-4 rounded-lg bg-[#fdf1e3] px-3 py-2 text-sm font-semibold text-warn">
+    <p class="mb-4 rounded-lg border border-line bg-brand-soft px-3 py-2 text-sm font-semibold text-ink-soft">
       {t('contact.required')}
     </p>
   )

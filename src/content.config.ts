@@ -19,7 +19,6 @@ const apps = defineCollection({
     repo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
     thumbnail: z.string().optional(),
-    accent: z.string().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(100),
     launchedAt: z.coerce.date().optional(),

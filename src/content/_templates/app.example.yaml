@@ -16,8 +16,7 @@ repo: https://github.com/owner/repo # リポジトリ URL（任意）
 tags: # 任意
   - タグ1
   - タグ2
-thumbnail: /images/apps/my-app.png # public/ 配下の画像パス（任意。無ければ色ブロック表示）
-accent: '#4338ca' # サムネ未指定時のカード背景色（任意）
+thumbnail: /images/apps/my-app.png # public/ 配下の画像パス（任意。無ければ頭文字プレースホルダ表示）
 featured: false # true で一覧の先頭に出す
 order: 100 # 同 featured 内の並び順（小さいほど先）
 launchedAt: 2025-01-01 # 公開日（任意）

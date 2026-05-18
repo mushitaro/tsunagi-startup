@@ -24,7 +24,6 @@ const statusMap = {
   planned: { ja: '構想中', en: 'Planned', tone: 'neutral' as const },
 };
 const status = statusMap[d.status];
-const accent = d.accent ?? '#4338ca';
 const initials = name.replace(/\s/g, '').slice(0, 2).toUpperCase();
 
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
@@ -56,8 +55,7 @@ const jsonLd = [
     </a>
 
     <div
-      class="mt-6 flex aspect-[2/1] items-center justify-center overflow-hidden rounded-2xl border border-line"
-      style={d.thumbnail ? undefined : `background:${accent}`}
+      class="mt-6 flex aspect-[2/1] items-center justify-center overflow-hidden rounded-xl border border-line bg-brand-soft"
     >
       {
         d.thumbnail ? (
@@ -69,7 +67,7 @@ const jsonLd = [
             class="h-full w-full object-cover"
           />
         ) : (
-          <span class="text-6xl font-black tracking-tight text-white/95">{initials}</span>
+          <span class="text-6xl font-black tracking-tight text-faint">{initials}</span>
         )
       }
     </div>
@@ -115,7 +113,7 @@ const jsonLd = [
       (d.tags.length > 0 || d.launchedAt) && (
         <div class="mt-10 flex flex-wrap items-center gap-2 border-t border-line pt-6">
           {d.tags.map((tag) => (
-            <span class="rounded bg-[#f1f0ec] px-2.5 py-1 text-xs font-semibold text-muted">
+            <span class="rounded bg-brand-soft px-2.5 py-1 text-xs font-semibold text-muted">
               {tag}
             </span>
           ))}

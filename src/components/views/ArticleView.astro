@@ -95,7 +95,7 @@ const jsonLd = [
           <span class="text-sm font-bold text-muted">{formatPrice(d.price, d.currency)}</span>
         )}
         {d.tags.map((tag) => (
-          <span class="rounded bg-[#f1f0ec] px-2 py-0.5 text-[11px] font-semibold text-muted">
+          <span class="rounded bg-brand-soft px-2 py-0.5 text-[11px] font-semibold text-muted">
             {tag}
           </span>
         ))}
@@ -128,7 +128,7 @@ const jsonLd = [
       entitled && Content ? (
         <>
           {paid && (
-            <p class="mt-6 rounded-lg bg-[#e7f5ec] px-3 py-2 text-sm font-semibold text-ok">
+            <p class="mt-6 rounded-lg border border-line bg-brand-soft px-3 py-2 text-sm font-semibold text-ink-soft">
               {t('paywall.owned')}
             </p>
           )}

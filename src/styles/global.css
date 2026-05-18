@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ── デザイントークン ───────────────────────────────── */
+/* ── デザイントークン（黒・白・グレーのミニマル配色） ── */
 @theme {
   --font-sans:
     "Inter", ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
@@ -8,26 +8,27 @@
   --font-mono:
     ui-monospace, "SFMono-Regular", "JetBrains Mono", "Consolas", monospace;
 
-  --color-paper: #fbfaf8;
+  --color-paper: #fafafa;
   --color-surface: #ffffff;
-  --color-ink: #18181b;
-  --color-ink-soft: #3f3f46;
-  --color-muted: #6b6b72;
-  --color-faint: #9a9aa2;
-  --color-line: #e7e5e0;
-  --color-line-strong: #d6d4cd;
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #404040;
+  --color-muted: #707070;
+  --color-faint: #a3a3a3;
+  --color-line: #e6e6e6;
+  --color-line-strong: #d0d0d0;
 
-  --color-brand: #4338ca;
-  --color-brand-ink: #372fb0;
-  --color-brand-soft: #eeedfb;
-  --color-accent: #0d9488;
+  /* プライマリは黒、アクセントはグレー */
+  --color-brand: #0a0a0a;
+  --color-brand-ink: #333333;
+  --color-brand-soft: #f3f3f3;
+  --color-accent: #737373;
 
-  --color-ok: #15803d;
-  --color-warn: #b45309;
+  --color-ok: #0a0a0a;
+  --color-warn: #0a0a0a;
 
-  --radius-card: 14px;
-  --shadow-card: 0 1px 2px rgb(24 24 27 / 0.04), 0 8px 24px -12px rgb(24 24 27 / 0.12);
-  --shadow-lift: 0 2px 6px rgb(24 24 27 / 0.06), 0 18px 40px -16px rgb(24 24 27 / 0.22);
+  --radius-card: 12px;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-lift: 0 6px 22px -10px rgb(0 0 0 / 0.14);
 }
 
 /* ── ベース ───────────────────────────────────────── */
@@ -45,12 +46,12 @@
     font-feature-settings: "palt";
   }
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-ink);
     outline-offset: 2px;
-    border-radius: 3px;
+    border-radius: 2px;
   }
   ::selection {
-    background: var(--color-brand);
+    background: var(--color-ink);
     color: #fff;
   }
   a {
@@ -99,9 +100,13 @@
     scroll-margin-top: 6rem;
   }
   .article-body a {
-    color: var(--color-brand);
+    color: var(--color-ink);
     text-underline-offset: 3px;
     text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+  }
+  .article-body a:hover {
+    text-decoration-color: var(--color-ink);
   }
   .article-body ul,
   .article-body ol {
@@ -117,26 +122,26 @@
     margin-top: 0.4rem;
   }
   .article-body blockquote {
-    border-left: 3px solid var(--color-brand);
+    border-left: 2px solid var(--color-ink);
     padding: 0.3rem 0 0.3rem 1.1rem;
     color: var(--color-muted);
   }
   .article-body img {
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid var(--color-line);
   }
   .article-body code {
     font-family: var(--font-mono);
     font-size: 0.875em;
-    background: #f1f0ec;
+    background: var(--color-brand-soft);
     padding: 0.15em 0.4em;
-    border-radius: 5px;
+    border-radius: 4px;
   }
   .article-body pre {
-    background: #18181b;
+    background: var(--color-ink);
     color: #f4f4f5;
     padding: 1rem 1.1rem;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow-x: auto;
     font-size: 0.875rem;
   }

@@ -117,12 +117,12 @@ if (user) {
           <h1 class="text-3xl font-extrabold tracking-tight">{t('auth.title')}</h1>
           <p class="mt-3 text-muted">{t('auth.lead')}</p>
           {verifyFail && (
-            <p class="mt-4 rounded-lg bg-[#fdecec] px-3 py-2 text-sm font-semibold text-[#b42318]">
+            <p class="mt-4 rounded-lg border border-ink bg-surface px-3 py-2 text-sm font-semibold text-ink">
               {t('auth.verify.fail')}
             </p>
           )}
           {error && (
-            <p class="mt-4 rounded-lg bg-[#fdecec] px-3 py-2 text-sm font-semibold text-[#b42318]">
+            <p class="mt-4 rounded-lg border border-ink bg-surface px-3 py-2 text-sm font-semibold text-ink">
               {t('auth.error')}
             </p>
           )}
@@ -152,7 +152,7 @@ if (user) {
     }
     {
       user && verifyOk && (
-        <p class="mt-6 text-sm font-semibold text-ok">{t('auth.verify.ok')}</p>
+        <p class="mt-6 text-sm font-semibold text-ink-soft">{t('auth.verify.ok')}</p>
       )
     }
   </div>
