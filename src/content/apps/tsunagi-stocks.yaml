@@ -1,0 +1,19 @@
+# Catalog エントリのサンプル。実際のアプリ情報に置き換えてください。
+name:
+  ja: tsunagi Stocks
+  en: tsunagi Stocks
+tagline:
+  ja: 個人投資家のための、軽量な株式情報ダッシュボード。
+  en: A lightweight market dashboard for individual investors.
+description:
+  ja: moomoo API などのデータソースをもとに、ウォッチ銘柄の値動きや指標を一画面でまとめて確認できるダッシュボードです。現在開発中で、まずは自分の運用に必要な機能から順に作り込んでいます。
+  en: A dashboard that pulls from data sources such as the moomoo API to track watchlist prices and indicators in one view. Currently in development, built feature by feature around real usage.
+status: in-development
+repo: https://github.com/tsunagi-app/tsunagi-stocks
+tags:
+  - 投資
+  - ダッシュボード
+  - API
+accent: '#4338ca'
+featured: true
+order: 2

@@ -1,0 +1,38 @@
+---
+title: From Idea to Shipped in Two Weeks — the tsunagi Workflow
+summary: From the moment an idea appears to the moment it goes live — what to decide first, what to build, and in what order. A concrete walk-through of the process tsunagi actually follows, through to deploying on Cloudflare.
+publishedAt: 2025-05-12
+tags:
+  - App development
+  - Workflow
+  - Cloudflare
+category: Approach
+access: paid
+price: 500
+---
+
+An idea looks largest the moment it appears. Turning it into something shippable takes order, not momentum. Here is the process tsunagi follows to ship a small app in about two weeks, in the order it actually happens.
+
+## Day 1 — Decide what NOT to do
+
+The first task is not adding features but removing them. Write down every element the idea contains, then cross out everything that will not be in the first release. The one or two that remain are your initial scope.
+
+## Days 2–3 — Check the screen flow on paper
+
+Before writing code, sketch the main screen transitions on paper or a whiteboard. A flow that stalls here costs many times more to fix after it is implemented.
+
+## Days 4–8 — Implementation
+
+Decide the shape of the data first, then the screens, then the small adjustments last. This order keeps rework to a minimum.
+
+## Days 9–11 — Add the operational layer
+
+Error notifications, backups, light analytics. Always include the minimum needed to "notice when something breaks."
+
+## Days 12–14 — Deploy to Cloudflare and launch
+
+With static site plus serverless as the default, deploy to Cloudflare. Wire it so a push to GitHub builds and publishes automatically — post-launch fixes then become ordinary daily operation.
+
+## Summary
+
+Shipping in two weeks is not about building fast. It is about having a fixed order for decisions. We use this same process on client projects.

@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../Badge.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { type AppEntry, pick, formatDate } from '../../lib/content';
+import { SITE_URL, breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+  app: AppEntry;
+}
+const { locale, app } = Astro.props;
+const t = useTranslations(locale);
+const d = app.data;
+
+const name = pick(d.name, locale);
+const tagline = pick(d.tagline, locale);
+const description = pick(d.description, locale);
+const paragraphs = description.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+
+const statusMap = {
+  live: { ja: '公開中', en: 'Live', tone: 'live' as const },
+  'in-development': { ja: '開発中', en: 'In dev', tone: 'dev' as const },
+  planned: { ja: '構想中', en: 'Planned', tone: 'neutral' as const },
+};
+const status = statusMap[d.status];
+const accent = d.accent ?? '#4338ca';
+const initials = name.replace(/\s/g, '').slice(0, 2).toUpperCase();
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const canonical = `${base}/catalog/${app.id}`;
+const jsonLd = [
+  softwareApplicationSchema({ name, description, url: canonical, appUrl: d.url }),
+  breadcrumbSchema([
+    { name: 'tsunagi', url: `${base}/` },
+    { name: t('catalog.title'), url: `${base}/catalog` },
+    { name, url: canonical },
+  ]),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={name}
+  description={tagline}
+  ogType="website"
+  ogImage={d.thumbnail}
+  jsonLd={jsonLd}
+>
+  <article class="wrap-narrow py-14">
+    <a
+      href={localizedPath('/catalog', locale)}
+      class="text-sm font-semibold text-muted transition-colors hover:text-brand"
+    >
+      ← {t('catalog.back')}
+    </a>
+
+    <div
+      class="mt-6 flex aspect-[2/1] items-center justify-center overflow-hidden rounded-2xl border border-line"
+      style={d.thumbnail ? undefined : `background:${accent}`}
+    >
+      {
+        d.thumbnail ? (
+          <img
+            src={d.thumbnail}
+            alt={name}
+            width="1280"
+            height="640"
+            class="h-full w-full object-cover"
+          />
+        ) : (
+          <span class="text-6xl font-black tracking-tight text-white/95">{initials}</span>
+        )
+      }
+    </div>
+
+    <div class="mt-7">
+      <Badge tone={status.tone}>{status[locale]}</Badge>
+      <h1 class="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">{name}</h1>
+      <p class="mt-2 text-lg text-muted">{tagline}</p>
+    </div>
+
+    <div class="mt-6 space-y-4 text-[1.0625rem] leading-relaxed text-ink-soft">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+
+    {
+      (d.url || d.repo) && (
+        <div class="mt-8 flex flex-wrap gap-3">
+          {d.url && (
+            <a
+              href={d.url}
+              target="_blank"
+              rel="noopener"
+              class="rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+            >
+              {t('catalog.visit')} ↗
+            </a>
+          )}
+          {d.repo && (
+            <a
+              href={d.repo}
+              target="_blank"
+              rel="noopener"
+              class="rounded-xl border border-line-strong px-5 py-3 text-sm font-bold text-ink-soft transition-colors hover:border-brand hover:text-brand"
+            >
+              {t('catalog.repo')} ↗
+            </a>
+          )}
+        </div>
+      )
+    }
+
+    {
+      (d.tags.length > 0 || d.launchedAt) && (
+        <div class="mt-10 flex flex-wrap items-center gap-2 border-t border-line pt-6">
+          {d.tags.map((tag) => (
+            <span class="rounded bg-[#f1f0ec] px-2.5 py-1 text-xs font-semibold text-muted">
+              {tag}
+            </span>
+          ))}
+          {d.launchedAt && (
+            <time class="ml-auto text-xs text-faint" datetime={d.launchedAt.toISOString()}>
+              {formatDate(d.launchedAt, locale)}
+            </time>
+          )}
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

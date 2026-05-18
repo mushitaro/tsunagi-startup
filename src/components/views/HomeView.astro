@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppCard from '../AppCard.astro';
+import ArticleCard from '../ArticleCard.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { getApps, getArticles } from '../../lib/content';
+import { organizationSchema, websiteSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const apps = (await getApps()).slice(0, 6);
+const articles = (await getArticles(locale)).slice(0, 3);
+
+const sections = [
+  {
+    href: localizedPath('/catalog', locale),
+    title: t('home.section.catalog.title'),
+    desc: t('home.section.catalog.desc'),
+  },
+  {
+    href: localizedPath('/content', locale),
+    title: t('home.section.content.title'),
+    desc: t('home.section.content.desc'),
+  },
+  {
+    href: localizedPath('/consulting', locale),
+    title: t('home.section.consulting.title'),
+    desc: t('home.section.consulting.desc'),
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title="tsunagi"
+  description={t('home.hero.lead')}
+  jsonLd={[organizationSchema(), websiteSchema(locale)]}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-line bg-surface">
+    <div
+      class="pointer-events-none absolute -right-24 -top-24 hidden h-96 w-96 rounded-full bg-brand-soft blur-3xl md:block"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="wrap relative grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:py-28">
+      <div>
+        <span
+          class="inline-flex items-center rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand"
+        >
+          {t('home.hero.kicker')}
+        </span>
+        <h1
+          class="mt-5 text-balance text-4xl font-extrabold leading-[1.15] tracking-tight text-ink md:text-5xl"
+        >
+          {t('home.hero.title')}
+        </h1>
+        <p class="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted md:text-lg">
+          {t('home.hero.lead')}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={localizedPath('/catalog', locale)}
+            class="rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+          >
+            {t('home.hero.cta.catalog')}
+          </a>
+          <a
+            href={localizedPath('/consulting', locale)}
+            class="rounded-xl border border-line-strong px-5 py-3 text-sm font-bold text-ink-soft transition-colors hover:border-brand hover:text-brand"
+          >
+            {t('home.hero.cta.consulting')}
+          </a>
+        </div>
+      </div>
+      <!-- 連結ノードの装飾 -->
+      <div class="hidden items-center justify-center md:flex" aria-hidden="true">
+        <svg viewBox="0 0 240 240" class="h-60 w-60">
+          <g stroke="#c7c4ee" stroke-width="2">
+            <line x1="60" y1="60" x2="180" y2="60" />
+            <line x1="60" y1="60" x2="60" y2="180" />
+            <line x1="180" y1="60" x2="180" y2="180" />
+            <line x1="60" y1="180" x2="180" y2="180" />
+            <line x1="60" y1="60" x2="180" y2="180" />
+            <line x1="120" y1="120" x2="180" y2="60" />
+          </g>
+          <g fill="#4338ca">
+            <circle cx="60" cy="60" r="11" />
+            <circle cx="180" cy="60" r="11" />
+            <circle cx="60" cy="180" r="11" />
+            <circle cx="180" cy="180" r="11" />
+            <circle cx="120" cy="120" r="14" fill="#0d9488" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション概要 -->
+  <section class="wrap py-16" aria-label="sections">
+    <div class="grid gap-4 md:grid-cols-3">
+      {
+        sections.map((s) => (
+          <a
+            href={s.href}
+            class="group rounded-[var(--radius-card)] border border-line bg-surface p-6 transition-colors hover:border-brand"
+          >
+            <h2 class="font-bold tracking-tight text-ink group-hover:text-brand">{s.title}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{s.desc}</p>
+            <span class="mt-4 inline-block text-sm font-bold text-brand">
+              {t('home.section.more')} →
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Catalog プレビュー -->
+  {
+    apps.length > 0 && (
+      <section class="wrap py-8" aria-labelledby="home-catalog">
+        <div class="mb-6 flex items-end justify-between gap-4">
+          <h2 id="home-catalog" class="text-2xl font-extrabold tracking-tight">
+            {t('home.section.catalog.title')}
+          </h2>
+          <a
+            href={localizedPath('/catalog', locale)}
+            class="shrink-0 text-sm font-bold text-brand hover:underline"
+          >
+            {t('home.section.more')} →
+          </a>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {apps.map((app) => (
+            <AppCard app={app} locale={locale} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Content プレビュー -->
+  {
+    articles.length > 0 && (
+      <section class="wrap py-12" aria-labelledby="home-content">
+        <div class="mb-6 flex items-end justify-between gap-4">
+          <h2 id="home-content" class="text-2xl font-extrabold tracking-tight">
+            {t('home.section.content.title')}
+          </h2>
+          <a
+            href={localizedPath('/content', locale)}
+            class="shrink-0 text-sm font-bold text-brand hover:underline"
+          >
+            {t('home.section.more')} →
+          </a>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard article={article} locale={locale} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Consulting CTA -->
+  <section class="wrap pb-4" aria-labelledby="home-consulting">
+    <div
+      class="overflow-hidden rounded-2xl bg-ink px-8 py-12 text-center md:px-16 md:py-16"
+    >
+      <h2 id="home-consulting" class="text-2xl font-extrabold tracking-tight text-white md:text-3xl">
+        {t('home.section.consulting.title')}
+      </h2>
+      <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/70">
+        {t('home.section.consulting.desc')}
+      </p>
+      <a
+        href={localizedPath('/consulting', locale)}
+        class="mt-7 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-ink transition-colors hover:bg-brand-soft"
+      >
+        {t('home.hero.cta.consulting')}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

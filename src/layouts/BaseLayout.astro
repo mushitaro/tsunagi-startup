@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import { type Locale, useTranslations, switchLocalePath } from '../i18n';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  noAlternate?: boolean;
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  locale,
+  ogImage = '/og-default.svg',
+  ogType = 'website',
+  noindex = false,
+  noAlternate = false,
+  jsonLd,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://startup.tsunagi.app');
+const canonical = new URL(Astro.url.pathname, site).href;
+const t = useTranslations(locale);
+
+const fullTitle = title === 'tsunagi' ? 'tsunagi' : `${title} — tsunagi`;
+const ogImageUrl = new URL(ogImage, site).href;
+
+const path = Astro.url.pathname;
+const jaUrl = new URL(switchLocalePath(path, 'ja'), site).href;
+const enUrl = new URL(switchLocalePath(path, 'en'), site).href;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {
+      !noAlternate && (
+        <>
+          <link rel="alternate" hreflang="ja" href={jaUrl} />
+          <link rel="alternate" hreflang="en" href={enUrl} />
+          <link rel="alternate" hreflang="x-default" href={jaUrl} />
+        </>
+      )
+    }
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="tsunagi" />
+    <meta property="og:locale" content={locale === 'ja' ? 'ja_JP' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="tsunagi Content"
+      href={new URL('/rss.xml', site).href}
+    />
+    <meta name="generator" content={Astro.generator} />
+    {jsonLd && <JsonLd schema={jsonLd} />}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
+    >
+      {t('nav.skip')}
+    </a>
+    <Header locale={locale} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

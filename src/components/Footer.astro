@@ -1,0 +1,59 @@
+---
+import { type Locale, useTranslations, localizedPath } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+
+const links = [
+  { href: localizedPath('/catalog', locale), label: t('nav.catalog') },
+  { href: localizedPath('/content', locale), label: t('nav.content') },
+  { href: localizedPath('/consulting', locale), label: t('nav.consulting') },
+  { href: localizedPath('/account', locale), label: t('nav.account') },
+];
+---
+
+<footer class="mt-24 border-t border-line bg-surface">
+  <div class="wrap grid gap-8 py-12 sm:grid-cols-2">
+    <div>
+      <div class="flex items-center gap-2 font-extrabold tracking-tight">
+        <span class="inline-block h-2.5 w-2.5 rounded-full bg-brand"></span>
+        <span class="text-lg">tsunagi</span>
+      </div>
+      <p class="mt-3 max-w-sm text-sm leading-relaxed text-muted">
+        {t('site.tagline')}
+      </p>
+    </div>
+
+    <nav class="sm:justify-self-end" aria-label="footer">
+      <p class="text-xs font-bold uppercase tracking-wide text-faint">
+        {t('footer.sections')}
+      </p>
+      <ul class="mt-3 space-y-2">
+        {
+          links.map((l) => (
+            <li>
+              <a class="text-sm font-semibold text-ink-soft hover:text-brand" href={l.href}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="text-sm font-semibold text-ink-soft hover:text-brand" href="/rss.xml">
+            {t('footer.rss')}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="border-t border-line">
+    <div class="wrap flex flex-col gap-1 py-5 text-xs text-faint sm:flex-row sm:justify-between">
+      <p>&copy; {year} tsunagi. {t('footer.rights')}</p>
+      <p>startup.tsunagi.app</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+{
+  "name": "tsunagi-startup",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "tsunagi 統合エントリーサイト (Catalog / Content / Consulting)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "wrangler dev",
+    "astro": "astro",
+    "deploy": "astro build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply tsunagi_db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply tsunagi_db --remote"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.13",
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/rss": "^4.0.18",
+    "@tailwindcss/postcss": "^4.3.0",
+    "astro": "^5.18.1",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@cloudflare/workers-types": "^4.20260518.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.92.0"
+  }
+}

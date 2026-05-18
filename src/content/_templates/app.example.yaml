@@ -1,0 +1,23 @@
+# アプリ追加テンプレート。
+# このファイルを src/content/apps/<slug>.yaml としてコピーし、ファイル名（slug）= URL になる。
+# 例: src/content/apps/my-app.yaml -> /catalog/my-app
+name:
+  ja: アプリ名
+  en: App name
+tagline: # 一覧カード用の短い説明（1行）
+  ja: ひとことで表す短い説明。
+  en: A short one-line description.
+description: # 詳細ページ用の説明（段落は空行で区切る）
+  ja: アプリの詳しい説明をここに書く。
+  en: A longer description of the app.
+status: in-development # live | in-development | planned
+url: https://example.tsunagi.app # 公開中アプリの URL（任意）
+repo: https://github.com/owner/repo # リポジトリ URL（任意）
+tags: # 任意
+  - タグ1
+  - タグ2
+thumbnail: /images/apps/my-app.png # public/ 配下の画像パス（任意。無ければ色ブロック表示）
+accent: '#4338ca' # サムネ未指定時のカード背景色（任意）
+featured: false # true で一覧の先頭に出す
+order: 100 # 同 featured 内の並び順（小さいほど先）
+launchedAt: 2025-01-01 # 公開日（任意）

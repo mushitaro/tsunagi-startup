@@ -1,0 +1,38 @@
+---
+export const prerender = false;
+
+import ArticleView from '../../../components/views/ArticleView.astro';
+import NotFoundView from '../../../components/views/NotFoundView.astro';
+import { getArticleEntitlement } from '../../../lib/article';
+
+const locale = 'en' as const;
+const slug = Astro.params.slug ?? '';
+const user = Astro.locals.user;
+
+Astro.response.headers.set('Cache-Control', 'private, no-store');
+
+const checkoutSuccess = Astro.url.searchParams.get('checkout') === 'success';
+const sessionId = checkoutSuccess ? Astro.url.searchParams.get('session_id') : null;
+
+const result = await getArticleEntitlement({
+  env: Astro.locals.runtime.env,
+  locale,
+  slug,
+  user,
+  checkoutSessionId: sessionId,
+});
+if (!result) Astro.response.status = 404;
+---
+
+{
+  result ? (
+    <ArticleView
+      locale={locale}
+      article={result.article}
+      entitled={result.entitled}
+      loggedIn={!!user}
+    />
+  ) : (
+    <NotFoundView locale={locale} />
+  )
+}

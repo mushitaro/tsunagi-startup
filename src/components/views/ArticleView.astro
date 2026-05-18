@@ -1,0 +1,159 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../Badge.astro';
+import Paywall from '../Paywall.astro';
+import ArticleCard from '../ArticleCard.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import {
+  type ArticleEntry,
+  entrySlug,
+  formatDate,
+  formatPrice,
+  getArticle,
+  getArticles,
+} from '../../lib/content';
+import { SITE_URL, articleSchema, breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+  article: ArticleEntry;
+  entitled: boolean;
+  loggedIn: boolean;
+}
+const { locale, article, entitled, loggedIn } = Astro.props;
+const t = useTranslations(locale);
+const d = article.data;
+const slug = entrySlug(article.id);
+const paid = d.access === 'paid';
+
+// 対訳が存在する場合のみ hreflang 代替を出す。
+const otherLocale: Locale = locale === 'ja' ? 'en' : 'ja';
+const hasTranslation = !!(await getArticle(otherLocale, slug));
+
+// 本文は entitled のときだけレンダリングする（未購入なら HTML に一切含めない）。
+let Content: Awaited<ReturnType<typeof render>>['Content'] | null = null;
+if (entitled) {
+  Content = (await render(article)).Content;
+}
+
+// 関連記事: タグの重なりが多い順 → 新しい順。
+const related = (await getArticles(locale))
+  .filter((a) => entrySlug(a.id) !== slug)
+  .map((a) => ({
+    a,
+    score: a.data.tags.filter((tg) => d.tags.includes(tg)).length,
+  }))
+  .sort((x, y) => y.score - x.score || y.a.data.publishedAt.getTime() - x.a.data.publishedAt.getTime())
+  .slice(0, 3)
+  .map((x) => x.a);
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const canonical = `${base}/content/${slug}`;
+const jsonLd = [
+  articleSchema({
+    headline: d.title,
+    description: d.summary,
+    url: canonical,
+    locale,
+    datePublished: d.publishedAt,
+    dateModified: d.updatedAt,
+    image: d.coverImage ? new URL(d.coverImage, SITE_URL).href : undefined,
+    isPaid: paid,
+  }),
+  breadcrumbSchema([
+    { name: 'tsunagi', url: `${base}/` },
+    { name: t('content.title'), url: `${base}/content` },
+    { name: d.title, url: canonical },
+  ]),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={d.title}
+  description={d.summary}
+  ogType="article"
+  ogImage={d.coverImage}
+  noAlternate={!hasTranslation}
+  jsonLd={jsonLd}
+>
+  <article class="wrap-narrow py-14">
+    <a
+      href={localizedPath('/content', locale)}
+      class="text-sm font-semibold text-muted transition-colors hover:text-brand"
+    >
+      ← {t('content.back')}
+    </a>
+
+    <header class="mt-6">
+      <div class="flex flex-wrap items-center gap-2">
+        <Badge tone={paid ? 'paid' : 'brand'}>
+          {paid ? t('access.paid') : t('access.free')}
+        </Badge>
+        {paid && d.price && (
+          <span class="text-sm font-bold text-muted">{formatPrice(d.price, d.currency)}</span>
+        )}
+        {d.tags.map((tag) => (
+          <span class="rounded bg-[#f1f0ec] px-2 py-0.5 text-[11px] font-semibold text-muted">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <h1 class="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+        {d.title}
+      </h1>
+      <div class="mt-3 flex flex-wrap gap-x-4 text-sm text-faint">
+        <span>{t('content.published')} {formatDate(d.publishedAt, locale)}</span>
+        {d.updatedAt && <span>{t('content.updated')} {formatDate(d.updatedAt, locale)}</span>}
+      </div>
+    </header>
+
+    {
+      d.coverImage && (
+        <img
+          src={d.coverImage}
+          alt=""
+          width="1280"
+          height="640"
+          class="mt-7 aspect-[2/1] w-full rounded-2xl border border-line object-cover"
+        />
+      )
+    }
+
+    <!-- summary は常に公開（無料プレビュー / SEO / AIO） -->
+    <p class="mt-7 text-lg leading-relaxed text-ink-soft">{d.summary}</p>
+
+    {
+      entitled && Content ? (
+        <>
+          {paid && (
+            <p class="mt-6 rounded-lg bg-[#e7f5ec] px-3 py-2 text-sm font-semibold text-ok">
+              {t('paywall.owned')}
+            </p>
+          )}
+          <div class="article-body mt-6">
+            <Content />
+          </div>
+        </>
+      ) : (
+        <Paywall locale={locale} article={article} loggedIn={loggedIn} />
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <section class="mt-16 border-t border-line pt-10" aria-labelledby="related">
+          <h2 id="related" class="text-xl font-extrabold tracking-tight">
+            {t('content.related')}
+          </h2>
+          <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((a) => (
+              <ArticleCard article={a} locale={locale} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>

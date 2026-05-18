@@ -1,0 +1,13 @@
+---
+import AppDetailView from '../../../components/views/AppDetailView.astro';
+import { getApps } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const apps = await getApps();
+  return apps.map((app) => ({ params: { slug: app.id }, props: { app } }));
+}
+
+const { app } = Astro.props;
+---
+
+<AppDetailView locale="en" app={app} />

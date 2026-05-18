@@ -1,0 +1,73 @@
+---
+import { type Locale, localizedPath } from '../i18n';
+import { type AppEntry, pick } from '../lib/content';
+import Badge from './Badge.astro';
+
+interface Props {
+  app: AppEntry;
+  locale: Locale;
+}
+const { app, locale } = Astro.props;
+const d = app.data;
+
+const name = pick(d.name, locale);
+const tagline = pick(d.tagline, locale);
+const href = localizedPath(`/catalog/${app.id}`, locale);
+
+const statusMap = {
+  live: { ja: '公開中', en: 'Live', tone: 'live' as const },
+  'in-development': { ja: '開発中', en: 'In dev', tone: 'dev' as const },
+  planned: { ja: '構想中', en: 'Planned', tone: 'neutral' as const },
+};
+const status = statusMap[d.status];
+const accent = d.accent ?? '#4338ca';
+const initials = name.replace(/\s/g, '').slice(0, 2).toUpperCase();
+---
+
+<a
+  href={href}
+  class="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]"
+>
+  <div class="relative aspect-[16/9] overflow-hidden">
+    {
+      d.thumbnail ? (
+        <img
+          src={d.thumbnail}
+          alt=""
+          width="640"
+          height="360"
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <div
+          class="flex h-full w-full items-center justify-center"
+          style={`background:${accent}`}
+        >
+          <span class="text-3xl font-black tracking-tight text-white/95">{initials}</span>
+        </div>
+      )
+    }
+    <div class="absolute left-3 top-3">
+      <Badge tone={status.tone}>{status[locale]}</Badge>
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col p-5">
+    <h3 class="font-bold tracking-tight text-ink transition-colors group-hover:text-brand">
+      {name}
+    </h3>
+    <p class="mt-1 flex-1 text-sm leading-relaxed text-muted">{tagline}</p>
+    {
+      d.tags.length > 0 && (
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          {d.tags.slice(0, 3).map((tag) => (
+            <span class="rounded bg-[#f1f0ec] px-2 py-0.5 text-[11px] font-semibold text-muted">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</a>

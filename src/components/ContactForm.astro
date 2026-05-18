@@ -1,0 +1,74 @@
+---
+import { type Locale, useTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  status: 'ok' | 'error' | 'required' | null;
+}
+const { locale, status } = Astro.props;
+const t = useTranslations(locale);
+
+const field =
+  'mt-1.5 w-full rounded-lg border border-line-strong bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand';
+---
+
+{
+  status === 'ok' && (
+    <p class="mb-4 rounded-lg bg-[#e7f5ec] px-3 py-2 text-sm font-semibold text-ok">
+      {t('contact.ok')}
+    </p>
+  )
+}
+{
+  status === 'error' && (
+    <p class="mb-4 rounded-lg bg-[#fdecec] px-3 py-2 text-sm font-semibold text-[#b42318]">
+      {t('contact.error')}
+    </p>
+  )
+}
+{
+  status === 'required' && (
+    <p class="mb-4 rounded-lg bg-[#fdf1e3] px-3 py-2 text-sm font-semibold text-warn">
+      {t('contact.required')}
+    </p>
+  )
+}
+
+<form method="POST" action="/api/contact" class="space-y-4">
+  <input type="hidden" name="locale" value={locale} />
+  {/* ハニーポット（ボット対策・人間には非表示） */}
+  <div class="absolute h-0 w-0 overflow-hidden" aria-hidden="true">
+    <label>
+      Company
+      <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="block">
+      <span class="text-sm font-semibold text-ink-soft">{t('contact.name')} *</span>
+      <input type="text" name="name" required maxlength="120" class={field} />
+    </label>
+    <label class="block">
+      <span class="text-sm font-semibold text-ink-soft">{t('contact.email')}</span>
+      <input type="email" name="email" maxlength="200" autocomplete="email" class={field} />
+    </label>
+  </div>
+
+  <label class="block">
+    <span class="text-sm font-semibold text-ink-soft">{t('contact.discord')}</span>
+    <input type="text" name="discord" maxlength="80" class={field} />
+  </label>
+
+  <label class="block">
+    <span class="text-sm font-semibold text-ink-soft">{t('contact.message')} *</span>
+    <textarea name="message" required rows="6" maxlength="2000" class={field}></textarea>
+  </label>
+
+  <button
+    type="submit"
+    class="rounded-xl bg-brand px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+  >
+    {t('contact.send')}
+  </button>
+</form>

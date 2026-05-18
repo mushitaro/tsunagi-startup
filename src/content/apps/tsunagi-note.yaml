@@ -1,0 +1,16 @@
+# Catalog エントリのサンプル。実際のアプリ情報に置き換えてください。
+name:
+  ja: tsunagi Note
+  en: tsunagi Note
+tagline:
+  ja: 現場のメモを、チームの知識につなぐ軽量ノート。
+  en: A lightweight notes app that connects field memos into team knowledge.
+description:
+  ja: 現場で生まれた気づきや手順を素早く書き留め、タグとリンクで知識としてつなげていくノートアプリの構想です。保守たろうとの連携も検討しています。
+  en: A concept for a notes app that captures field insights and procedures quickly, then connects them into knowledge through tags and links.
+status: planned
+tags:
+  - ナレッジ
+  - ノート
+accent: '#b45309'
+order: 3

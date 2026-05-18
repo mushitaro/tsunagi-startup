@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppCard from '../AppCard.astro';
+import { type Locale, useTranslations } from '../../i18n';
+import { getApps } from '../../lib/content';
+import { SITE_URL, breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const apps = await getApps();
+
+const statusLabels: Record<string, { ja: string; en: string }> = {
+  live: { ja: '公開中', en: 'Live' },
+  'in-development': { ja: '開発中', en: 'In dev' },
+  planned: { ja: '構想中', en: 'Planned' },
+};
+const order = ['live', 'in-development', 'planned'] as const;
+const filters = [
+  { key: 'all', label: t('catalog.filter.all'), count: apps.length },
+  ...order
+    .map((s) => ({
+      key: s,
+      label: statusLabels[s][locale],
+      count: apps.filter((a) => a.data.status === s).length,
+    }))
+    .filter((f) => f.count > 0),
+];
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const crumbs = breadcrumbSchema([
+  { name: 'tsunagi', url: `${base}/` },
+  { name: t('catalog.title'), url: `${base}/catalog` },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('catalog.title')}
+  description={t('catalog.lead')}
+  jsonLd={crumbs}
+>
+  <div class="wrap py-14">
+    <header class="max-w-2xl">
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('catalog.title')}</h1>
+      <p class="mt-3 text-base leading-relaxed text-muted">{t('catalog.lead')}</p>
+    </header>
+
+    {
+      apps.length > 0 ? (
+        <>
+          <div class="mt-8 flex flex-wrap gap-2" role="group" data-filter-bar>
+            {filters.map((f, i) => (
+              <button
+                type="button"
+                data-filter={f.key}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                class="rounded-lg border border-line-strong px-3 py-1.5 text-sm font-semibold text-ink-soft transition-colors aria-pressed:border-brand aria-pressed:bg-brand aria-pressed:text-white"
+              >
+                {f.label} <span class="opacity-60">{f.count}</span>
+              </button>
+            ))}
+          </div>
+
+          <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-app-grid>
+            {apps.map((app) => (
+              <div data-status={app.data.status}>
+                <AppCard app={app} locale={locale} />
+              </div>
+            ))}
+          </div>
+          <p class="mt-8 hidden text-sm text-muted" data-empty>
+            {t('catalog.empty')}
+          </p>
+        </>
+      ) : (
+        <p class="mt-10 text-muted">{t('catalog.empty')}</p>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script>
+  // ステータスでカードを絞り込む（プログレッシブ拡張: JS 無効時は全件表示）。
+  const bar = document.querySelector('[data-filter-bar]');
+  const cards = Array.from(document.querySelectorAll('[data-app-grid] > [data-status]'));
+  const empty = document.querySelector('[data-empty]');
+  bar?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-filter]');
+    if (!btn) return;
+    const key = btn.getAttribute('data-filter');
+    bar.querySelectorAll('button').forEach((b) =>
+      b.setAttribute('aria-pressed', String(b === btn)),
+    );
+    let visible = 0;
+    cards.forEach((c) => {
+      const show = key === 'all' || c.getAttribute('data-status') === key;
+      (c as HTMLElement).hidden = !show;
+      if (show) visible++;
+    });
+    empty?.classList.toggle('hidden', visible !== 0);
+  });
+</script>

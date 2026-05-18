@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('404.title')}
+  description={t('404.desc')}
+  noindex
+  noAlternate
+>
+  <div class="wrap flex flex-col items-center py-28 text-center">
+    <p class="text-6xl font-black tracking-tight text-brand">404</p>
+    <h1 class="mt-4 text-2xl font-extrabold tracking-tight">{t('404.title')}</h1>
+    <p class="mt-2 text-muted">{t('404.desc')}</p>
+    <a
+      href={localizedPath('/', locale)}
+      class="mt-7 rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+    >
+      {t('404.home')}
+    </a>
+  </div>
+</BaseLayout>

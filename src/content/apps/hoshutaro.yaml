@@ -1,0 +1,21 @@
+# Catalog エントリのサンプル。実際のアプリ情報に置き換えてください。
+# スキーマは src/content.config.ts の apps を参照。
+name:
+  ja: 保守たろう
+  en: Hoshutaro
+tagline:
+  ja: 点検・整備・保守の履歴を、価値ある資産に変える。
+  en: Turn inspection and maintenance history into a valuable asset.
+description:
+  ja: 点検・整備・保守の記録をかんたんに残し、検索・共有・分析できる Web アプリです。紙やバラバラの表計算ファイルに散らばっていた履歴を一元化し、次の意思決定に使えるデータへと変えます。現場での入力しやすさと、後から振り返れる一覧性を両立しています。
+  en: A web app to capture inspection and maintenance records and make them searchable, shareable, and analyzable. It consolidates history once scattered across paper and spreadsheets into data you can act on, balancing easy on-site input with a clear overview.
+status: live
+url: https://hoshutaro.tsunagi.app
+tags:
+  - 保守管理
+  - 記録
+  - SaaS
+accent: '#0d9488'
+featured: true
+order: 1
+launchedAt: 2025-02-01

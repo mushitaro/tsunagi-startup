@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../ArticleCard.astro';
+import { type Locale, useTranslations } from '../../i18n';
+import { getArticles } from '../../lib/content';
+import { SITE_URL, breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const articles = await getArticles(locale);
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const crumbs = breadcrumbSchema([
+  { name: 'tsunagi', url: `${base}/` },
+  { name: t('content.title'), url: `${base}/content` },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('content.title')}
+  description={t('content.lead')}
+  jsonLd={crumbs}
+>
+  <div class="wrap py-14">
+    <header class="max-w-2xl">
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('content.title')}</h1>
+      <p class="mt-3 text-base leading-relaxed text-muted">{t('content.lead')}</p>
+    </header>
+
+    {
+      articles.length > 0 ? (
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard article={article} locale={locale} />
+          ))}
+        </div>
+      ) : (
+        <p class="mt-10 text-muted">{t('content.empty')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

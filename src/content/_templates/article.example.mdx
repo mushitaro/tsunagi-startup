@@ -1,0 +1,24 @@
+---
+# 記事追加テンプレート。
+# src/content/articles/ja/<slug>.mdx と src/content/articles/en/<slug>.mdx にコピーする。
+# ja と en で同じ <slug>（ファイル名）を使うと言語切替で対応づき、有料記事は1購入で両言語解放される。
+title: 記事タイトル
+summary: 一覧・SEO・AIO・有料記事の無料プレビューに使う要約（必ず記入）。
+publishedAt: 2025-01-01
+updatedAt: 2025-01-15 # 任意
+tags: # 任意
+  - タグ1
+category: アプローチ # 任意
+access: free # free | paid
+price: 500 # access: paid のとき必須。日本円の整数（例: 500 = ¥500）
+currency: jpy # 任意（既定 jpy）
+coverImage: /images/articles/<slug>.png # 任意
+draft: false # true の間は本番で非公開（dev では表示される）
+---
+
+ここから本文（Markdown / MDX）。`access: paid` の記事はこの本文部分が課金対象になり、
+未購入ユーザーには HTML として一切出力されない（summary のみ公開）。
+
+## 見出し
+
+段落、**強調**、[リンク](https://example.com)、リスト、引用などが使える。
