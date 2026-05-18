@@ -9,32 +9,33 @@ const { locale, status } = Astro.props;
 const t = useTranslations(locale);
 
 const field =
-  'mt-1.5 w-full rounded-lg border border-line-strong bg-surface px-3 py-2.5 text-sm outline-none focus:border-brand';
+  'mt-2 w-full border border-line-strong bg-paper px-3.5 py-3 text-sm outline-none transition-colors focus:border-ink';
+const labelCls = 'block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted';
 ---
 
 {
   status === 'ok' && (
-    <p class="mb-4 rounded-lg border border-line bg-brand-soft px-3 py-2 text-sm font-semibold text-ink-soft">
+    <p class="mb-5 border-l-2 border-ink bg-brand-soft px-4 py-3 text-sm font-semibold text-ink-soft">
       {t('contact.ok')}
     </p>
   )
 }
 {
   status === 'error' && (
-    <p class="mb-4 rounded-lg border border-ink bg-surface px-3 py-2 text-sm font-semibold text-ink">
+    <p class="mb-5 border border-ink bg-surface px-4 py-3 text-sm font-semibold text-ink">
       {t('contact.error')}
     </p>
   )
 }
 {
   status === 'required' && (
-    <p class="mb-4 rounded-lg border border-line bg-brand-soft px-3 py-2 text-sm font-semibold text-ink-soft">
+    <p class="mb-5 border-l-2 border-ink bg-brand-soft px-4 py-3 text-sm font-semibold text-ink-soft">
       {t('contact.required')}
     </p>
   )
 }
 
-<form method="POST" action="/api/contact" class="space-y-4">
+<form method="POST" action="/api/contact" class="space-y-5">
   <input type="hidden" name="locale" value={locale} />
   {/* ハニーポット（ボット対策・人間には非表示） */}
   <div class="absolute h-0 w-0 overflow-hidden" aria-hidden="true">
@@ -44,30 +45,30 @@ const field =
     </label>
   </div>
 
-  <div class="grid gap-4 sm:grid-cols-2">
-    <label class="block">
-      <span class="text-sm font-semibold text-ink-soft">{t('contact.name')} *</span>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <label>
+      <span class={labelCls}>{t('contact.name')} *</span>
       <input type="text" name="name" required maxlength="120" class={field} />
     </label>
-    <label class="block">
-      <span class="text-sm font-semibold text-ink-soft">{t('contact.email')}</span>
+    <label>
+      <span class={labelCls}>{t('contact.email')}</span>
       <input type="email" name="email" maxlength="200" autocomplete="email" class={field} />
     </label>
   </div>
 
   <label class="block">
-    <span class="text-sm font-semibold text-ink-soft">{t('contact.discord')}</span>
+    <span class={labelCls}>{t('contact.discord')}</span>
     <input type="text" name="discord" maxlength="80" class={field} />
   </label>
 
   <label class="block">
-    <span class="text-sm font-semibold text-ink-soft">{t('contact.message')} *</span>
+    <span class={labelCls}>{t('contact.message')} *</span>
     <textarea name="message" required rows="6" maxlength="2000" class={field}></textarea>
   </label>
 
   <button
     type="submit"
-    class="rounded-xl bg-brand px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+    class="bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
   >
     {t('contact.send')}
   </button>

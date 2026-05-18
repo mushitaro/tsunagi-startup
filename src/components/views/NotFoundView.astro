@@ -16,13 +16,13 @@ const t = useTranslations(locale);
   noindex
   noAlternate
 >
-  <div class="wrap flex flex-col items-center py-28 text-center">
-    <p class="text-6xl font-black tracking-tight text-brand">404</p>
-    <h1 class="mt-4 text-2xl font-extrabold tracking-tight">{t('404.title')}</h1>
-    <p class="mt-2 text-muted">{t('404.desc')}</p>
+  <div class="wrap flex flex-col items-start py-32 md:py-48">
+    <p class="index-num text-sm text-faint">404</p>
+    <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('404.title')}</h1>
+    <p class="mt-4 max-w-md leading-relaxed text-muted">{t('404.desc')}</p>
     <a
       href={localizedPath('/', locale)}
-      class="mt-7 rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+      class="mt-10 bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
     >
       {t('404.home')}
     </a>

@@ -8,22 +8,22 @@ const { locale } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
-<div
-  class="flex items-center rounded-lg border border-line-strong p-0.5 text-xs font-bold"
-  aria-label="language"
->
+<div class="flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em]" aria-label="language">
   {
-    locales.map((l) => (
-      <a
-        href={switchLocalePath(path, l)}
-        aria-current={l === locale ? 'true' : undefined}
-        class:list={[
-          'rounded-md px-2 py-1 uppercase transition-colors',
-          l === locale ? 'bg-brand text-white' : 'text-muted hover:text-brand',
-        ]}
-      >
-        {l}
-      </a>
+    locales.map((l, i) => (
+      <>
+        {i > 0 && <span class="text-line-strong" aria-hidden="true">/</span>}
+        <a
+          href={switchLocalePath(path, l)}
+          aria-current={l === locale ? 'true' : undefined}
+          class:list={[
+            'uppercase transition-colors',
+            l === locale ? 'text-ink' : 'text-faint hover:text-ink',
+          ]}
+        >
+          {l}
+        </a>
+      </>
     ))
   }
 </div>

@@ -13,46 +13,42 @@ const links = [
   { href: localizedPath('/content', locale), label: t('nav.content') },
   { href: localizedPath('/consulting', locale), label: t('nav.consulting') },
   { href: localizedPath('/account', locale), label: t('nav.account') },
+  { href: '/rss.xml', label: t('footer.rss') },
 ];
 ---
 
-<footer class="mt-24 border-t border-line bg-surface">
-  <div class="wrap grid gap-8 py-12 sm:grid-cols-2">
+<footer class="mt-28 bg-ink text-paper">
+  <div class="wrap grid gap-12 py-16 md:grid-cols-[1.4fr_1fr]">
     <div>
-      <div class="flex items-center gap-2 font-extrabold tracking-tight">
-        <span class="inline-block h-2.5 w-2.5 rounded-full bg-brand"></span>
-        <span class="text-lg">tsunagi</span>
-      </div>
-      <p class="mt-3 max-w-sm text-sm leading-relaxed text-muted">
+      <p class="font-display text-xl font-bold uppercase tracking-[0.34em]">TSUNAGI</p>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed text-paper/55">
         {t('site.tagline')}
       </p>
     </div>
 
-    <nav class="sm:justify-self-end" aria-label="footer">
-      <p class="text-xs font-bold uppercase tracking-wide text-faint">
-        {t('footer.sections')}
-      </p>
-      <ul class="mt-3 space-y-2">
+    <nav class="md:justify-self-end" aria-label="footer">
+      <p class="index-num text-[11px] uppercase text-paper/40">{t('footer.sections')}</p>
+      <ul class="mt-5 space-y-3">
         {
           links.map((l) => (
             <li>
-              <a class="text-sm font-semibold text-ink-soft hover:text-brand" href={l.href}>
+              <a
+                class="text-sm font-semibold tracking-wide text-paper/70 transition-colors hover:text-paper"
+                href={l.href}
+              >
                 {l.label}
               </a>
             </li>
           ))
         }
-        <li>
-          <a class="text-sm font-semibold text-ink-soft hover:text-brand" href="/rss.xml">
-            {t('footer.rss')}
-          </a>
-        </li>
       </ul>
     </nav>
   </div>
-  <div class="border-t border-line">
-    <div class="wrap flex flex-col gap-1 py-5 text-xs text-faint sm:flex-row sm:justify-between">
-      <p>&copy; {year} tsunagi. {t('footer.rights')}</p>
+  <div class="border-t border-white/10">
+    <div
+      class="wrap flex flex-col gap-1 py-6 text-xs tracking-wide text-paper/40 sm:flex-row sm:justify-between"
+    >
+      <p>&copy; {year} tsunagi — {t('footer.rights')}</p>
       <p>startup.tsunagi.app</p>
     </div>
   </div>

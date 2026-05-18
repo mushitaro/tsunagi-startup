@@ -12,7 +12,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const apps = (await getApps()).slice(0, 6);
+const apps = (await getApps()).slice(0, 4);
 const articles = (await getArticles(locale)).slice(0, 3);
 
 const sections = [
@@ -41,96 +41,71 @@ const sections = [
   jsonLd={[organizationSchema(), websiteSchema(locale)]}
 >
   <!-- Hero -->
-  <section class="border-b border-line bg-surface">
-    <div class="wrap grid gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:py-28">
-      <div>
-        <span
-          class="inline-flex items-center rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand"
-        >
-          {t('home.hero.kicker')}
-        </span>
-        <h1
-          class="mt-5 text-balance text-4xl font-extrabold leading-[1.15] tracking-tight text-ink md:text-5xl"
-        >
-          {t('home.hero.title')}
-        </h1>
-        <p class="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted md:text-lg">
-          {t('home.hero.lead')}
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+  <section class="border-b border-line">
+    <div class="wrap py-24 md:py-36">
+      <p class="index-num text-xs uppercase text-faint">{t('home.hero.kicker')}</p>
+      <h1
+        class="mt-8 max-w-4xl text-[2.5rem] font-bold leading-[1.22] text-ink sm:text-6xl sm:leading-[1.14]"
+      >
+        {t('home.hero.title')}
+      </h1>
+      <div
+        class="mt-14 grid gap-8 border-t border-line pt-10 md:grid-cols-[1fr_auto] md:items-end"
+      >
+        <p class="max-w-md text-[15px] leading-relaxed text-muted">{t('home.hero.lead')}</p>
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
             href={localizedPath('/catalog', locale)}
-            class="rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-ink"
+            class="bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
           >
             {t('home.hero.cta.catalog')}
           </a>
           <a
             href={localizedPath('/consulting', locale)}
-            class="rounded-xl border border-line-strong px-5 py-3 text-sm font-bold text-ink-soft transition-colors hover:border-brand hover:text-brand"
+            class="text-sm font-semibold tracking-wide text-ink underline decoration-1 underline-offset-[6px] transition-all hover:decoration-2"
           >
             {t('home.hero.cta.consulting')}
           </a>
         </div>
       </div>
-      <!-- 連結ノードの装飾 -->
-      <div class="hidden items-center justify-center md:flex" aria-hidden="true">
-        <svg viewBox="0 0 240 240" class="h-60 w-60">
-          <g stroke="#d0d0d0" stroke-width="2">
-            <line x1="60" y1="60" x2="180" y2="60" />
-            <line x1="60" y1="60" x2="60" y2="180" />
-            <line x1="180" y1="60" x2="180" y2="180" />
-            <line x1="60" y1="180" x2="180" y2="180" />
-            <line x1="60" y1="60" x2="180" y2="180" />
-            <line x1="120" y1="120" x2="180" y2="60" />
-          </g>
-          <g fill="#0a0a0a">
-            <circle cx="60" cy="60" r="10" />
-            <circle cx="180" cy="60" r="10" />
-            <circle cx="60" cy="180" r="10" />
-            <circle cx="180" cy="180" r="10" />
-          </g>
-          <circle cx="120" cy="120" r="13" fill="#ffffff" stroke="#0a0a0a" stroke-width="3" />
-        </svg>
-      </div>
     </div>
   </section>
 
-  <!-- セクション概要 -->
-  <section class="wrap py-16" aria-label="sections">
-    <div class="grid gap-4 md:grid-cols-3">
-      {
-        sections.map((s) => (
-          <a
-            href={s.href}
-            class="group rounded-[var(--radius-card)] border border-line bg-surface p-6 transition-colors hover:border-brand"
-          >
-            <h2 class="font-bold tracking-tight text-ink group-hover:text-brand">{s.title}</h2>
-            <p class="mt-2 text-sm leading-relaxed text-muted">{s.desc}</p>
-            <span class="mt-4 inline-block text-sm font-bold text-brand">
-              {t('home.section.more')} →
-            </span>
-          </a>
-        ))
-      }
-    </div>
+  <!-- セクション索引 -->
+  <section class="wrap py-20" aria-label="sections">
+    {
+      sections.map((s, i) => (
+        <a
+          href={s.href}
+          class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-9 transition-colors last:border-b hover:bg-surface"
+        >
+          <span class="index-num text-sm text-faint">{String(i + 1).padStart(2, '0')}</span>
+          <div class="md:flex md:items-baseline md:gap-10">
+            <h2 class="text-xl font-bold text-ink md:w-72 md:shrink-0">{s.title}</h2>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted md:mt-0 md:max-w-sm">
+              {s.desc}
+            </p>
+          </div>
+          <span class="text-sm text-faint transition-colors group-hover:text-ink">→</span>
+        </a>
+      ))
+    }
   </section>
 
   <!-- Catalog プレビュー -->
   {
     apps.length > 0 && (
-      <section class="wrap py-8" aria-labelledby="home-catalog">
-        <div class="mb-6 flex items-end justify-between gap-4">
-          <h2 id="home-catalog" class="text-2xl font-extrabold tracking-tight">
-            {t('nav.catalog')}
-          </h2>
+      <section class="wrap pb-20">
+        <div class="mb-8 flex items-baseline justify-between gap-4 border-b border-line pb-4">
+          <h2 class="text-2xl font-bold tracking-tight">{t('nav.catalog')}</h2>
           <a
             href={localizedPath('/catalog', locale)}
-            class="shrink-0 text-sm font-bold text-brand hover:underline"
+            class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
           >
             {t('home.section.more')} →
           </a>
         </div>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2">
           {apps.map((app) => (
             <AppCard app={app} locale={locale} />
           ))}
@@ -142,41 +117,36 @@ const sections = [
   <!-- Content プレビュー -->
   {
     articles.length > 0 && (
-      <section class="wrap py-12" aria-labelledby="home-content">
-        <div class="mb-6 flex items-end justify-between gap-4">
-          <h2 id="home-content" class="text-2xl font-extrabold tracking-tight">
-            {t('nav.content')}
-          </h2>
+      <section class="wrap pb-20">
+        <div class="mb-2 flex items-baseline justify-between gap-4 border-b border-line pb-4">
+          <h2 class="text-2xl font-bold tracking-tight">{t('nav.content')}</h2>
           <a
             href={localizedPath('/content', locale)}
-            class="shrink-0 text-sm font-bold text-brand hover:underline"
+            class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
           >
             {t('home.section.more')} →
           </a>
         </div>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <ArticleCard article={article} locale={locale} />
-          ))}
-        </div>
+        {articles.map((article) => (
+          <ArticleCard article={article} locale={locale} />
+        ))}
       </section>
     )
   }
 
-  <!-- Consulting CTA -->
-  <section class="wrap pb-4" aria-labelledby="home-consulting">
-    <div
-      class="overflow-hidden rounded-2xl bg-ink px-8 py-12 text-center md:px-16 md:py-16"
-    >
-      <h2 id="home-consulting" class="text-2xl font-extrabold tracking-tight text-white md:text-3xl">
-        {t('nav.consulting')}
+  <!-- Consulting CTA（黒の差し） -->
+  <section class="wrap pb-24">
+    <div class="bg-ink px-8 py-20 text-paper md:px-20">
+      <p class="index-num text-xs uppercase text-paper/40">{t('nav.consulting')}</p>
+      <h2 class="mt-6 max-w-2xl text-3xl font-bold leading-[1.3] md:text-[2.5rem]">
+        {t('home.section.consulting.title')}
       </h2>
-      <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/70">
+      <p class="mt-5 max-w-xl text-sm leading-relaxed text-paper/60">
         {t('home.section.consulting.desc')}
       </p>
       <a
         href={localizedPath('/consulting', locale)}
-        class="mt-7 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-ink transition-colors hover:bg-brand-soft"
+        class="mt-10 inline-block bg-paper px-7 py-3.5 text-sm font-semibold tracking-wide text-ink transition-colors hover:bg-brand-soft"
       >
         {t('home.hero.cta.consulting')}
       </a>

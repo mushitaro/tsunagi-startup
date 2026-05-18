@@ -24,13 +24,6 @@ const status =
     ? contactParam
     : null;
 
-// アイコン（1パスの簡易 SVG）
-const iconPath: Record<string, string> = {
-  design: 'M4 20l1-4 9-9 3 3-9 9-4 1z M14 7l3 3',
-  build: 'M12 3l9 5v8l-9 5-9-5V8l9-5z M12 12l9-4M12 12v9M12 12L3 8',
-  operate: 'M21 12a9 9 0 1 1-2.6-6.3M21 4v5h-5',
-};
-
 const faqs =
   locale === 'ja'
     ? [
@@ -85,37 +78,25 @@ const jsonLd = [
   description={t('consulting.lead')}
   jsonLd={jsonLd}
 >
-  <div class="wrap py-14">
-    <header class="max-w-2xl">
-      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('consulting.title')}</h1>
-      <p class="mt-3 text-base leading-relaxed text-muted">{t('consulting.lead')}</p>
+  <div class="wrap py-20 md:py-28">
+    <header class="border-b border-line pb-10">
+      <p class="index-num text-xs uppercase text-faint">03</p>
+      <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('consulting.title')}</h1>
+      <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('consulting.lead')}</p>
     </header>
 
-    <!-- サービス -->
-    <div class="mt-12 space-y-6">
+    <!-- サービス（連番） -->
+    <div class="mt-2">
       {
         rendered.map(({ entry, Content }, i) => (
-          <section class="rounded-2xl border border-line bg-surface p-6 md:p-8">
-            <div class="flex items-start gap-4">
-              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d={iconPath[entry.data.icon ?? 'build']}
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+          <section class="grid gap-x-10 gap-y-3 border-t border-line py-12 last:border-b md:grid-cols-[auto_1fr]">
+            <span class="index-num text-sm text-faint">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h2 class="text-2xl font-bold text-ink">{entry.data.title}</h2>
+              <p class="mt-2 font-semibold text-ink-soft">{entry.data.summary}</p>
+              <div class="article-body mt-4 text-[1rem]">
+                <Content />
               </div>
-              <div>
-                <p class="text-xs font-bold text-faint">0{i + 1}</p>
-                <h2 class="text-xl font-extrabold tracking-tight">{entry.data.title}</h2>
-                <p class="mt-1 font-semibold text-ink-soft">{entry.data.summary}</p>
-              </div>
-            </div>
-            <div class="article-body mt-4 text-[1rem]">
-              <Content />
             </div>
           </section>
         ))
@@ -125,52 +106,50 @@ const jsonLd = [
     <!-- ポートフォリオへの導線 -->
     <a
       href={localizedPath('/catalog', locale)}
-      class="mt-8 flex items-center justify-between gap-4 rounded-2xl border border-line bg-brand-soft px-6 py-5 transition-colors hover:border-brand"
+      class="mt-10 flex items-center justify-between gap-4 border border-line px-7 py-7 transition-colors hover:bg-surface"
     >
-      <span class="font-bold text-brand">
+      <span class="text-sm font-semibold tracking-wide text-ink">
         {locale === 'ja'
           ? '実績は Catalog のプロダクト群をご覧ください'
           : 'See our work in the Catalog'}
       </span>
-      <span class="font-bold text-brand">→</span>
+      <span class="text-sm text-faint">→</span>
     </a>
 
     <!-- 問い合わせ -->
-    <section id="contact" class="mt-16 scroll-mt-24" aria-labelledby="contact-h">
-      <div class="rounded-2xl bg-ink p-8 md:p-10">
-        <h2 id="contact-h" class="text-2xl font-extrabold tracking-tight text-white">
+    <section id="contact" class="mt-20 scroll-mt-24" aria-labelledby="contact-h">
+      <div class="bg-ink px-8 py-16 text-paper md:px-16">
+        <p class="index-num text-xs uppercase text-paper/40">Discord</p>
+        <h2 id="contact-h" class="mt-5 text-2xl font-bold leading-snug md:text-3xl">
           {t('consulting.contact.title')}
         </h2>
-        <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/70">
+        <p class="mt-4 max-w-xl text-sm leading-relaxed text-paper/60">
           {t('consulting.contact.desc')}
         </p>
         <a
           href={discordInvite}
           target="_blank"
           rel="noopener"
-          class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-ink transition-colors hover:bg-brand-soft"
+          class="mt-9 inline-block bg-paper px-7 py-3.5 text-sm font-semibold tracking-wide text-ink transition-colors hover:bg-brand-soft"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M19.6 5.6A17 17 0 0 0 15.4 4l-.3.5a14 14 0 0 1 3.7 1.9 12 12 0 0 0-12-.1A13 13 0 0 1 10.5 4.5L10.2 4A17 17 0 0 0 6 5.6 18 18 0 0 0 3 17.2a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.6 0l.4.3c-.6.4-1.2.7-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 18 18 0 0 0-3-11.6zM9.3 14.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm5.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z" />
-          </svg>
-          {t('consulting.contact.join')}
+          {t('consulting.contact.join')} ↗
         </a>
       </div>
 
-      <div class="mt-6 rounded-2xl border border-line bg-surface p-6 md:p-8">
+      <div class="border border-line border-t-0 bg-surface p-8 md:p-12">
         <ContactForm locale={locale} status={status} />
       </div>
     </section>
 
     <!-- FAQ -->
-    <section class="mt-14" aria-labelledby="faq-h">
-      <h2 id="faq-h" class="text-xl font-extrabold tracking-tight">FAQ</h2>
-      <dl class="mt-5 divide-y divide-line border-y border-line">
+    <section class="mt-20" aria-labelledby="faq-h">
+      <h2 id="faq-h" class="border-b border-line pb-4 text-xl font-bold tracking-tight">FAQ</h2>
+      <dl class="mt-2">
         {
           faqs.map((f) => (
-            <div class="py-4">
+            <div class="border-b border-line py-7">
               <dt class="font-bold text-ink">{f.question}</dt>
-              <dd class="mt-1.5 text-sm leading-relaxed text-muted">{f.answer}</dd>
+              <dd class="mt-2 text-sm leading-relaxed text-muted">{f.answer}</dd>
             </div>
           ))
         }
