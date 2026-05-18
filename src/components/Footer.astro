@@ -7,49 +7,26 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const year = new Date().getFullYear();
-
-const links = [
-  { href: localizedPath('/catalog', locale), label: t('nav.catalog') },
-  { href: localizedPath('/content', locale), label: t('nav.content') },
-  { href: localizedPath('/consulting', locale), label: t('nav.consulting') },
-  { href: localizedPath('/account', locale), label: t('nav.account') },
-  { href: '/rss.xml', label: t('footer.rss') },
-];
 ---
 
-<footer class="mt-28 bg-ink text-paper">
-  <div class="wrap grid gap-12 py-16 md:grid-cols-[1.4fr_1fr]">
-    <div>
-      <p class="font-display text-xl font-bold uppercase tracking-[0.34em]">TSUNAGI</p>
-      <p class="mt-5 max-w-sm text-sm leading-relaxed text-paper/55">
-        {t('site.tagline')}
-      </p>
-    </div>
-
-    <nav class="md:justify-self-end" aria-label="footer">
-      <p class="index-num text-[11px] uppercase text-paper/40">{t('footer.sections')}</p>
-      <ul class="mt-5 space-y-3">
-        {
-          links.map((l) => (
-            <li>
-              <a
-                class="text-sm font-semibold tracking-wide text-paper/70 transition-colors hover:text-paper"
-                href={l.href}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+<footer class="mt-28 border-t border-line">
+  <div
+    class="wrap flex flex-col gap-3 py-8 text-xs tracking-wide text-faint sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>&copy; {year} tsunagi — {t('footer.rights')}</p>
+    <nav class="flex gap-7" aria-label="legal">
+      <a
+        href={localizedPath('/privacy', locale)}
+        class="transition-colors hover:text-ink"
+      >
+        {t('footer.privacy')}
+      </a>
+      <a
+        href={localizedPath('/terms', locale)}
+        class="transition-colors hover:text-ink"
+      >
+        {t('footer.terms')}
+      </a>
     </nav>
-  </div>
-  <div class="border-t border-white/10">
-    <div
-      class="wrap flex flex-col gap-1 py-6 text-xs tracking-wide text-paper/40 sm:flex-row sm:justify-between"
-    >
-      <p>&copy; {year} tsunagi — {t('footer.rights')}</p>
-      <p>startup.tsunagi.app</p>
-    </div>
   </div>
 </footer>

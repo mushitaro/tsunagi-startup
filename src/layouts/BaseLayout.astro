@@ -20,7 +20,7 @@ const {
   title,
   description,
   locale,
-  ogImage = '/og-default.svg',
+  ogImage = '/og-default.png',
   ogType = 'website',
   noindex = false,
   noAlternate = false,
@@ -78,7 +78,8 @@ const enUrl = new URL(switchLocalePath(path, 'en'), site).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta name="theme-color" content="#141310" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link
       rel="alternate"

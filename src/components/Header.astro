@@ -20,17 +20,12 @@ const links = [
 const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
 
-<header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md">
+<header class="sticky top-0 z-40 border-b border-line bg-paper/92 backdrop-blur-md">
   <div class="wrap flex h-20 items-center justify-between gap-6">
-    <a
-      href={home}
-      class="font-display text-xl font-bold uppercase tracking-[0.34em] text-ink"
-      aria-label="tsunagi"
-    >
-      TSUNAGI
+    <a href={home} aria-label="tsunagi" class="shrink-0">
+      <img src="/brand-icon.png" alt="tsunagi" width="30" height="30" class="block h-[30px] w-[30px]" />
     </a>
 
-    <!-- desktop nav -->
     <nav class="hidden items-center gap-9 md:flex" aria-label="primary">
       {
         links.map((l) => (
@@ -50,34 +45,34 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       }
     </nav>
 
-    <div class="flex items-center gap-5">
+    <div class="flex items-center gap-4 md:gap-5">
       <LangSwitcher locale={locale} />
+      <span class="hidden h-3 w-px bg-line-strong md:block" aria-hidden="true"></span>
       <a
         href={account}
-        class="hidden text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink sm:inline-block"
+        class="hidden text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink md:inline-block"
       >
         {t('nav.account')}
       </a>
 
-      <!-- mobile menu -->
       <details class="relative md:hidden">
         <summary
-          class="flex h-9 w-9 cursor-pointer list-none items-center justify-center border border-line-strong text-ink"
+          class="flex h-8 w-8 cursor-pointer list-none items-center justify-center text-ink"
           aria-label={t('nav.menu')}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 7h18M3 17h18" stroke="currentColor" stroke-width="1.6" />
           </svg>
         </summary>
         <nav
-          class="absolute right-0 mt-2 w-56 border border-line-strong bg-surface p-1"
+          class="absolute right-0 mt-3 w-56 border border-line-strong bg-surface py-1"
           aria-label="mobile"
         >
           {
             [...links, { href: account, label: t('nav.account') }].map((l) => (
               <a
                 href={l.href}
-                class="block px-4 py-3 text-[13px] font-semibold tracking-wide text-ink-soft hover:bg-brand-soft"
+                class="block px-5 py-3 text-[13px] font-semibold tracking-wide text-ink-soft hover:bg-brand-soft hover:text-ink"
               >
                 {l.label}
               </a>

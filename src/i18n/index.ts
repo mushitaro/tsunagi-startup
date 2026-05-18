@@ -102,10 +102,9 @@ export const ui = {
     'contact.error': '送信に失敗しました。Discord から直接ご連絡ください。',
     'contact.required': '必須項目を入力してください。',
 
-    'footer.sections': 'セクション',
-    'footer.about': 'tsunagi について',
     'footer.rights': 'All rights reserved.',
-    'footer.rss': 'RSS',
+    'footer.privacy': 'プライバシーポリシー',
+    'footer.terms': '利用規約',
 
     '404.title': 'ページが見つかりません',
     '404.desc': 'お探しのページは移動または削除された可能性があります。',
@@ -203,10 +202,9 @@ export const ui = {
     'contact.error': 'Could not send. Please contact us directly on Discord.',
     'contact.required': 'Please fill in the required fields.',
 
-    'footer.sections': 'Sections',
-    'footer.about': 'About tsunagi',
     'footer.rights': 'All rights reserved.',
-    'footer.rss': 'RSS',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms of Service',
 
     '404.title': 'Page not found',
     '404.desc': 'The page may have moved or been removed.',

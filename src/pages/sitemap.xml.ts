@@ -13,6 +13,8 @@ export async function GET(context: APIContext) {
     { path: '/catalog', locales: ['ja', 'en'] },
     { path: '/content', locales: ['ja', 'en'] },
     { path: '/consulting', locales: ['ja', 'en'] },
+    { path: '/privacy', locales: ['ja', 'en'] },
+    { path: '/terms', locales: ['ja', 'en'] },
   ];
 
   for (const a of await getApps()) {

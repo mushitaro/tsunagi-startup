@@ -15,10 +15,10 @@ const loginHref =
   localizedPath('/account', locale) + '?next=' + encodeURIComponent(Astro.url.pathname);
 ---
 
-<div class="mt-10 bg-ink px-8 py-14 text-paper md:px-16 md:py-16">
-  <p class="index-num text-xs uppercase text-paper/40">{t('access.paid')}</p>
+<div class="mt-10 border border-line bg-surface px-8 py-14 text-ink md:px-16 md:py-16">
+  <p class="index-num text-xs uppercase text-faint">{t('access.paid')}</p>
   <h2 class="mt-5 text-2xl font-bold leading-snug">{t('paywall.title')}</h2>
-  <p class="mt-3 max-w-md text-sm leading-relaxed text-paper/60">{t('paywall.desc')}</p>
+  <p class="mt-3 max-w-md text-sm leading-relaxed text-muted">{t('paywall.desc')}</p>
 
   <p class="mt-8 text-4xl font-bold">{formatPrice(price, article.data.currency)}</p>
 
@@ -29,17 +29,17 @@ const loginHref =
         <input type="hidden" name="locale" value={locale} />
         <button
           type="submit"
-          class="bg-paper px-7 py-3.5 text-sm font-semibold tracking-wide text-ink transition-colors hover:bg-brand-soft"
+          class="bg-brand px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
         >
           {t('paywall.buy')}
         </button>
       </form>
     ) : (
       <div class="mt-6">
-        <p class="text-xs tracking-wide text-paper/50">{t('paywall.login.note')}</p>
+        <p class="text-xs tracking-wide text-faint">{t('paywall.login.note')}</p>
         <a
           href={loginHref}
-          class="mt-3 inline-block bg-paper px-7 py-3.5 text-sm font-semibold tracking-wide text-ink transition-colors hover:bg-brand-soft"
+          class="mt-3 inline-block bg-brand px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
         >
           {t('paywall.login.cta')}
         </a>

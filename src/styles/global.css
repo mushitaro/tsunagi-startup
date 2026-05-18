@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-/* ── デザイントークン — 刀の洗練（墨と和紙） ──────── */
+/* ── デザイントークン — 刀の洗練（黒ベース / 墨と和紙） ──
+   ダーク基調。トークン名は light 時代の名残だが、値はダーク用：
+   paper = ページ地（墨黒）, ink = 主文字（和紙白）。 */
 @theme {
-  /* 書体: 見出しは明朝、本文・UIは端正なゴシック */
   --font-display:
     "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
   --font-sans:
@@ -10,23 +11,22 @@
     "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Consolas", monospace;
 
-  /* 墨と和紙の温かいモノクロ */
-  --color-paper: #f3f1eb;
-  --color-surface: #fbfaf6;
-  --color-ink: #1a1916;
-  --color-ink-soft: #3d3b35;
-  --color-muted: #6e6b62;
-  --color-faint: #9b978c;
-  --color-line: #e3e0d6;
-  --color-line-strong: #cec9bc;
+  --color-paper: #141310;
+  --color-surface: #1c1b17;
+  --color-ink: #f3f1ea;
+  --color-ink-soft: #c9c6bc;
+  --color-muted: #8f8c81;
+  --color-faint: #6b6962;
+  --color-line: #312f2a;
+  --color-line-strong: #46443d;
 
-  --color-brand: #1a1916;
-  --color-brand-ink: #000000;
-  --color-brand-soft: #eae6db;
-  --color-accent: #6e6b62;
+  --color-brand: #f3f1ea;
+  --color-brand-ink: #ffffff;
+  --color-brand-soft: #232220;
+  --color-accent: #8f8c81;
 
-  --color-ok: #1a1916;
-  --color-warn: #1a1916;
+  --color-ok: #f3f1ea;
+  --color-warn: #f3f1ea;
 
   /* 鋭角 — すべての角丸を 0 に */
   --radius-xs: 0;
@@ -49,6 +49,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
   }
   body {
     background: var(--color-paper);
@@ -59,7 +60,6 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "palt";
   }
-  /* 見出しは明朝ディスプレイ */
   h1,
   h2,
   h3,
@@ -96,7 +96,6 @@
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
-  /* 連番（刃文＝唯一の装飾体系） */
   .index-num {
     font-family: var(--font-sans);
     font-weight: 600;
@@ -166,8 +165,9 @@
     padding: 0.12em 0.38em;
   }
   .article-body pre {
-    background: var(--color-ink);
-    color: #f1efe8;
+    background: #0e0d0b;
+    border: 1px solid var(--color-line);
+    color: #e8e6dd;
     padding: 1.1rem 1.2rem;
     overflow-x: auto;
     font-size: 0.875rem;
