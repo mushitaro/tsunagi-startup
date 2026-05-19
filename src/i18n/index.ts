@@ -15,9 +15,9 @@ export const ui = {
     'site.name': 'tsunagi',
     'site.tagline': 'つくる・つたえる・つなぐ',
 
-    'nav.catalog': 'Catalog',
-    'nav.content': 'Content',
-    'nav.consulting': 'Consulting',
+    'nav.catalog': 'Tsukuru',
+    'nav.content': 'Tsutae',
+    'nav.consulting': 'Tsunagu',
     'nav.account': 'アカウント',
     'nav.menu': 'メニュー',
     'nav.skip': '本文へスキップ',
@@ -29,36 +29,36 @@ export const ui = {
     'home.hero.cta.catalog': 'カタログを見る',
     'home.hero.cta.consulting': '開発を相談する',
 
-    'home.section.catalog.title': 'Catalog — プロダクト一覧',
+    'home.section.catalog.title': 'Tsukuru — プロダクト一覧',
     'home.section.catalog.desc':
       'tsunagi.app ドメインで公開中のアプリと、開発中のプロジェクトをまとめています。',
-    'home.section.content.title': 'Content — 記事・ノウハウ',
+    'home.section.content.title': 'Tsutae — 記事・ノウハウ',
     'home.section.content.desc':
       'アプリ開発・運用・コンサルティングのアプローチを記事として公開。一部は有料記事です。',
-    'home.section.consulting.title': 'Consulting — 開発受託',
+    'home.section.consulting.title': 'Tsunagu — 開発受託',
     'home.section.consulting.desc':
       'アプリのデザイン・開発・運用を受託します。お問い合わせは Discord に特化しています。',
     'home.section.more': '詳しく見る',
 
-    'catalog.title': 'Catalog',
+    'catalog.title': 'Tsukuru',
     'catalog.lead': 'tsunagi のプロダクトと開発中プロジェクト。',
     'catalog.filter.all': 'すべて',
     'catalog.empty': '該当するプロダクトはありません。',
     'catalog.visit': 'アプリを開く',
     'catalog.repo': 'リポジトリ',
-    'catalog.back': 'Catalog に戻る',
+    'catalog.back': 'Tsukuru に戻る',
 
-    'content.title': 'Content',
+    'content.title': 'Tsutae',
     'content.lead': 'アプリ開発と運用、コンサルティングのアプローチ。',
     'content.empty': '記事はまだありません。',
     'content.readmore': '続きを読む',
-    'content.back': 'Content に戻る',
+    'content.back': 'Tsutae に戻る',
     'content.published': '公開',
     'content.updated': '更新',
     'content.related': '関連記事',
     'content.toc': '目次',
 
-    'consulting.title': 'Consulting',
+    'consulting.title': 'Tsunagu',
     'consulting.lead':
       'tsunagi のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託します。',
     'consulting.contact.title': 'Discord で相談する',
@@ -115,9 +115,9 @@ export const ui = {
     'site.name': 'tsunagi',
     'site.tagline': 'Build. Share. Connect.',
 
-    'nav.catalog': 'Catalog',
-    'nav.content': 'Content',
-    'nav.consulting': 'Consulting',
+    'nav.catalog': 'Tsukuru',
+    'nav.content': 'Tsutae',
+    'nav.consulting': 'Tsunagu',
     'nav.account': 'Account',
     'nav.menu': 'Menu',
     'nav.skip': 'Skip to content',
@@ -129,36 +129,36 @@ export const ui = {
     'home.hero.cta.catalog': 'Browse the catalog',
     'home.hero.cta.consulting': 'Discuss a project',
 
-    'home.section.catalog.title': 'Catalog — Products',
+    'home.section.catalog.title': 'Tsukuru — Products',
     'home.section.catalog.desc':
       'Apps published on the tsunagi.app domain, plus projects still in development.',
-    'home.section.content.title': 'Content — Articles & know-how',
+    'home.section.content.title': 'Tsutae — Articles & know-how',
     'home.section.content.desc':
       'Approaches to building, running, and consulting on apps. Some articles are paid.',
-    'home.section.consulting.title': 'Consulting — Development services',
+    'home.section.consulting.title': 'Tsunagu — Development services',
     'home.section.consulting.desc':
       'We take on app design, development, and operations. Inquiries are handled via Discord.',
     'home.section.more': 'Learn more',
 
-    'catalog.title': 'Catalog',
+    'catalog.title': 'Tsukuru',
     'catalog.lead': 'tsunagi products and projects in development.',
     'catalog.filter.all': 'All',
     'catalog.empty': 'No matching products.',
     'catalog.visit': 'Open app',
     'catalog.repo': 'Repository',
-    'catalog.back': 'Back to Catalog',
+    'catalog.back': 'Back to Tsukuru',
 
-    'content.title': 'Content',
+    'content.title': 'Tsutae',
     'content.lead': 'Approaches to app development, operations, and consulting.',
     'content.empty': 'No articles yet.',
     'content.readmore': 'Read more',
-    'content.back': 'Back to Content',
+    'content.back': 'Back to Tsutae',
     'content.published': 'Published',
     'content.updated': 'Updated',
     'content.related': 'Related articles',
     'content.toc': 'Contents',
 
-    'consulting.title': 'Consulting',
+    'consulting.title': 'Tsunagu',
     'consulting.lead':
       'We bring the know-how from building tsunagi products to your app design, development, and operations.',
     'consulting.contact.title': 'Talk to us on Discord',
@@ -230,7 +230,7 @@ export function getLocaleFromUrl(url: URL): Locale {
 /**
  * ロケールに応じたサイト内パスを返す。
  * ja はプレフィックスなし、en は /en/ を付与する。
- * 例: localizedPath('/catalog', 'en') => '/en/catalog'
+ * 例: localizedPath('/tsukuru', 'en') => '/en/tsukuru'
  */
 export function localizedPath(path: string, locale: Locale): string {
   const clean = '/' + path.replace(/^\/+/, '').replace(/\/+$/, '');

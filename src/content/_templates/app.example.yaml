@@ -1,6 +1,6 @@
 # アプリ追加テンプレート。
 # このファイルを src/content/apps/<slug>.yaml としてコピーし、ファイル名（slug）= URL になる。
-# 例: src/content/apps/my-app.yaml -> /catalog/my-app
+# 例: src/content/apps/my-app.yaml -> /tsukuru/my-app
 name:
   ja: アプリ名
   en: App name

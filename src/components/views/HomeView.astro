@@ -17,17 +17,17 @@ const articles = (await getArticles(locale)).slice(0, 3);
 
 const sections = [
   {
-    href: localizedPath('/catalog', locale),
+    href: localizedPath('/tsukuru', locale),
     title: t('home.section.catalog.title'),
     desc: t('home.section.catalog.desc'),
   },
   {
-    href: localizedPath('/content', locale),
+    href: localizedPath('/tsutae', locale),
     title: t('home.section.content.title'),
     desc: t('home.section.content.desc'),
   },
   {
-    href: localizedPath('/consulting', locale),
+    href: localizedPath('/tsunagu', locale),
     title: t('home.section.consulting.title'),
     desc: t('home.section.consulting.desc'),
   },
@@ -55,13 +55,13 @@ const sections = [
         <p class="max-w-md text-[15px] leading-relaxed text-muted">{t('home.hero.lead')}</p>
         <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
-            href={localizedPath('/catalog', locale)}
+            href={localizedPath('/tsukuru', locale)}
             class="bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
           >
             {t('home.hero.cta.catalog')}
           </a>
           <a
-            href={localizedPath('/consulting', locale)}
+            href={localizedPath('/tsunagu', locale)}
             class="text-sm font-semibold tracking-wide text-ink underline decoration-1 underline-offset-[6px] transition-all hover:decoration-2"
           >
             {t('home.hero.cta.consulting')}
@@ -79,7 +79,7 @@ const sections = [
           href={s.href}
           class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-9 transition-colors last:border-b hover:bg-surface"
         >
-          <span class="index-num text-sm text-faint">{String(i + 1).padStart(2, '0')}</span>
+          <span class="index-num text-xl text-faint">{String(i + 1).padStart(2, '0')}</span>
           <div class="md:flex md:items-baseline md:gap-10">
             <h2 class="text-xl font-bold text-ink md:w-72 md:shrink-0">{s.title}</h2>
             <p class="mt-1.5 text-sm leading-relaxed text-muted md:mt-0 md:max-w-sm">
@@ -92,14 +92,14 @@ const sections = [
     }
   </section>
 
-  <!-- Catalog プレビュー -->
+  <!-- Tsukuru プレビュー -->
   {
     apps.length > 0 && (
       <section class="wrap pb-20">
         <div class="mb-8 flex items-baseline justify-between gap-4 border-b border-line pb-4">
           <h2 class="text-2xl font-bold tracking-tight">{t('nav.catalog')}</h2>
           <a
-            href={localizedPath('/catalog', locale)}
+            href={localizedPath('/tsukuru', locale)}
             class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
           >
             {t('home.section.more')} →
@@ -114,14 +114,14 @@ const sections = [
     )
   }
 
-  <!-- Content プレビュー -->
+  <!-- Tsutae プレビュー -->
   {
     articles.length > 0 && (
       <section class="wrap pb-20">
         <div class="mb-2 flex items-baseline justify-between gap-4 border-b border-line pb-4">
           <h2 class="text-2xl font-bold tracking-tight">{t('nav.content')}</h2>
           <a
-            href={localizedPath('/content', locale)}
+            href={localizedPath('/tsutae', locale)}
             class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
           >
             {t('home.section.more')} →
@@ -134,7 +134,7 @@ const sections = [
     )
   }
 
-  <!-- Consulting CTA（黒の差し） -->
+  <!-- Tsunagu CTA（白の差し） -->
   <section class="wrap pb-24">
     <div class="border border-line bg-surface px-8 py-20 text-ink md:px-20">
       <p class="index-num text-xs uppercase text-faint">{t('nav.consulting')}</p>
@@ -145,7 +145,7 @@ const sections = [
         {t('home.section.consulting.desc')}
       </p>
       <a
-        href={localizedPath('/consulting', locale)}
+        href={localizedPath('/tsunagu', locale)}
         class="mt-10 inline-block bg-brand px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
       >
         {t('home.hero.cta.consulting')}

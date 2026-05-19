@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
   const form = await request.formData();
   const slug = String(form.get('slug') ?? '');
   const locale = form.get('locale') === 'en' ? 'en' : 'ja';
-  const articlePath = locale === 'en' ? `/en/content/${slug}` : `/content/${slug}`;
+  const articlePath = locale === 'en' ? `/en/tsutae/${slug}` : `/tsutae/${slug}`;
 
   // 未ログインならログインへ（戻り先に記事を指定）。
   if (!user) {
@@ -43,4 +43,4 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
   }
 };
 
-export const GET: APIRoute = ({ redirect }) => redirect('/content', 303);
+export const GET: APIRoute = ({ redirect }) => redirect('/tsutae', 303);

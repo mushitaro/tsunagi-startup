@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request, locals, redirect, clientAddress 
   const message = String(form.get('message') ?? '').trim();
   const honeypot = String(form.get('company') ?? '').trim();
   const locale = form.get('locale') === 'en' ? 'en' : 'ja';
-  const consultingPath = locale === 'en' ? '/en/consulting' : '/consulting';
+  const consultingPath = locale === 'en' ? '/en/tsunagu' : '/tsunagu';
 
   if (!name || !message) {
     return redirect(`${consultingPath}?contact=required#contact`, 303);
@@ -52,4 +52,4 @@ export const POST: APIRoute = async ({ request, locals, redirect, clientAddress 
   return redirect(`${consultingPath}?contact=ok#contact`, 303);
 };
 
-export const GET: APIRoute = ({ redirect }) => redirect('/consulting', 303);
+export const GET: APIRoute = ({ redirect }) => redirect('/tsunagu', 303);

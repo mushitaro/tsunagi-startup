@@ -5,7 +5,7 @@
    paper = ページ地（墨黒）, ink = 主文字（和紙白）。 */
 @theme {
   --font-display:
-    "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+    "Yuji Syuku", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
   --font-sans:
     "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
     "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
@@ -65,8 +65,10 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    /* Yuji Syuku は単一ウェイト。font-bold 等が当たっても合成太字を抑止 */
+    font-weight: 400;
+    font-synthesis-weight: none;
+    letter-spacing: 0.02em;
   }
   :focus-visible {
     outline: 2px solid var(--color-ink);

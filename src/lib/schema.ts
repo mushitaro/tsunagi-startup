@@ -99,7 +99,7 @@ export function serviceSchema(locale: Locale) {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: locale === 'ja' ? 'tsunagi 開発コンサルティング' : 'tsunagi development consulting',
-    url: `${SITE_URL}${locale === 'ja' ? '' : '/en'}/consulting`,
+    url: `${SITE_URL}${locale === 'ja' ? '' : '/en'}/tsunagu`,
     description:
       locale === 'ja'
         ? 'アプリのデザイン・開発・運用を受託するコンサルティングサービス。'

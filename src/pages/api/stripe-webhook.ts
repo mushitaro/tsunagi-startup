@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       if (inserted && session.amount_total != null) {
         const article = await getArticle(locale, slug);
         if (article) {
-          const url = `${env.PUBLIC_SITE_URL}${locale === 'en' ? '/en' : ''}/content/${slug}`;
+          const url = `${env.PUBLIC_SITE_URL}${locale === 'en' ? '/en' : ''}/tsutae/${slug}`;
           const mail = receiptEmail(locale, {
             title: article.data.title,
             amount: session.amount_total,

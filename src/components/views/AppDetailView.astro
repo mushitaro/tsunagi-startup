@@ -26,12 +26,12 @@ const statusMap = {
 const status = statusMap[d.status];
 
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
-const canonical = `${base}/catalog/${app.id}`;
+const canonical = `${base}/tsukuru/${app.id}`;
 const jsonLd = [
   softwareApplicationSchema({ name, description, url: canonical, appUrl: d.url }),
   breadcrumbSchema([
     { name: 'tsunagi', url: `${base}/` },
-    { name: t('catalog.title'), url: `${base}/catalog` },
+    { name: t('catalog.title'), url: `${base}/tsukuru` },
     { name, url: canonical },
   ]),
 ];
@@ -47,7 +47,7 @@ const jsonLd = [
 >
   <article class="wrap-narrow py-20 md:py-28">
     <a
-      href={localizedPath('/catalog', locale)}
+      href={localizedPath('/tsukuru', locale)}
       class="text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink"
     >
       ← {t('catalog.back')}

@@ -15,7 +15,7 @@ const articles = await getArticles(locale);
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
 const crumbs = breadcrumbSchema([
   { name: 'tsunagi', url: `${base}/` },
-  { name: t('content.title'), url: `${base}/content` },
+  { name: t('content.title'), url: `${base}/tsutae` },
 ]);
 ---
 
@@ -27,7 +27,7 @@ const crumbs = breadcrumbSchema([
 >
   <div class="wrap py-20 md:py-28">
     <header class="border-b border-line pb-10">
-      <p class="index-num text-xs uppercase text-faint">02</p>
+      <p class="index-num text-sm uppercase text-faint">02</p>
       <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('content.title')}</h1>
       <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('content.lead')}</p>
     </header>

@@ -22,19 +22,19 @@ export async function GET(context: APIContext) {
   ];
   for (const a of apps) {
     lines.push(
-      `- [${pick(a.data.name, 'ja')}](${origin}/catalog/${a.id}): ${pick(a.data.tagline, 'ja')}`,
+      `- [${pick(a.data.name, 'ja')}](${origin}/tsukuru/${a.id}): ${pick(a.data.tagline, 'ja')}`,
     );
   }
   lines.push('', '## Content — 記事');
   for (const a of articles) {
     const paid = a.data.access === 'paid' ? '（有料）' : '';
     lines.push(
-      `- [${a.data.title}](${origin}/content/${entrySlug(a.id)})${paid}: ${a.data.summary}`,
+      `- [${a.data.title}](${origin}/tsutae/${entrySlug(a.id)})${paid}: ${a.data.summary}`,
     );
   }
   lines.push('', '## Consulting — 開発受託');
   lines.push(
-    `tsunagi のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託する。問い合わせは Discord に特化。詳細: ${origin}/consulting`,
+    `tsunagi のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託する。問い合わせは Discord に特化。詳細: ${origin}/tsunagu`,
   );
   for (const c of consulting) {
     lines.push(`- ${c.data.title}: ${c.data.summary}`);

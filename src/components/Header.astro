@@ -12,28 +12,28 @@ const path = Astro.url.pathname;
 const home = localizedPath('/', locale);
 const account = localizedPath('/account', locale);
 const links = [
-  { href: localizedPath('/catalog', locale), label: t('nav.catalog') },
-  { href: localizedPath('/content', locale), label: t('nav.content') },
-  { href: localizedPath('/consulting', locale), label: t('nav.consulting') },
+  { href: localizedPath('/tsukuru', locale), label: t('nav.catalog') },
+  { href: localizedPath('/tsutae', locale), label: t('nav.content') },
+  { href: localizedPath('/tsunagu', locale), label: t('nav.consulting') },
 ];
 
 const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
 
 <header class="sticky top-0 z-40 border-b border-line bg-paper/92 backdrop-blur-md">
-  <div class="wrap flex h-20 items-center justify-between gap-6">
-    <a href={home} aria-label="tsunagi" class="shrink-0">
+  <div class="wrap grid h-20 grid-cols-[1fr_auto_1fr] items-center gap-6">
+    <a href={home} aria-label="tsunagi" class="justify-self-start">
       <img src="/brand-icon.png" alt="tsunagi" width="30" height="30" class="block h-[30px] w-[30px]" />
     </a>
 
-    <nav class="hidden items-center gap-9 md:flex" aria-label="primary">
+    <nav class="hidden items-center gap-10 md:flex" aria-label="primary">
       {
         links.map((l) => (
           <a
             href={l.href}
             aria-current={isActive(l.href) ? 'page' : undefined}
             class:list={[
-              'text-[13px] font-semibold tracking-wide transition-colors',
+              'font-display text-[15px] tracking-wide transition-colors',
               isActive(l.href)
                 ? 'text-ink underline decoration-1 underline-offset-[6px]'
                 : 'text-muted hover:text-ink',
@@ -45,7 +45,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       }
     </nav>
 
-    <div class="flex items-center gap-4 md:gap-5">
+    <div class="flex items-center gap-4 justify-self-end md:gap-5">
       <LangSwitcher locale={locale} />
       <span class="hidden h-3 w-px bg-line-strong md:block" aria-hidden="true"></span>
       <a
@@ -72,7 +72,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
             [...links, { href: account, label: t('nav.account') }].map((l) => (
               <a
                 href={l.href}
-                class="block px-5 py-3 text-[13px] font-semibold tracking-wide text-ink-soft hover:bg-brand-soft hover:text-ink"
+                class="block px-5 py-3 font-display text-[15px] tracking-wide text-ink-soft hover:bg-brand-soft hover:text-ink"
               >
                 {l.label}
               </a>

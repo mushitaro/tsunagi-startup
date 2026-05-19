@@ -10,15 +10,15 @@ export async function GET(context: APIContext) {
 
   const pages: { path: string; locales: Locale[] }[] = [
     { path: '/', locales: ['ja', 'en'] },
-    { path: '/catalog', locales: ['ja', 'en'] },
-    { path: '/content', locales: ['ja', 'en'] },
-    { path: '/consulting', locales: ['ja', 'en'] },
+    { path: '/tsukuru', locales: ['ja', 'en'] },
+    { path: '/tsutae', locales: ['ja', 'en'] },
+    { path: '/tsunagu', locales: ['ja', 'en'] },
     { path: '/privacy', locales: ['ja', 'en'] },
     { path: '/terms', locales: ['ja', 'en'] },
   ];
 
   for (const a of await getApps()) {
-    pages.push({ path: `/catalog/${a.id}`, locales: ['ja', 'en'] });
+    pages.push({ path: `/tsukuru/${a.id}`, locales: ['ja', 'en'] });
   }
 
   // 記事は実在するロケールのみ列挙する。
@@ -31,7 +31,7 @@ export async function GET(context: APIContext) {
     slugLocales.set(s, [...(slugLocales.get(s) ?? []), 'en']);
   }
   for (const [slug, locales] of slugLocales) {
-    pages.push({ path: `/content/${slug}`, locales });
+    pages.push({ path: `/tsutae/${slug}`, locales });
   }
 
   const urlFor = (path: string, loc: Locale) =>
