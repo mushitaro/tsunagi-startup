@@ -2,9 +2,9 @@
 
 `startup.tsunagi.app` を入り口とする tsunagi の統合サイト。3セクション構成：
 
-- **Tsukuru**（`/tsukuru`） — アプリ・開発中リポジトリのポートフォリオ
-- **Tsutae**（`/tsutae`） — 記事。Stripe による記事単位課金（アカウント方式）
-- **Tsunagu**（`/tsunagu`） — アプリのデザイン・開発・運用受託。問い合わせは Discord
+- **TSUKURU**（`/tsukuru`） — アプリ・開発中リポジトリのポートフォリオ
+- **TSUTAERU**（`/tsutaeru`） — 記事。Stripe による記事単位課金（アカウント方式）
+- **TSUNAGU**（`/tsunagu`） — アプリのデザイン・開発・運用受託。問い合わせは Discord
 
 日本語が既定、英語版は `/en/` 配下。SEO / AIO（`llms.txt`・構造化データ・サイトマップ）対応。
 

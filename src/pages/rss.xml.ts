@@ -16,7 +16,7 @@ export async function GET(context: APIContext) {
       title: a.data.title,
       description: a.data.summary,
       pubDate: a.data.publishedAt,
-      link: `/tsutae/${entrySlug(a.id)}`,
+      link: `/tsutaeru/${entrySlug(a.id)}`,
       categories: a.data.tags,
     })),
     customData: '<language>ja-JP</language>',

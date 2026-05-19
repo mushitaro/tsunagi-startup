@@ -32,7 +32,7 @@ if (user) {
     const art = (await getArticle(locale, r.article_slug)) ?? (await getArticle('ja', r.article_slug));
     purchases.push({
       title: art?.data.title ?? r.article_slug,
-      href: art ? localizedPath(`/tsutae/${entrySlug(art.id)}`, locale) : null,
+      href: art ? localizedPath(`/tsutaeru/${entrySlug(art.id)}`, locale) : null,
       amount: r.amount,
       currency: r.currency,
       date: new Date(r.created_at),

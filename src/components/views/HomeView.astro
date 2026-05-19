@@ -22,7 +22,7 @@ const sections = [
     desc: t('home.section.catalog.desc'),
   },
   {
-    href: localizedPath('/tsutae', locale),
+    href: localizedPath('/tsutaeru', locale),
     title: t('home.section.content.title'),
     desc: t('home.section.content.desc'),
   },
@@ -79,7 +79,7 @@ const sections = [
           href={s.href}
           class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-9 transition-colors last:border-b hover:bg-surface"
         >
-          <span class="index-num text-xl text-faint">{String(i + 1).padStart(2, '0')}</span>
+          <span class="index-num text-4xl text-faint">{String(i + 1).padStart(2, '0')}</span>
           <div class="md:flex md:items-baseline md:gap-10">
             <h2 class="text-xl font-bold text-ink md:w-72 md:shrink-0">{s.title}</h2>
             <p class="mt-1.5 text-sm leading-relaxed text-muted md:mt-0 md:max-w-sm">
@@ -121,15 +121,17 @@ const sections = [
         <div class="mb-2 flex items-baseline justify-between gap-4 border-b border-line pb-4">
           <h2 class="text-2xl font-bold tracking-tight">{t('nav.content')}</h2>
           <a
-            href={localizedPath('/tsutae', locale)}
+            href={localizedPath('/tsutaeru', locale)}
             class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
           >
             {t('home.section.more')} →
           </a>
         </div>
-        {articles.map((article) => (
-          <ArticleCard article={article} locale={locale} />
-        ))}
+        <div class="[&>:first-child]:border-t-0">
+          {articles.map((article) => (
+            <ArticleCard article={article} locale={locale} />
+          ))}
+        </div>
       </section>
     )
   }

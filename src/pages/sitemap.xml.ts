@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
   const pages: { path: string; locales: Locale[] }[] = [
     { path: '/', locales: ['ja', 'en'] },
     { path: '/tsukuru', locales: ['ja', 'en'] },
-    { path: '/tsutae', locales: ['ja', 'en'] },
+    { path: '/tsutaeru', locales: ['ja', 'en'] },
     { path: '/tsunagu', locales: ['ja', 'en'] },
     { path: '/privacy', locales: ['ja', 'en'] },
     { path: '/terms', locales: ['ja', 'en'] },
@@ -31,7 +31,7 @@ export async function GET(context: APIContext) {
     slugLocales.set(s, [...(slugLocales.get(s) ?? []), 'en']);
   }
   for (const [slug, locales] of slugLocales) {
-    pages.push({ path: `/tsutae/${slug}`, locales });
+    pages.push({ path: `/tsutaeru/${slug}`, locales });
   }
 
   const urlFor = (path: string, loc: Locale) =>

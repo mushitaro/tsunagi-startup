@@ -29,7 +29,7 @@ export async function GET(context: APIContext) {
   for (const a of articles) {
     const paid = a.data.access === 'paid' ? '（有料）' : '';
     lines.push(
-      `- [${a.data.title}](${origin}/tsutae/${entrySlug(a.id)})${paid}: ${a.data.summary}`,
+      `- [${a.data.title}](${origin}/tsutaeru/${entrySlug(a.id)})${paid}: ${a.data.summary}`,
     );
   }
   lines.push('', '## Consulting — 開発受託');

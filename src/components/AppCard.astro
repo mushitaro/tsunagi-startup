@@ -28,7 +28,7 @@ const status = statusMap[d.status];
   class="group flex flex-col bg-surface p-8 transition-colors duration-150 hover:bg-brand-soft md:p-10"
 >
   <div class="flex items-center justify-between">
-    <span class="index-num text-sm text-faint">
+    <span class="index-num text-lg text-faint">
       {index !== undefined ? String(index + 1).padStart(2, '0') : ''}
     </span>
     <Badge tone={status.tone}>{status[locale]}</Badge>

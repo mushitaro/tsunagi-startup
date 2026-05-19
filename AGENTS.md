@@ -1,13 +1,13 @@
 # AGENTS.md — tsunagi 統合サイト 運用ガイド
 
-このリポジトリは `startup.tsunagi.app` を入り口とする tsunagi の統合サイト（Tsukuru / Tsutae / Tsunagu）です。
+このリポジトリは `startup.tsunagi.app` を入り口とする tsunagi の統合サイト（TSUKURU / TSUTAERU / TSUNAGU）です。
 AIエージェントがコンテンツ作成・プレビュー・修正・デプロイを行うことを前提に構成しています。
 
 ## このサイトの構成
 
-- **Tsukuru**（`/tsukuru`）: アプリ・開発中リポジトリのポートフォリオ
-- **Tsutae**（`/tsutae`）: 記事。`access: paid` で Stripe による記事単位課金
-- **Tsunagu**（`/tsunagu`）: アプリのデザイン・開発・運用受託。問い合わせは Discord
+- **TSUKURU**（`/tsukuru`）: アプリ・開発中リポジトリのポートフォリオ
+- **TSUTAERU**（`/tsutaeru`）: 記事。`access: paid` で Stripe による記事単位課金
+- **TSUNAGU**（`/tsunagu`）: アプリのデザイン・開発・運用受託。問い合わせは Discord
 
 日本語が既定。英語版は各 URL の `/en/` 配下（例: `/en/tsukuru`）。
 
@@ -16,13 +16,13 @@ AIエージェントがコンテンツ作成・プレビュー・修正・デプ
 コンテンツはすべて `src/content/` 配下のファイル。**1ファイル追加・編集 → プレビュー → push** が基本フロー。
 フロントマターは Zod スキーマ（`src/content.config.ts`）で検証され、誤りはビルド時にエラーになる。
 
-### アプリを追加する（Tsukuru）
+### アプリを追加する（TSUKURU）
 
 1. `src/content/_templates/app.example.yaml` を `src/content/apps/<slug>.yaml` にコピー。
 2. ファイル名 `<slug>` がそのまま URL（`/tsukuru/<slug>`）になる。
 3. `name` / `tagline` / `description` は ja・en 両方を記入。`status` は `live` / `in-development` / `planned`。
 
-### 記事を追加する（Tsutae）
+### 記事を追加する（TSUTAERU）
 
 1. `src/content/_templates/article.example.mdx` を `src/content/articles/ja/<slug>.mdx` にコピー。
 2. 英語版は `src/content/articles/en/<slug>.mdx` に**同じ `<slug>`** で作成（言語切替で対応づく）。
@@ -33,7 +33,7 @@ AIエージェントがコンテンツ作成・プレビュー・修正・デプ
 
 > 有料記事の本文は、未購入ユーザーには HTML として一切出力されない（`summary` のみ公開）。
 
-### コンサルのサービス項目を編集する（Tsunagu）
+### コンサルのサービス項目を編集する（TSUNAGU）
 
 `src/content/consulting/{ja,en}/<slug>.mdx`。`title` / `summary` / `order` / `icon`（`design` / `build` / `operate`）。
 

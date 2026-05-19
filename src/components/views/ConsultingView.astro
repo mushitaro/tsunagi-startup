@@ -80,17 +80,17 @@ const jsonLd = [
 >
   <div class="wrap py-20 md:py-28">
     <header class="border-b border-line pb-10">
-      <p class="index-num text-sm uppercase text-faint">03</p>
+      <p class="index-num text-2xl uppercase text-faint">03</p>
       <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('consulting.title')}</h1>
       <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('consulting.lead')}</p>
     </header>
 
     <!-- サービス（連番） -->
-    <div class="mt-2">
+    <div class="mt-2 [&>:first-child]:border-t-0">
       {
         rendered.map(({ entry, Content }, i) => (
           <section class="grid gap-x-10 gap-y-3 border-t border-line py-12 last:border-b md:grid-cols-[auto_1fr]">
-            <span class="index-num text-base text-faint">{String(i + 1).padStart(2, '0')}</span>
+            <span class="index-num text-2xl text-faint">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h2 class="text-2xl font-bold text-ink">{entry.data.title}</h2>
               <p class="mt-2 font-semibold text-ink-soft">{entry.data.summary}</p>
@@ -110,8 +110,8 @@ const jsonLd = [
     >
       <span class="text-sm font-semibold tracking-wide text-ink">
         {locale === 'ja'
-          ? '実績は Tsukuru のプロダクト群をご覧ください'
-          : 'See our work in Tsukuru'}
+          ? '実績は TSUKURU のプロダクト群をご覧ください'
+          : 'See our work in TSUKURU'}
       </span>
       <span class="text-sm text-faint">→</span>
     </a>

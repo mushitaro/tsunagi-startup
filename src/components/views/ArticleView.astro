@@ -44,7 +44,7 @@ const related = (await getArticles(locale))
   .map((x) => x.a);
 
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
-const canonical = `${base}/tsutae/${slug}`;
+const canonical = `${base}/tsutaeru/${slug}`;
 const jsonLd = [
   articleSchema({
     headline: d.title,
@@ -58,7 +58,7 @@ const jsonLd = [
   }),
   breadcrumbSchema([
     { name: 'tsunagi', url: `${base}/` },
-    { name: t('content.title'), url: `${base}/tsutae` },
+    { name: t('content.title'), url: `${base}/tsutaeru` },
     { name: d.title, url: canonical },
   ]),
 ];
@@ -75,7 +75,7 @@ const jsonLd = [
 >
   <article class="wrap-narrow py-20 md:py-28">
     <a
-      href={localizedPath('/tsutae', locale)}
+      href={localizedPath('/tsutaeru', locale)}
       class="text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink"
     >
       ← {t('content.back')}
