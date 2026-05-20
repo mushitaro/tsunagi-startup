@@ -1,0 +1,35 @@
+---
+title: Automating stock trades with the moomoo API — tsunagi Stocks
+summary: An experiment in automating my own US stock trading logic. Why I chose moomoo, what worked, what didn't (fractional shares), and why I open-sourced it anyway.
+publishedAt: 2026-05-20
+tags:
+  - stocks
+  - moomoo
+  - automated trading
+  - open source
+category: Dev Log
+access: free
+translationKey: tsunagi-stocks-intro
+---
+
+I invest in US stocks as a hobby. I had a set of rules I followed, but entering orders manually every time was tedious. That frustration led me to build tsunagi Stocks — an experiment to automate my own trading logic.
+
+## Why moomoo
+
+Automated trading requires an API that accepts orders from external programs. After researching both Japanese and international brokers, moomoo (Futu) was the only one offering a trading API accessible to individual developers. I opened an account, confirmed the approach worked, and started building.
+
+## What worked
+
+I connected to moomoo's local gateway (OpenD) to fetch watchlist prices and send buy/sell orders. Test runs verified the flow end-to-end. For whole-share orders — trading in whole-number quantities — it works as intended.
+
+## What didn't — the fractional shares problem
+
+Many US brokers support fractional shares (buying less than one full share), and my portfolio relies on that. It turned out the moomoo API doesn't support fractional share orders. I could switch to whole-share-only trading, but that doesn't fit how I currently invest, so I haven't put this into live use.
+
+## Open-sourcing it anyway
+
+Rather than letting working code sit unused, I've published it on GitHub. If you trade in whole shares or want to explore the moomoo API for your own automation ideas, it might be a useful starting point.
+
+API keys are managed via environment variables — no secrets committed. Setup instructions are in the README.
+
+Repository: [tsunagi-app/tsunagi-stocks](https://github.com/tsunagi-app/tsunagi-stocks)

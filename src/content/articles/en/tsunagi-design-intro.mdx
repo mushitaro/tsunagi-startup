@@ -1,0 +1,33 @@
+---
+title: Building my own Canva alternative — the thinking behind tsunagi Design
+summary: Canva and Adobe Express are great tools, but too feature-heavy to fully use. I'm building a minimal image editor with only what I actually need — and watching AI evolve made me think I could actually pull it off.
+publishedAt: 2026-05-20
+tags:
+  - image editing
+  - design
+  - indie dev
+  - minimal
+category: Dev Log
+access: free
+translationKey: tsunagi-design-intro
+---
+
+Canva and Adobe Express are genuinely good products. But for personal use, the feature count becomes a problem rather than a benefit. The tools I actually reach for are: crop, resize, add text, export. That's most of my usage. Paying for a subscription loaded with features I'll never touch didn't sit right. Watching AI capabilities grow rapidly also gave me the confidence that an individual could build something genuinely useful — that pushed me to start.
+
+## Grayscale only
+
+I designed the editor around a grayscale palette — 12 shades from pure black to white. For the kinds of things I make most (SNS images, icons, blog headers), a full color picker just adds noise. The UI itself follows the same logic: dark background, brutalist layout, nothing unnecessary on screen.
+
+## Current state
+
+Core editing is working: shapes, text, layers, crop, and export to PNG, JPEG, and SVG are all functional.
+
+Background removal is implemented using a Hugging Face AI model. I'm currently working on precision and stability — it's desktop-only for now; mobile falls back to a disabled state.
+
+The painterly filter runs a GPU-accelerated Kuwahara algorithm to produce a watercolor or illustration-style output from a photo. I'm dialing in the parameters to get the result quality where I want it.
+
+The app is built as a PWA, so it can be installed and used offline. Projects are stored in the browser's IndexedDB — no external service required.
+
+## What's left: fonts
+
+Font selection and visual balance are still being refined. Too many options create friction, so I'm putting together a small, purpose-organized set rather than listing every available typeface. Once that's sorted, this becomes a full replacement for my Canva subscription.

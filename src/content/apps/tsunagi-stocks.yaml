@@ -1,18 +1,28 @@
-# Catalog エントリのサンプル。実際のアプリ情報に置き換えてください。
 name:
   ja: tsunagi Stocks
   en: tsunagi Stocks
 tagline:
-  ja: 個人投資家のための、軽量な株式情報ダッシュボード。
-  en: A lightweight market dashboard for individual investors.
+  ja: moomoo API で自動売買を試す、実験的な株式ダッシュボード。
+  en: An experimental stock trading dashboard for automating trades via the moomoo API.
 description:
-  ja: moomoo API などのデータソースをもとに、ウォッチ銘柄の値動きや指標を一画面でまとめて確認できるダッシュボードです。現在開発中で、まずは自分の運用に必要な機能から順に作り込んでいます。
-  en: A dashboard that pulls from data sources such as the moomoo API to track watchlist prices and indicators in one view. Currently in development, built feature by feature around real usage.
+  ja: |
+    趣味で続けている米国株投資で、自分の売買ロジックを自動化できないか実験するために作ったツールです。自動売買に必要な API を提供している国内外の証券会社を調べた結果、moomoo（富途）が唯一の選択肢でした。
+
+    テスト動作は確認済みで、整数株（1株単位）の売買であれば意図通りに動きます。ただし、moomoo の API が端数株（fractional shares）の注文に対応していないことが判明し、現在は実際の運用には使用していません。
+
+    コードは GitHub で公開しています。整数株のみで運用している方や、moomoo API を使った自動売買の仕組みを調べている方の参考になれば。
+  en: |
+    A tool built to experiment with automating my own trading logic for US stocks. After researching which brokers offer a usable trading API, moomoo (Futu) turned out to be the only option.
+
+    Test runs confirm it works for whole-share orders. However, the moomoo API doesn't support fractional shares, which is why I haven't put it into live use.
+
+    The code is on GitHub — useful if you trade whole shares or want to explore automated trading with the moomoo API.
 status: in-development
 repo: https://github.com/tsunagi-app/tsunagi-stocks
 tags:
-  - 投資
-  - ダッシュボード
-  - API
+  - 株式
+  - moomoo
+  - 自動売買
+  - オープンソース
 featured: true
 order: 2

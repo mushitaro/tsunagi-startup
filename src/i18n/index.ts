@@ -22,7 +22,6 @@ export const ui = {
     'nav.menu': 'メニュー',
     'nav.skip': '本文へスキップ',
 
-    'home.hero.kicker': 'つくり、つたえ、つなぐ',
     'home.hero.title': '受け継ぎ、見立て、磨き込む',
     'home.hero.lead':
       '伝統的なアプリやサービスの良いところを引き継ぎ、必要十分を見立て、使い心地を磨き上げる。そしてまた、次世代へ繋ぐ。',
@@ -113,7 +112,6 @@ export const ui = {
     'nav.menu': 'Menu',
     'nav.skip': 'Skip to content',
 
-    'home.hero.kicker': 'Create · Convey · Connect',
     'home.hero.title': 'Inherit, curate, hone.',
     'home.hero.lead':
       'Inherit the good from long-established apps and services, curate what is necessary and sufficient, and hone how it feels to use. Then, once more, connect it to the next generation.',
