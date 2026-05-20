@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ParticleCanvas from '../ParticleCanvas.astro';
 import { type Locale, useTranslations, localizedPath } from '../../i18n';
 import { organizationSchema, websiteSchema } from '../../lib/schema';
 
@@ -34,9 +35,14 @@ const sections = [
   description={t('home.hero.lead')}
   jsonLd={[organizationSchema(), websiteSchema(locale)]}
 >
-  <!-- メッセージ -->
-  <section>
-    <div class="wrap py-24 md:py-36">
+  <!-- メッセージ + ブランドビジュアル -->
+  <section class="relative flex min-h-svh flex-col justify-center overflow-hidden">
+    <!-- パーティクルアニメーション背景 -->
+    <ParticleCanvas />
+    <!-- 下部フェードアウト -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-paper to-transparent"></div>
+    <!-- テキスト -->
+    <div class="relative z-10 wrap py-32 md:py-48">
       <h1
         class="max-w-4xl text-[2.5rem] font-bold leading-[1.22] text-ink sm:text-6xl sm:leading-[1.16]"
       >
