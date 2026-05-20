@@ -13,7 +13,7 @@ export const localeLabel: Record<Locale, string> = {
 export const ui = {
   ja: {
     'site.name': 'tsunagi',
-    'site.tagline': 'つくる・つたえる・つなぐ',
+    'site.tagline': 'つくり、つたえ、つなぐ',
 
     'nav.catalog': 'TSUKURU',
     'nav.content': 'TSUTAERU',
@@ -22,23 +22,14 @@ export const ui = {
     'nav.menu': 'メニュー',
     'nav.skip': '本文へスキップ',
 
-    'home.hero.kicker': 'tsunagi.app プロジェクト',
-    'home.hero.title': 'アプリをつくり、知見をつたえ、人とつなぐ。',
+    'home.hero.kicker': 'つくり、つたえ、つなぐ',
+    'home.hero.title': '受け継ぎ、見立て、磨き込む',
     'home.hero.lead':
-      'tsunagi は個人開発のアプリ群と、その設計・開発・運用の知見を一か所に集約したプロジェクトです。プロダクトのカタログ、有料・無料のコンテンツ、開発受託のご相談までをここから。',
-    'home.hero.cta.catalog': 'カタログを見る',
-    'home.hero.cta.consulting': '開発を相談する',
+      '伝統的なアプリやサービスの良いところを引き継ぎ、必要十分を見立て、使い心地を磨き上げる。そしてまた、次世代へ繋ぐ。',
 
-    'home.section.catalog.title': 'TSUKURU — プロダクト一覧',
-    'home.section.catalog.desc':
-      'tsunagi.app ドメインで公開中のアプリと、開発中のプロジェクトをまとめています。',
-    'home.section.content.title': 'TSUTAERU — 記事・ノウハウ',
-    'home.section.content.desc':
-      'アプリ開発・運用・コンサルティングのアプローチを記事として公開。一部は有料記事です。',
-    'home.section.consulting.title': 'TSUNAGU — 開発受託',
-    'home.section.consulting.desc':
-      'アプリのデザイン・開発・運用を受託します。お問い合わせは Discord に特化しています。',
-    'home.section.more': '詳しく見る',
+    'home.section.catalog.desc': 'ポートフォリオ',
+    'home.section.content.desc': 'ストーリー',
+    'home.section.consulting.desc': 'UXリアライゼーション',
 
     'catalog.title': 'TSUKURU',
     'catalog.lead': 'tsunagi のプロダクトと開発中プロジェクト。',
@@ -122,23 +113,14 @@ export const ui = {
     'nav.menu': 'Menu',
     'nav.skip': 'Skip to content',
 
-    'home.hero.kicker': 'The tsunagi.app project',
-    'home.hero.title': 'Build apps, share what we learn, connect with people.',
+    'home.hero.kicker': 'Create · Convey · Connect',
+    'home.hero.title': 'Inherit, curate, hone.',
     'home.hero.lead':
-      'tsunagi brings together a family of indie apps and the know-how behind designing, building, and running them — a product catalog, free and paid content, and development consulting, all in one place.',
-    'home.hero.cta.catalog': 'Browse the catalog',
-    'home.hero.cta.consulting': 'Discuss a project',
+      'Inherit the good from long-established apps and services, curate what is necessary and sufficient, and hone how it feels to use. Then, once more, connect it to the next generation.',
 
-    'home.section.catalog.title': 'TSUKURU — Products',
-    'home.section.catalog.desc':
-      'Apps published on the tsunagi.app domain, plus projects still in development.',
-    'home.section.content.title': 'TSUTAERU — Articles & know-how',
-    'home.section.content.desc':
-      'Approaches to building, running, and consulting on apps. Some articles are paid.',
-    'home.section.consulting.title': 'TSUNAGU — Development services',
-    'home.section.consulting.desc':
-      'We take on app design, development, and operations. Inquiries are handled via Discord.',
-    'home.section.more': 'Learn more',
+    'home.section.catalog.desc': 'Portfolio',
+    'home.section.content.desc': 'Story',
+    'home.section.consulting.desc': 'UX Realization',
 
     'catalog.title': 'TSUKURU',
     'catalog.lead': 'tsunagi products and projects in development.',

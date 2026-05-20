@@ -1,9 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AppCard from '../AppCard.astro';
-import ArticleCard from '../ArticleCard.astro';
 import { type Locale, useTranslations, localizedPath } from '../../i18n';
-import { getApps, getArticles } from '../../lib/content';
 import { organizationSchema, websiteSchema } from '../../lib/schema';
 
 interface Props {
@@ -12,23 +9,20 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const apps = (await getApps()).slice(0, 4);
-const articles = (await getArticles(locale)).slice(0, 3);
-
 const sections = [
   {
     href: localizedPath('/tsukuru', locale),
-    title: t('home.section.catalog.title'),
+    name: t('nav.catalog'),
     desc: t('home.section.catalog.desc'),
   },
   {
     href: localizedPath('/tsutaeru', locale),
-    title: t('home.section.content.title'),
+    name: t('nav.content'),
     desc: t('home.section.content.desc'),
   },
   {
     href: localizedPath('/tsunagu', locale),
-    title: t('home.section.consulting.title'),
+    name: t('nav.consulting'),
     desc: t('home.section.consulting.desc'),
   },
 ];
@@ -40,119 +34,39 @@ const sections = [
   description={t('home.hero.lead')}
   jsonLd={[organizationSchema(), websiteSchema(locale)]}
 >
-  <!-- Hero -->
+  <!-- メッセージ -->
   <section class="border-b border-line">
     <div class="wrap py-24 md:py-36">
       <p class="index-num text-xs uppercase text-faint">{t('home.hero.kicker')}</p>
       <h1
-        class="mt-8 max-w-4xl text-[2.5rem] font-bold leading-[1.22] text-ink sm:text-6xl sm:leading-[1.14]"
+        class="mt-8 max-w-4xl text-[2.5rem] font-bold leading-[1.22] text-ink sm:text-6xl sm:leading-[1.16]"
       >
         {t('home.hero.title')}
       </h1>
-      <div
-        class="mt-14 grid gap-8 border-t border-line pt-10 md:grid-cols-[1fr_auto] md:items-end"
+      <p
+        class="mt-12 max-w-xl border-t border-line pt-10 text-[15px] leading-relaxed text-muted"
       >
-        <p class="max-w-md text-[15px] leading-relaxed text-muted">{t('home.hero.lead')}</p>
-        <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a
-            href={localizedPath('/tsukuru', locale)}
-            class="bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
-          >
-            {t('home.hero.cta.catalog')}
-          </a>
-          <a
-            href={localizedPath('/tsunagu', locale)}
-            class="text-sm font-semibold tracking-wide text-ink underline decoration-1 underline-offset-[6px] transition-all hover:decoration-2"
-          >
-            {t('home.hero.cta.consulting')}
-          </a>
-        </div>
-      </div>
+        {t('home.hero.lead')}
+      </p>
     </div>
   </section>
 
-  <!-- セクション索引 -->
+  <!-- 各ページへのリンク（索引） -->
   <section class="wrap py-20" aria-label="sections">
     {
       sections.map((s, i) => (
         <a
           href={s.href}
-          class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-9 transition-colors last:border-b hover:bg-surface"
+          class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-10 transition-colors last:border-b hover:bg-surface md:gap-x-10"
         >
           <span class="index-num text-4xl text-faint">{String(i + 1).padStart(2, '0')}</span>
-          <div class="md:flex md:items-baseline md:gap-10">
-            <h2 class="text-xl font-bold text-ink md:w-72 md:shrink-0">{s.title}</h2>
-            <p class="mt-1.5 text-sm leading-relaxed text-muted md:mt-0 md:max-w-sm">
-              {s.desc}
-            </p>
+          <div class="md:flex md:items-baseline md:gap-8">
+            <h2 class="text-3xl font-bold text-ink md:w-64 md:shrink-0">{s.name}</h2>
+            <p class="mt-1.5 text-sm tracking-wide text-muted md:mt-0">{s.desc}</p>
           </div>
           <span class="text-sm text-faint transition-colors group-hover:text-ink">→</span>
         </a>
       ))
     }
-  </section>
-
-  <!-- Tsukuru プレビュー -->
-  {
-    apps.length > 0 && (
-      <section class="wrap pb-20">
-        <div class="mb-8 flex items-baseline justify-between gap-4 border-b border-line pb-4">
-          <h2 class="text-2xl font-bold tracking-tight">{t('nav.catalog')}</h2>
-          <a
-            href={localizedPath('/tsukuru', locale)}
-            class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
-          >
-            {t('home.section.more')} →
-          </a>
-        </div>
-        <div class="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2">
-          {apps.map((app) => (
-            <AppCard app={app} locale={locale} />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Tsutae プレビュー -->
-  {
-    articles.length > 0 && (
-      <section class="wrap pb-20">
-        <div class="mb-2 flex items-baseline justify-between gap-4 border-b border-line pb-4">
-          <h2 class="text-2xl font-bold tracking-tight">{t('nav.content')}</h2>
-          <a
-            href={localizedPath('/tsutaeru', locale)}
-            class="text-[13px] font-semibold tracking-wide text-muted hover:text-ink"
-          >
-            {t('home.section.more')} →
-          </a>
-        </div>
-        <div class="[&>:first-child]:border-t-0">
-          {articles.map((article) => (
-            <ArticleCard article={article} locale={locale} />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Tsunagu CTA（白の差し） -->
-  <section class="wrap pb-24">
-    <div class="border border-line bg-surface px-8 py-20 text-ink md:px-20">
-      <p class="index-num text-xs uppercase text-faint">{t('nav.consulting')}</p>
-      <h2 class="mt-6 max-w-2xl text-3xl font-bold leading-[1.3] md:text-[2.5rem]">
-        {t('home.section.consulting.title')}
-      </h2>
-      <p class="mt-5 max-w-xl text-sm leading-relaxed text-muted">
-        {t('home.section.consulting.desc')}
-      </p>
-      <a
-        href={localizedPath('/tsunagu', locale)}
-        class="mt-10 inline-block bg-brand px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
-      >
-        {t('home.hero.cta.consulting')}
-      </a>
-    </div>
-
   </section>
 </BaseLayout>
