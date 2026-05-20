@@ -1,0 +1,23 @@
+name:
+  ja: tsunagi Design
+  en: tsunagi Design
+tagline:
+  ja: 自分が使う機能だけに絞った、グレースケール特化のデザインツール。
+  en: A grayscale-focused design editor built around the features you actually use.
+description:
+  ja: |
+    Canva や Adobe Express は機能が豊富で優れたサービスです。ただ、自分が実際に使う機能は全体のごく一部。昨今の AI の進化を目の当たりにして、機能を絞ったツールを自作してサブスクを節約できないか試してみました。
+
+    グレースケールを基調としたブルータリストなUIで、SNS画像・アイコン・ブログヘッダーの制作に対応。背景切り抜き（AI）・絵画タッチフィルタ・レイヤー管理も実装済みで、フォント周りの調整が完了すれば Canva の代わりとして日常的に使える状態になります。
+  en: |
+    Canva and Adobe Express are excellent tools — but only a fraction of their features are ones I actually use. Watching AI evolve rapidly made me wonder: could I build a focused tool myself and cut the subscription? That question started this project.
+
+    The editor uses a grayscale-only brutalist design system and handles SNS graphics, icons, and blog headers. Background removal (AI-powered), a painterly Kuwahara filter, and full layer management are all implemented. Once font controls are tuned, this becomes a full Canva replacement for my workflow.
+status: in-development
+tags:
+  - 画像加工
+  - デザイン
+  - ミニマム
+  - PWA
+featured: true
+order: 3
