@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ParticleCanvas from '../ParticleCanvas.astro';
+import BrushCanvas from '../BrushCanvas.astro';
 import { type Locale, useTranslations, localizedPath } from '../../i18n';
 import { organizationSchema, websiteSchema } from '../../lib/schema';
 
@@ -37,8 +37,8 @@ const sections = [
 >
   <!-- メッセージ + ブランドビジュアル -->
   <section class="relative flex min-h-svh flex-col justify-center overflow-hidden">
-    <!-- パーティクルアニメーション背景 -->
-    <ParticleCanvas />
+    <!-- 書道ブラシアニメーション背景 -->
+    <BrushCanvas />
     <!-- 下部フェードアウト -->
     <div class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-paper to-transparent"></div>
     <!-- テキスト -->

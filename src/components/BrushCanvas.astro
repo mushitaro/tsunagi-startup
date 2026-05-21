@@ -1,0 +1,321 @@
+---
+// 書道コンセプトビジュアル: 大筆がキャンバスを叩き、墨が飛び散り、左から右へ走り続ける。
+// 筆のすれ（ブリスル）・筆の揺れ・プレッシャー変動を Canvas API で表現。
+---
+
+<canvas
+  id="brush-canvas"
+  class="absolute inset-0 h-full w-full"
+  aria-hidden="true"
+></canvas>
+
+<script is:inline>
+(function () {
+  var canvas = document.getElementById('brush-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- 設定 ----
+  var DRAW_SPEED  = 5;    // px/frame で筆が進む速さ
+  var MAX_W       = 12;   // 最大ブラシ幅 (px)
+  var P_AMP       = 2;    // プレッシャーノイズの振幅
+  var P_FREQ      = 3;    // プレッシャーの振動数（1ストローク中）
+  var WOBBLE_AMP  = 3;    // Y方向の揺れ振幅 (px)
+  var WOBBLE_FRQ  = 1.5;  // 揺れの周波数（1ストローク中の周期数）
+
+  // ---- 状態 ----
+  var W = 0, H = 0;
+  var dpr = 1;
+  var raf = 0;
+
+  var phase     = 'idle'; // idle | impact | draw | hold | fade
+  var phaseTick = 0;
+
+  var startX = 0, startY = 0;
+  var strokeX = 0;
+  var driftY = 0;
+  var pressurePhase = 0;
+
+  var droplets = [];
+
+  // ---- canvas リサイズ ----
+  function resize() {
+    dpr = Math.min(devicePixelRatio, 2);
+    var parent = canvas.parentElement;
+    W = (parent ? parent.offsetWidth  : 0) || window.innerWidth;
+    H = (parent ? parent.offsetHeight : 0) || window.innerHeight;
+    if (W === 0 || H === 0) return;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+  }
+
+  // ---- 筆 Y 位置 (t = strokeX / W, 0→1) ----
+  function strokeY(x) {
+    var t = x / W;
+    return startY
+      + driftY * t
+      + WOBBLE_AMP * Math.sin(t * WOBBLE_FRQ * Math.PI * 2);
+  }
+
+  // ---- ブラシ幅 envelope ----
+  function brushWidth(x) {
+    var t = Math.max(0, Math.min(1, x / W));
+    var base     = MAX_W * Math.pow(Math.sin(Math.PI * t), 0.35);
+    var pressure = P_AMP  * Math.sin(t * P_FREQ * Math.PI * 2 + pressurePhase);
+    return Math.max(0.5, base + pressure);
+  }
+
+  // ---- 1セグメントをブリスル5本で描画 ----
+  function drawSegment(x0, y0, x1, y1, w) {
+    var bristles = [
+      { dy: 0,          lw: w,        alpha: 0.85, always: true  },
+      { dy: -w * 0.25,  lw: w * 0.6,  alpha: 0.55, always: true  },
+      { dy:  w * 0.25,  lw: w * 0.6,  alpha: 0.55, always: true  },
+      { dy: -w * 0.6,   lw: w * 0.3,  alpha: 0.30, always: false },
+      { dy:  w * 0.6,   lw: w * 0.3,  alpha: 0.30, always: false },
+    ];
+
+    ctx.lineCap  = 'round';
+    ctx.lineJoin = 'round';
+
+    for (var i = 0; i < bristles.length; i++) {
+      var b = bristles[i];
+      // always=false のブリスルは70%の確率で描画（かすれ表現）
+      if (!b.always && Math.random() > 0.7) continue;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0 + b.dy);
+      ctx.lineTo(x1, y1 + b.dy);
+      ctx.strokeStyle = 'rgba(230,225,210,' + b.alpha.toFixed(2) + ')';
+      ctx.lineWidth   = Math.max(0.5, b.lw);
+      ctx.stroke();
+    }
+
+    // 墨だまり: セグメント始点に薄い円を重ねる
+    ctx.beginPath();
+    ctx.arc(x0, y0, Math.max(1, w * 0.4), 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(230,225,210,0.08)';
+    ctx.fill();
+  }
+
+  // ---- impact: 墨点 + 飛沫発射 ----
+  function doImpact() {
+    var r    = 14 + Math.random() * 4;
+    var grad = ctx.createRadialGradient(startX, startY, 0, startX, startY, r);
+    grad.addColorStop(0,   'rgba(230,225,210,0.90)');
+    grad.addColorStop(0.5, 'rgba(230,225,210,0.40)');
+    grad.addColorStop(1,   'rgba(230,225,210,0)');
+    ctx.beginPath();
+    ctx.arc(startX, startY, r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // 飛沫 droplet を発射
+    var n = 50 + Math.floor(Math.random() * 21); // 50-70個
+    for (var i = 0; i < n; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var speed = 3 + Math.random() * 13;
+      // 横方向へのバイアス（書道の筆跡らしく）
+      var hbias = Math.cos(angle) * 1.6;
+      droplets.push({
+        x:         startX,
+        y:         startY,
+        vx:        Math.cos(angle) * speed + hbias,
+        vy:        Math.sin(angle) * speed - 1.0, // 若干上方向バイアス
+        r:         1 + Math.random() * 5,
+        a:         0.5 + Math.random() * 0.5,
+        settled:   false,
+        committed: false,
+      });
+    }
+  }
+
+  // ---- 飛沫の物理更新・描画 ----
+  function updateDroplets() {
+    for (var i = 0; i < droplets.length; i++) {
+      var d = droplets[i];
+      if (d.committed) continue; // 確定済みはスキップ（canvas に描画済み）
+
+      if (!d.settled) {
+        d.x  += d.vx;
+        d.y  += d.vy;
+        d.vy += 0.18;  // 重力
+        d.vx *= 0.94;  // 空気抵抗
+        d.vy *= 0.94;
+        var spd = Math.sqrt(d.vx * d.vx + d.vy * d.vy);
+        // 着地: startY+80px 以下か速度 < 0.3 で停止
+        if (d.y > startY + 80 || spd < 0.3) {
+          d.settled = true;
+          d.a = Math.min(d.a, 0.35);
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(230,225,210,' + d.a.toFixed(3) + ')';
+      ctx.fill();
+
+      // 静止したらこのフレームで canvas に焼き付け → 以降は再描画しない
+      if (d.settled) {
+        d.committed = true;
+      }
+    }
+  }
+
+  // ---- サイクル初期化 ----
+  function initCycle() {
+    startX        = W * 0.06;
+    startY        = H * (0.38 + Math.random() * 0.24);
+    strokeX       = startX;
+    driftY        = (Math.random() - 0.5) * 40;
+    pressurePhase = Math.random() * Math.PI * 2;
+    droplets      = [];
+    ctx.clearRect(0, 0, W, H);
+  }
+
+  // ---- メインアニメーションループ ----
+  function tick() {
+    phaseTick++;
+
+    switch (phase) {
+
+      case 'idle':
+        // 48f（≒0.8s）待機後にストローク開始
+        if (phaseTick >= 48) {
+          initCycle();
+          doImpact();
+          phase     = 'impact';
+          phaseTick = 0;
+        }
+        break;
+
+      case 'impact':
+        // 飛沫を8フレーム動かしてから筆を走らせる
+        updateDroplets();
+        if (phaseTick >= 8) {
+          phase     = 'draw';
+          phaseTick = 0;
+        }
+        break;
+
+      case 'draw':
+        // 筆を左から右へ進める
+        updateDroplets();
+        var nx  = strokeX + DRAW_SPEED;
+        var cy  = strokeY(strokeX);
+        var ny  = strokeY(nx);
+        var w   = brushWidth(strokeX);
+        drawSegment(strokeX, cy, nx, ny, w);
+        strokeX = nx;
+        if (strokeX > W + 30) {
+          phase     = 'hold';
+          phaseTick = 0;
+        }
+        break;
+
+      case 'hold':
+        // 90f（≒1.5s）筆跡をそのまま表示
+        if (phaseTick >= 90) {
+          phase     = 'fade';
+          phaseTick = 0;
+        }
+        break;
+
+      case 'fade':
+        // 暗いオーバーレイでゆっくり暗転（60f ≒ 1s）
+        ctx.fillStyle = 'rgba(20,19,16,0.05)';
+        ctx.fillRect(0, 0, W, H);
+        if (phaseTick >= 60) {
+          ctx.clearRect(0, 0, W, H);
+          phase     = 'idle';
+          phaseTick = 0;
+        }
+        break;
+    }
+
+    raf = requestAnimationFrame(tick);
+  }
+
+  // ---- reduced motion: 静止した1ストロークのみ ----
+  function drawStatic() {
+    initCycle();
+    // 墨点
+    var r    = 16;
+    var grad = ctx.createRadialGradient(startX, startY, 0, startX, startY, r);
+    grad.addColorStop(0,   'rgba(230,225,210,0.90)');
+    grad.addColorStop(0.5, 'rgba(230,225,210,0.40)');
+    grad.addColorStop(1,   'rgba(230,225,210,0)');
+    ctx.beginPath();
+    ctx.arc(startX, startY, r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    // 完全なストロークを一括描画
+    for (var x = startX; x < W; x += DRAW_SPEED) {
+      var nx = Math.min(x + DRAW_SPEED, W);
+      var cy = strokeY(x);
+      var ny = strokeY(nx);
+      var w  = brushWidth(x);
+      drawSegment(x, cy, nx, ny, w);
+    }
+  }
+
+  // ---- 初期化（レイアウト確定後に起動）----
+  function start() {
+    resize();
+    if (W === 0 || H === 0) {
+      requestAnimationFrame(start);
+      return;
+    }
+    if (reduced) {
+      drawStatic();
+    } else {
+      phase     = 'idle';
+      phaseTick = 0;
+      raf = requestAnimationFrame(tick);
+    }
+  }
+  // 同期的にサイズが取れるなら即座に起動、取れなければ RAF で再試行
+  (function tryStart() {
+    var _p = canvas.parentElement;
+    var _w = (_p ? _p.offsetWidth  : 0) || window.innerWidth;
+    var _h = (_p ? _p.offsetHeight : 0) || window.innerHeight;
+    if (_w > 0 && _h > 0) { start(); } else { requestAnimationFrame(tryStart); }
+  })();
+
+  // リサイズ対応
+  var _parent = canvas.parentElement;
+  if (_parent && typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(function () {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      resize();
+      if (!reduced) {
+        phase     = 'idle';
+        phaseTick = 0;
+        raf = requestAnimationFrame(tick);
+      } else {
+        drawStatic();
+      }
+    });
+    ro.observe(_parent);
+  }
+
+  // スクロールアウト時に停止して CPU 節約
+  if (typeof IntersectionObserver !== 'undefined') {
+    var io = new IntersectionObserver(function (entries) {
+      for (var ei = 0; ei < entries.length; ei++) {
+        if (entries[ei].isIntersecting) {
+          if (!reduced && !raf) raf = requestAnimationFrame(tick);
+        } else {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      }
+    }, { threshold: 0.01 });
+    io.observe(canvas);
+  }
+})();
+</script>
