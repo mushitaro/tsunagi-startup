@@ -1,0 +1,34 @@
+name:
+  ja: MSS54HP CSL Convert Tuner
+  en: MSS54HP CSL Convert Tuner
+tagline:
+  ja: E46 M3 CSL 換装チューニングの 9 ステップを、ワンクリックで自動化する Web ツール。
+  en: Automates the 9-step E46 M3 CSL DME tuning workflow into a single web-based operation.
+description:
+  ja: |
+    BMW E46 M3 を CSL 仕様に換装する際の DME チューニング作業は、TunerPro・スプレッドシート・Mega Log Viewer を行き来しながら 9 つの手順を手動でこなす必要がありました。
+    このツールはその全工程を自動化します。Partial BIN ファイルと TestO CSV ログを入力するだけで、VE マップ補正・ウォームアップマップ・WOT マップの生成まで一括処理されます。
+
+    データはすべてブラウザ内で完結し、サーバーへの送信はゼロ。コードは MIT ライセンスで公開しています。
+
+    開発は AI（Gemini）との協働で行い、基本機能実装 0.5 時間・デバッグ 7 時間・UI 調整 2 時間・追加機能 3 時間、合計 12.5 時間で完成させました。
+    開発手法の詳細は「AI 開発手法メモ」にまとめています。
+  en: |
+    Tuning a BMW E46 M3 for CSL conversion previously required 9 manual steps across TunerPro, spreadsheets, and Mega Log Viewer. This tool automates all of them.
+    Input a Partial BIN file and a TestO CSV log; it outputs corrected VE maps, a warmup map, and a WOT map in one pass.
+
+    All processing happens locally in the browser — no data is ever sent to a server. Source code is MIT-licensed and publicly auditable.
+
+    Built collaboratively with AI (Gemini) in 12.5 hours total: 0.5 h for core features, 7 h debugging, 2 h UI polish, 3 h additional features.
+status: live
+url: https://mss54hp-csl-convert-tuner.tsunagi.app
+repo: https://github.com/mushitaro/mss54hp-csl-convert-tuner
+tags:
+  - BMW
+  - E46 M3
+  - チューニング
+  - AI開発
+  - オープンソース
+featured: true
+order: 10
+launchedAt: 2026-05-22

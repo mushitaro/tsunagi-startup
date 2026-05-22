@@ -5,6 +5,11 @@ tsunagi 統合サイト（Astro 5 + Cloudflare Workers）。
 - **コンテンツの追加・編集・デプロイ手順** → [AGENTS.md](./AGENTS.md)
 - **環境セットアップ** → [README.md](./README.md)
 
+## ブランド表記ルール
+
+- ブランド名は必ず **TSUNAGI**（全大文字）。`tsunagi` と小文字で書かない。
+- URL・ファイル名・変数名（`tsunagi.app`、`tsunagi-stocks` など）はこの限りでない。
+
 ## 要点
 
 - コンテンツは `src/content/`（apps = YAML、articles / consulting = MDX）。フロントマターは `src/content.config.ts` の Zod スキーマで検証される。

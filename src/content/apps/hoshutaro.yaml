@@ -1,20 +1,30 @@
-# Catalog エントリのサンプル。実際のアプリ情報に置き換えてください。
-# スキーマは src/content.config.ts の apps を参照。
 name:
-  ja: 保守たろう
-  en: Hoshutaro
+  ja: HOSHUTARO
+  en: HOSHUTARO
 tagline:
-  ja: 点検・整備・保守の履歴を、価値ある資産に変える。
-  en: Turn inspection and maintenance history into a valuable asset.
+  ja: 現場の Excel を、ローカル LLM でエンタープライズ台帳へ変換する設備保全 PWA。
+  en: Convert field Excel data into enterprise-ready maintenance records — locally, without cloud.
 description:
-  ja: 点検・整備・保守の記録をかんたんに残し、検索・共有・分析できる Web アプリです。紙やバラバラの表計算ファイルに散らばっていた履歴を一元化し、次の意思決定に使えるデータへと変えます。現場での入力しやすさと、後から振り返れる一覧性を両立しています。
-  en: A web app to capture inspection and maintenance records and make them searchable, shareable, and analyzable. It consolidates history once scattered across paper and spreadsheets into data you can act on, balancing easy on-site input with a clear overview.
-status: live
-url: https://hoshutaro.tsunagi.app
+  ja: |
+    製造・設備管理の現場では、点検・保全の記録が担当者ごとの Excel に散らばっています。それを Maximo などのエンタープライズ EAM に取り込むには、フォーマット変換という大きな壁があります。
+
+    保守たろうはその変換をローカル LLM（OpenVINO + Gemma）で処理します。データは一切クラウドに送信されないため、機密性の高い設備情報も安全に扱えます。さらに LoRA を組み込み、自社設備・業界固有の用語や台帳構造にモデルを継続的に適応させることで、変換精度を現場に合わせて育てていけます。
+
+    AI チャットによる問い合わせ、Excel／JSON のインポート・エクスポート、プラグイン経由の外部システム連携を備えた PWA として開発中。
+  en: |
+    Field maintenance records live in individual Excel files — and getting them into enterprise EAM systems like Maximo means wrestling with format conversion every time.
+
+    Hoshutaro handles that conversion with a local LLM (OpenVINO + Gemma). Nothing leaves the device, so sensitive asset data stays secure. LoRA integration lets the model be continuously adapted to your equipment vocabulary and ledger structure, improving conversion accuracy the more you use it.
+
+    Built as a PWA with AI chat, Excel/JSON import-export, and a plugin layer for enterprise system integration. Currently in development.
+status: in-development
 tags:
-  - 保守管理
-  - 記録
-  - SaaS
+  - 設備保全
+  - ローカルLLM
+  - Excel変換
+  - LoRA
+  - MTP
+  - OpenMythos
+  - PWA
 featured: true
 order: 1
-launchedAt: 2025-02-01
