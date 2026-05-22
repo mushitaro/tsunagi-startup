@@ -12,7 +12,7 @@ export const localeLabel: Record<Locale, string> = {
 
 export const ui = {
   ja: {
-    'site.name': 'tsunagi',
+    'site.name': 'TSUNAGI',
     'site.tagline': 'つくり、つたえ、つなぐ',
 
     'nav.catalog': 'TSUKURU',
@@ -31,7 +31,7 @@ export const ui = {
     'home.section.consulting.desc': 'UXリアライゼーション',
 
     'catalog.title': 'TSUKURU',
-    'catalog.lead': 'tsunagi のプロダクトと開発中プロジェクト。',
+    'catalog.lead': 'TSUNAGI のプロダクトと開発中プロジェクト。',
     'catalog.filter.all': 'すべて',
     'catalog.empty': '該当するプロダクトはありません。',
     'catalog.visit': 'アプリを開く',
@@ -50,7 +50,7 @@ export const ui = {
 
     'consulting.title': 'TSUNAGU',
     'consulting.lead':
-      'tsunagi のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託します。',
+      'TSUNAGI のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託します。',
     'consulting.contact.title': 'Discord で相談する',
     'consulting.contact.desc':
       'お問い合わせは Discord に特化しています。サーバーに参加して直接ご相談いただくか、下のフォームからご連絡ください。',
@@ -102,7 +102,7 @@ export const ui = {
   },
 
   en: {
-    'site.name': 'tsunagi',
+    'site.name': 'TSUNAGI',
     'site.tagline': 'Build. Share. Connect.',
 
     'nav.catalog': 'TSUKURU',
@@ -121,7 +121,7 @@ export const ui = {
     'home.section.consulting.desc': 'UX Realization',
 
     'catalog.title': 'TSUKURU',
-    'catalog.lead': 'tsunagi products and projects in development.',
+    'catalog.lead': 'TSUNAGI products and projects in development.',
     'catalog.filter.all': 'All',
     'catalog.empty': 'No matching products.',
     'catalog.visit': 'Open app',
@@ -140,7 +140,7 @@ export const ui = {
 
     'consulting.title': 'TSUNAGU',
     'consulting.lead':
-      'We bring the know-how from building tsunagi products to your app design, development, and operations.',
+      'We bring the know-how from building TSUNAGI products to your app design, development, and operations.',
     'consulting.contact.title': 'Talk to us on Discord',
     'consulting.contact.desc':
       'Inquiries are handled via Discord. Join the server to talk directly, or send a message with the form below.',
