@@ -55,7 +55,7 @@ export function magicLinkEmail(locale: Locale, url: string): { subject: string; 
         `<p style="color:#404040;line-height:1.8;font-size:15px">Click the button below to sign in. This link expires in 30 minutes and can be used once.</p>
          <p style="margin:22px 0">${button(url, 'Sign in')}</p>
          <p style="color:#a3a3a3;font-size:13px">If you did not request this, you can ignore this email.</p>`,
-        'tsunagi · startup.tsunagi.app',
+        'tsunagi · tsunagi.app',
       ),
     };
   }
@@ -66,7 +66,7 @@ export function magicLinkEmail(locale: Locale, url: string): { subject: string; 
       `<p style="color:#404040;line-height:1.9;font-size:15px">下のボタンからログインを完了してください。このリンクの有効期限は30分で、一度だけ使用できます。</p>
        <p style="margin:22px 0">${button(url, 'ログインする')}</p>
        <p style="color:#a3a3a3;font-size:13px">心当たりがない場合はこのメールを破棄してください。</p>`,
-      'tsunagi · startup.tsunagi.app',
+      'tsunagi · tsunagi.app',
     ),
   };
 }
@@ -84,7 +84,7 @@ export function receiptEmail(
         `<p style="color:#404040;line-height:1.8;font-size:15px"><strong>${args.title}</strong><br>${price}</p>
          <p style="margin:22px 0">${button(args.url, 'Read the article')}</p>
          <p style="color:#a3a3a3;font-size:13px">You can read this article anytime while signed in.</p>`,
-        'tsunagi · startup.tsunagi.app',
+        'tsunagi · tsunagi.app',
       ),
     };
   }
@@ -95,7 +95,7 @@ export function receiptEmail(
       `<p style="color:#404040;line-height:1.9;font-size:15px"><strong>${args.title}</strong><br>${price}</p>
        <p style="margin:22px 0">${button(args.url, '記事を読む')}</p>
        <p style="color:#a3a3a3;font-size:13px">ログイン中はいつでもこの記事を読めます。</p>`,
-      'tsunagi · startup.tsunagi.app',
+      'tsunagi · tsunagi.app',
     ),
   };
 }

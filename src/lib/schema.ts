@@ -1,7 +1,7 @@
 // JSON-LD 構造化データのビルダー（SEO / AIO 用）。
 import type { Locale } from '../i18n';
 
-export const SITE_URL = 'https://startup.tsunagi.app';
+export const SITE_URL = 'https://tsunagi.app';
 const inLang = (l: Locale) => (l === 'ja' ? 'ja-JP' : 'en-US');
 
 export function organizationSchema() {

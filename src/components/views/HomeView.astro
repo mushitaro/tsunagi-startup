@@ -9,21 +9,12 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
+// TSUTAERU / TSUNAGU は現在非公開（準備中）。公開するときにこの配列へ戻す。
 const sections = [
   {
     href: localizedPath('/tsukuru', locale),
     name: t('nav.catalog'),
     desc: t('home.section.catalog.desc'),
-  },
-  {
-    href: localizedPath('/tsutaeru', locale),
-    name: t('nav.content'),
-    desc: t('home.section.content.desc'),
-  },
-  {
-    href: localizedPath('/tsunagu', locale),
-    name: t('nav.consulting'),
-    desc: t('home.section.consulting.desc'),
   },
 ];
 ---

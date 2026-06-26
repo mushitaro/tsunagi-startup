@@ -1,6 +1,6 @@
 # AGENTS.md — tsunagi 統合サイト 運用ガイド
 
-このリポジトリは `startup.tsunagi.app` を入り口とする tsunagi の統合サイト（TSUKURU / TSUTAERU / TSUNAGU）です。
+このリポジトリは `tsunagi.app`（apex）を入り口とする tsunagi の統合サイト（TSUKURU / TSUTAERU / TSUNAGU）です。
 AIエージェントがコンテンツ作成・プレビュー・修正・デプロイを行うことを前提に構成しています。
 
 ## このサイトの構成

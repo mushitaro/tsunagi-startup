@@ -3,10 +3,10 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 
-// startup.tsunagi.app を入り口とする統合サイト。
+// tsunagi.app（apex）を入り口とする統合サイト。
 // ja を既定ロケール（プレフィックスなし）、en を /en/ 配下に配置。
 export default defineConfig({
-  site: 'https://startup.tsunagi.app',
+  site: 'https://tsunagi.app',
   adapter: cloudflare({
     // astro dev で D1 などの Cloudflare バインディングを利用可能にする。
     platformProxy: { enabled: true },

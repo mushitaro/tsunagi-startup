@@ -2,36 +2,22 @@ export const prerender = true;
 
 import type { APIContext } from 'astro';
 import type { Locale } from '../i18n';
-import { getApps, getArticles, entrySlug } from '../lib/content';
+import { getApps } from '../lib/content';
 
 // 全 URL（SSR の記事ページ含む）を hreflang 代替つきで列挙するサイトマップ。
 export async function GET(context: APIContext) {
-  const origin = (context.site ?? new URL('https://startup.tsunagi.app')).origin;
+  const origin = (context.site ?? new URL('https://tsunagi.app')).origin;
 
+  // TSUTAERU / TSUNAGU は現在非公開（準備中）のためサイトマップから除外している。
   const pages: { path: string; locales: Locale[] }[] = [
     { path: '/', locales: ['ja', 'en'] },
     { path: '/tsukuru', locales: ['ja', 'en'] },
-    { path: '/tsutaeru', locales: ['ja', 'en'] },
-    { path: '/tsunagu', locales: ['ja', 'en'] },
     { path: '/privacy', locales: ['ja', 'en'] },
     { path: '/terms', locales: ['ja', 'en'] },
   ];
 
   for (const a of await getApps()) {
     pages.push({ path: `/tsukuru/${a.id}`, locales: ['ja', 'en'] });
-  }
-
-  // 記事は実在するロケールのみ列挙する。
-  const slugLocales = new Map<string, Locale[]>();
-  for (const a of await getArticles('ja')) {
-    slugLocales.set(entrySlug(a.id), ['ja']);
-  }
-  for (const a of await getArticles('en')) {
-    const s = entrySlug(a.id);
-    slugLocales.set(s, [...(slugLocales.get(s) ?? []), 'en']);
-  }
-  for (const [slug, locales] of slugLocales) {
-    pages.push({ path: `/tsutaeru/${slug}`, locales });
   }
 
   const urlFor = (path: string, loc: Locale) =>

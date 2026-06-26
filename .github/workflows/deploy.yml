@@ -1,6 +1,6 @@
 name: Deploy
 
-# main への push で本番（startup.tsunagi.app）へ自動デプロイする。
+# main への push で本番（tsunagi.app）へ自動デプロイする。
 on:
   push:
     branches: [main]

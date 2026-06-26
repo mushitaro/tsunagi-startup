@@ -1,6 +1,6 @@
 # tsunagi 統合サイト
 
-`startup.tsunagi.app` を入り口とする tsunagi の統合サイト。3セクション構成：
+`tsunagi.app`（apex）を入り口とする tsunagi の統合サイト。3セクション構成：
 
 - **TSUKURU**（`/tsukuru`） — アプリ・開発中リポジトリのポートフォリオ
 - **TSUTAERU**（`/tsutaeru`） — 記事。Stripe による記事単位課金（アカウント方式）
@@ -54,7 +54,7 @@ npx wrangler secret put DISCORD_WEBHOOK_URL
 
 Stripe ダッシュボードで Webhook エンドポイントを追加：
 
-- URL: `https://startup.tsunagi.app/api/stripe-webhook`
+- URL: `https://tsunagi.app/api/stripe-webhook`
 - イベント: `checkout.session.completed`
 - 署名シークレット（`whsec_...`）を `STRIPE_WEBHOOK_SECRET` に設定
 
@@ -85,7 +85,7 @@ PR を作るとプレビュー版がアップロードされる（`preview.yml`�
 
 ## 独自ドメイン
 
-Cloudflare ダッシュボードで Worker に `startup.tsunagi.app` のカスタムドメインを割り当てる。
+Cloudflare ダッシュボードで Worker に `tsunagi.app`（apex）のカスタムドメインを割り当てる（CNAME フラット化）。`startup.tsunagi.app`（TSUNAGI App の LP）はこの Worker とは別系統で、変更しない。
 
 ## コンテンツの追加・運用
 
@@ -95,4 +95,4 @@ Cloudflare ダッシュボードで Worker に `startup.tsunagi.app` のカス�
 
 - note.com の記事は `src/content/articles/ja/` にスタブを用意済み（`draft: true`）。
   note 本文を貼り付けて `draft` を外すと公開される。
-- 旧 `startup.tsunagi.app` の URL を引き継ぐ場合は `public/_redirects` に 301 を追記する。
+- 旧 URL を引き継ぐ場合は `public/_redirects` に 301 を追記する。

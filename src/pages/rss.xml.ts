@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'tsunagi Content',
     description: 'アプリ開発・運用・コンサルティングのアプローチ — tsunagi',
-    site: context.site ?? 'https://startup.tsunagi.app',
+    site: context.site ?? 'https://tsunagi.app',
     items: articles.map((a) => ({
       title: a.data.title,
       description: a.data.summary,

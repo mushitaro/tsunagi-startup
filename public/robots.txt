@@ -23,4 +23,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://startup.tsunagi.app/sitemap.xml
+Sitemap: https://tsunagi.app/sitemap.xml

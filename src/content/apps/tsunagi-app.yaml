@@ -1,0 +1,28 @@
+name:
+  ja: TSUNAGI App
+  en: TSUNAGI App
+tagline:
+  ja: 愛車への想いを、未来に繋ぐ。整備履歴を繋ぐアプリ（β版）。
+  en: Connecting your love for your car to the future — an app that links maintenance histories (beta).
+description:
+  ja: |
+    整備や DIY 作業を写真・動画・メモで記録し、同じ車種のオーナーと履歴を共有できる愛車メンテナンスアプリ。他のオーナーの記録を検索して、これからの作業計画に役立てられる。
+
+    修理費用や部品在庫の管理、自分のガレージビューに加え、「サポーター」として有料・無料で相談に応じる仕組みも備える。
+
+    MISSION は「車を愛する文化を次世代に繋ぐ」、VISION は「愛車を通じたクリエイティビティを高める」。現在 β 版を公開中で、アプリ本体は maintenance.tsunagi.app で動く。
+  en: |
+    A vehicle-maintenance app for recording upkeep and DIY work with photos, video, and notes, and sharing those histories with owners of the same model. Search other owners' records to plan your own upcoming work.
+
+    It also handles repair-cost and parts-inventory tracking, a personal garage view, and a "supporter" system for offering paid or free consultation.
+
+    Its mission is to connect car-loving culture to the next generation, and its vision is to heighten creativity through one's car. Currently in public beta; the app itself runs at maintenance.tsunagi.app.
+status: live
+url: https://startup.tsunagi.app
+tags:
+  - 愛車
+  - 整備履歴
+  - メンテナンス
+  - コミュニティ
+featured: true
+order: 4

@@ -27,7 +27,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const site = Astro.site ?? new URL('https://startup.tsunagi.app');
+const site = Astro.site ?? new URL('https://tsunagi.app');
 const canonical = new URL(Astro.url.pathname, site).href;
 const t = useTranslations(locale);
 
@@ -81,12 +81,6 @@ const enUrl = new URL(switchLocalePath(path, 'en'), site).href;
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta name="theme-color" content="#141310" />
     <link rel="sitemap" href="/sitemap.xml" />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="tsunagi Content"
-      href={new URL('/rss.xml', site).href}
-    />
     <meta name="generator" content={Astro.generator} />
     {jsonLd && <JsonLd schema={jsonLd} />}
   </head>

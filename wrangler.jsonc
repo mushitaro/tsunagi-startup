@@ -32,7 +32,7 @@
   ],
   // 非機密の設定値。機密値（APIキー等）は `wrangler secret put` で登録する。
   "vars": {
-    "PUBLIC_SITE_URL": "https://startup.tsunagi.app",
+    "PUBLIC_SITE_URL": "https://tsunagi.app",
     "RESEND_FROM": "tsunagi <noreply@tsunagi.app>",
     "DISCORD_INVITE_URL": "https://discord.gg/a9bjUB4ndf"
   }

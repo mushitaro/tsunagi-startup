@@ -1,0 +1,29 @@
+name:
+  ja: M
+  en: M
+tagline:
+  ja: 愛車を通じて見える世界。BMW E46 M3 の整備・診断・DME チューニングと、長く乗り続けるための哲学。
+  en: The world seen through one car — BMW E46 M3 maintenance, diagnostics, DME tuning, and the philosophy of keeping it for the long run.
+description:
+  ja: |
+    BMW E46 M3 を中心に、愛車に長く気持ちよく乗り続けるための整備・診断・DME コーディング・マッピング・計測を扱うサイト。
+
+    CSL 換装や M-track mode コーディング、VANOS 設定、駆動系の故障と費用の目安まで、DIY で踏み込むための実践的なノウハウを発信。記録・計画・知見の共有を通じて、オーナーシップそのものを楽しむことを目指す。
+
+    相談は TSUNAGI の Discord に特化。山梨・北杜を拠点に、品質を保てる範囲で受け付けている。
+  en: |
+    A site centered on the BMW E46 M3 — maintenance, diagnostics, DME coding, mapping, and measurement for keeping a beloved car running well for the long term.
+
+    It shares hands-on know-how for going DIY: CSL conversion, M-track mode coding, VANOS settings, and drivetrain failure and cost guidance. Through recording, planning, and sharing, the goal is to enjoy ownership itself.
+
+    Inquiries are handled via the TSUNAGI Discord. Based in Hokuto, Yamanashi, with intentionally limited intake.
+status: live
+url: https://m3.tsunagi.app
+tags:
+  - BMW
+  - E46 M3
+  - メンテナンス
+  - チューニング
+  - DME
+featured: true
+order: 5

@@ -1,3 +1,15 @@
-# 旧 startup.tsunagi.app の URL を引き継ぐ場合はここに 301 を追記する。
+# 旧 URL を引き継ぐ場合はここに 301 を追記する。
 # 形式:  /old-path  /new-path  301
 # 例:    /blog/*    /content/:splat  301
+
+# TSUTAERU / TSUNAGU は現在非公開（準備中）。トップへリダイレクトする。
+# 公開するときはこの9行を削除する。
+/tsutaeru/*     /     302
+/tsutaeru       /     302
+/tsunagu/*      /     302
+/tsunagu        /     302
+/en/tsutaeru/*  /en   302
+/en/tsutaeru    /en   302
+/en/tsunagu/*   /en   302
+/en/tsunagu     /en   302
+/rss.xml        /     302
