@@ -20,8 +20,10 @@ export async function GET(context: APIContext) {
     pages.push({ path: `/tsukuru/${a.id}`, locales: ['ja', 'en'] });
   }
 
+  // canonical はディレクトリ形式（末尾スラッシュ付き）なので URL を揃える。ルートはそのまま。
+  const withSlash = (p: string) => (p === '/' || p.endsWith('/') ? p : `${p}/`);
   const urlFor = (path: string, loc: Locale) =>
-    origin + (loc === 'ja' ? path : path === '/' ? '/en' : `/en${path}`);
+    origin + withSlash(loc === 'ja' ? path : path === '/' ? '/en' : `/en${path}`);
 
   const urls = pages.flatMap((pg) =>
     pg.locales.map((loc) => {

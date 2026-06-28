@@ -20,7 +20,7 @@ export async function GET(context: APIContext) {
   ];
   for (const a of apps) {
     lines.push(
-      `- [${pick(a.data.name, 'ja')}](${origin}/tsukuru/${a.id}): ${pick(a.data.tagline, 'ja')}`,
+      `- [${pick(a.data.name, 'ja')}](${origin}/tsukuru/${a.id}/): ${pick(a.data.tagline, 'ja')}`,
     );
   }
   lines.push('');
