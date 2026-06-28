@@ -1,17 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 
 // tsunagi.app（apex）を入り口とする統合サイト。
+// 静的ビルドして GitHub Pages で公開する（サーバー機能なし）。
 // ja を既定ロケール（プレフィックスなし）、en を /en/ 配下に配置。
 export default defineConfig({
   site: 'https://tsunagi.app',
-  adapter: cloudflare({
-    // astro dev で D1 などの Cloudflare バインディングを利用可能にする。
-    platformProxy: { enabled: true },
-    imageService: 'compile',
-  }),
   i18n: {
     defaultLocale: 'ja',
     locales: ['ja', 'en'],
@@ -19,6 +14,6 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  // サイトマップは SSR の記事ページも含めるため src/pages/sitemap.xml.ts で自前生成する。
+  // サイトマップは src/pages/sitemap.xml.ts で自前生成する。
   integrations: [mdx()],
 });

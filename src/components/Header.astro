@@ -10,7 +10,6 @@ const t = useTranslations(locale);
 const path = Astro.url.pathname;
 
 const home = localizedPath('/', locale);
-const account = localizedPath('/account', locale);
 // TSUTAERU / TSUNAGU は現在非公開（準備中）。公開するときにこの配列へ戻す。
 const links = [
   { href: localizedPath('/tsukuru', locale), label: t('nav.catalog') },
@@ -46,13 +45,6 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
 
     <div class="flex items-center gap-4 justify-self-end md:gap-5">
       <LangSwitcher locale={locale} />
-      <span class="hidden h-3 w-px bg-line-strong md:block" aria-hidden="true"></span>
-      <a
-        href={account}
-        class="hidden text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink md:inline-block"
-      >
-        {t('nav.account')}
-      </a>
 
       <details class="relative md:hidden">
         <summary
@@ -68,7 +60,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
           aria-label="mobile"
         >
           {
-            [...links, { href: account, label: t('nav.account') }].map((l) => (
+            links.map((l) => (
               <a
                 href={l.href}
                 class="block px-5 py-3 font-display text-[15px] tracking-wide text-ink-soft hover:bg-brand-soft hover:text-ink"
