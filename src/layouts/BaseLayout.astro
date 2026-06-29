@@ -35,8 +35,10 @@ const fullTitle = title === 'tsunagi' ? 'tsunagi' : `${title} — tsunagi`;
 const ogImageUrl = new URL(ogImage, site).href;
 
 const path = Astro.url.pathname;
-const jaUrl = new URL(switchLocalePath(path, 'ja'), site).href;
-const enUrl = new URL(switchLocalePath(path, 'en'), site).href;
+// hreflang の URL は canonical（ディレクトリ形式＝末尾スラッシュ）と揃える。
+const withSlash = (p: string) => (p === '/' || p.endsWith('/') ? p : `${p}/`);
+const jaUrl = new URL(withSlash(switchLocalePath(path, 'ja')), site).href;
+const enUrl = new URL(withSlash(switchLocalePath(path, 'en')), site).href;
 ---
 
 <!doctype html>
