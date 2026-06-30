@@ -18,5 +18,5 @@ tags: # 任意
   - タグ2
 thumbnail: /images/apps/my-app.png # public/ 配下の画像パス（任意。無ければ頭文字プレースホルダ表示）
 featured: false # true で一覧の先頭に出す
-order: 100 # 同 featured 内の並び順（小さいほど先）
+order: 10 # 同 featured 内の並び順（大きいほど上＝先頭）
 launchedAt: 2025-01-01 # 公開日（任意）

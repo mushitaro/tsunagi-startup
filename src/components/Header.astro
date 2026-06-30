@@ -10,9 +10,10 @@ const t = useTranslations(locale);
 const path = Astro.url.pathname;
 
 const home = localizedPath('/', locale);
-// TSUTAERU / TSUNAGU は現在非公開（準備中）。公開するときにこの配列へ戻す。
 const links = [
   { href: localizedPath('/tsukuru', locale), label: t('nav.catalog') },
+  { href: localizedPath('/tsutaeru', locale), label: t('nav.content') },
+  { href: localizedPath('/tsunagu', locale), label: t('nav.consulting') },
 ];
 
 const isActive = (href: string) => path === href || path.startsWith(href + '/');

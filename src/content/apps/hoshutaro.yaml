@@ -18,6 +18,8 @@ description:
 
     Built as a PWA with AI chat, Excel/JSON import-export, and a plugin layer for enterprise system integration. Currently in development.
 status: in-development
+url: https://hoshutaro-delivery.tsunagi.app/
+linkType: site
 tags:
   - 設備保全
   - ローカルLLM
@@ -27,4 +29,4 @@ tags:
   - OpenMythos
   - PWA
 featured: true
-order: 1
+order: 6

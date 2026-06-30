@@ -16,11 +16,13 @@ const apps = defineCollection({
     description: bilingual,
     status: z.enum(['live', 'in-development', 'planned']),
     url: z.string().url().optional(),
+    // url の遷移先の種別。'site' のとき「サイトを開く」、既定の 'app' は「アプリを開く」。
+    linkType: z.enum(['app', 'site']).default('app'),
     repo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
     thumbnail: z.string().optional(),
     featured: z.boolean().default(false),
-    order: z.number().default(100),
+    order: z.number().default(0), // 大きいほど上（先頭）。未指定は最後尾。
     launchedAt: z.coerce.date().optional(),
   }),
 });

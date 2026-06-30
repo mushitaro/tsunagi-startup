@@ -19,10 +19,11 @@ description:
     Its mission is to connect car-loving culture to the next generation, and its vision is to heighten creativity through one's car. Currently in public beta; the app itself runs at maintenance.tsunagi.app.
 status: live
 url: https://startup.tsunagi.app
+linkType: site
 tags:
   - 愛車
   - 整備履歴
   - メンテナンス
   - コミュニティ
 featured: true
-order: 4
+order: 2

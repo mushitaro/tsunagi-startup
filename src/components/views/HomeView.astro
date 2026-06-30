@@ -9,14 +9,34 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-// TSUTAERU / TSUNAGU は現在非公開（準備中）。公開するときにこの配列へ戻す。
-const sections = [
-  {
-    href: localizedPath('/tsukuru', locale),
-    name: t('nav.catalog'),
-    desc: t('home.section.catalog.desc'),
+// ホーム固有の構造化テキスト（見出しの行分け・結びのハイライト・索引行）。
+// ヒーローの文言は i18n（home.hero.*）と一致。リンク先は実ルート。
+const copy = {
+  ja: {
+    kicker: 'つくり、つたえ、つなぐ',
+    vlabel: 'つくり ・ つたえ ・ つなぐ',
+    titleLines: ['受け継ぎ、', '見立て、', '磨き込む。'], // soft = 2行目
+    indexHead: '三つの営み',
+    coda: ['良いものを', '受け継ぎ', '、必要十分を', '見立て', '、使い心地を', '磨き込む', '。そしてまた、次世代へ', '繋ぐ', '。'],
+    rows: [
+      { num: '01', ja: '作', en: 'TSUKURU', desc: 'ポートフォリオ — プロダクトと開発中のプロジェクト', cta: '見る', href: '/tsukuru' },
+      { num: '02', ja: '伝', en: 'TSUTAERU', desc: 'ストーリー — 開発と運用、その思想を綴る', cta: '読む', href: '/tsutaeru' },
+      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UXリアライゼーション — デザイン・開発・運用を受託', cta: '託す', href: '/tsunagu' },
+    ],
   },
-];
+  en: {
+    kicker: 'Build. Share. Connect.',
+    vlabel: 'BUILD · SHARE · CONNECT',
+    titleLines: ['Inherit,', 'curate,', 'hone.'],
+    indexHead: 'Three practices',
+    coda: ['We ', 'inherit', ' what is good, ', 'curate', ' what is needed, ', 'hone', ' how it feels — then ', 'connect', ' it onward.'],
+    rows: [
+      { num: '01', ja: '作', en: 'TSUKURU', desc: 'Portfolio — shipped products and works in progress', cta: 'View', href: '/tsukuru' },
+      { num: '02', ja: '伝', en: 'TSUTAERU', desc: 'Stories — notes on building and operating', cta: 'Read', href: '/tsutaeru' },
+      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UX realization — design, build and operations on commission', cta: 'Talk', href: '/tsunagu' },
+    ],
+  },
+}[locale];
 ---
 
 <BaseLayout
@@ -25,39 +45,189 @@ const sections = [
   description={t('home.hero.lead')}
   jsonLd={[organizationSchema(), websiteSchema(locale)]}
 >
-  <!-- メッセージ + ブランドビジュアル -->
-  <section class="flex min-h-svh flex-col justify-center">
-    <!-- テキスト -->
-    <div class="wrap py-32 md:py-48">
-      <h1
-        class="max-w-4xl text-[2.5rem] font-bold leading-[1.22] text-ink sm:text-6xl sm:leading-[1.16]"
-      >
-        {t('home.hero.title')}
-      </h1>
-      <p
-        class="mt-12 max-w-xl border-t border-line pt-10 text-[15px] leading-relaxed text-muted"
-      >
-        {t('home.hero.lead')}
-      </p>
-    </div>
-  </section>
+  <div class="tsunagi-home">
+    <!-- ───────── ヒーロー ───────── -->
+    <section class="hero" id="hero">
+      <div class="watermark" aria-hidden="true">繋</div>
+      <span class="vlabel">{copy.vlabel}</span>
 
-  <!-- 各ページへのリンク（索引） -->
-  <section class="wrap py-20" aria-label="sections">
-    {
-      sections.map((s, i) => (
-        <a
-          href={s.href}
-          class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 border-t border-line py-10 transition-colors last:border-b hover:bg-surface md:gap-x-10"
-        >
-          <span class="index-num text-4xl text-faint">{String(i + 1).padStart(2, '0')}</span>
-          <div class="md:flex md:items-baseline md:gap-8">
-            <h2 class="text-3xl font-bold text-ink md:w-64 md:shrink-0">{s.name}</h2>
-            <p class="mt-1.5 text-sm tracking-wide text-muted md:mt-0">{s.desc}</p>
-          </div>
-          <span class="text-sm text-faint transition-colors group-hover:text-ink">→</span>
-        </a>
-      ))
-    }
-  </section>
+      <div class="wrap hero-inner">
+        <p class="kicker r">{copy.kicker}</p>
+        <h1 class="hero-title r brush">
+          {copy.titleLines[0]}<br />
+          <span class="soft">{copy.titleLines[1]}</span>{copy.titleLines[2]}
+        </h1>
+        <p class="hero-lead r">{t('home.hero.lead')}</p>
+      </div>
+
+      <a class="scrollcue" href="#index" aria-label="scroll">
+        <span>SCROLL</span><span class="ln"></span>
+      </a>
+    </section>
+
+    <!-- ───────── 索引 01 / 02 / 03 ───────── -->
+    <section class="index" id="index">
+      <div class="wrap">
+        <div class="idx-head reveal">
+          <h2>{copy.indexHead}</h2>
+          <span class="en">TSUKURU / TSUTAERU / TSUNAGU</span>
+        </div>
+
+        {
+          copy.rows.map((row) => {
+            const external = row.href.startsWith('http');
+            const href = external ? row.href : localizedPath(row.href, locale);
+            return (
+              <a
+                class="row reveal"
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+              >
+                <span class="sweep" aria-hidden="true" />
+                <span class="num">{row.num}</span>
+                <span class="body">
+                  <span class="ja">{row.ja}</span>
+                  <span class="en">{row.en}</span>
+                  <span class="desc">{row.desc}</span>
+                </span>
+                <span class="go">
+                  <span>{row.cta}</span>
+                  <span class="arr">→</span>
+                </span>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <!-- ───────── 結び ───────── -->
+    <section class="coda">
+      <div class="wrap">
+        <p class="line reveal">
+          {copy.coda.map((seg, i) => (i % 2 === 1 ? <b>{seg}</b> : seg))}
+        </p>
+        <div class="sig reveal">
+          <span class="r-line"></span><span>TSUNAGI — STARTUP STUDIO</span>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<script is:inline>
+  // 入場：load で data-pre を外して筆ワイプ開始。保険でタイマーでも外す。
+  (function () {
+    function reveal() {
+      document.documentElement.setAttribute('data-pre', '0');
+    }
+    window.addEventListener('load', () => requestAnimationFrame(reveal));
+    setTimeout(reveal, 2400);
+    const io = new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' },
+    );
+    document.querySelectorAll('.tsunagi-home .reveal').forEach((el) => io.observe(el));
+    setTimeout(
+      () => document.querySelectorAll('.tsunagi-home .reveal').forEach((el) => el.classList.add('in')),
+      3000,
+    );
+  })();
+</script>
+
+<style>
+  /* スコープド。色・線・面はすべて global.css の @theme トークンを参照。 */
+  .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 2rem; }
+
+  /* ── ヒーロー ── */
+  .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+  .hero-inner { position: relative; z-index: 3; padding-block: 7rem; }
+
+  .watermark {
+    position: absolute; z-index: 2; pointer-events: none; user-select: none;
+    font-family: var(--font-display, "Yuji Syuku", serif);
+    color: var(--color-watermark, color-mix(in srgb, var(--color-surface) 60%, var(--color-paper)));
+    font-size: min(78vh, 52rem); line-height: 0.8; right: -0.12em; top: 50%;
+    transform: translateY(-50%); letter-spacing: -0.02em;
+  }
+  @media (max-width: 880px) { .watermark { font-size: 62vh; right: -0.22em; opacity: 0.85; } }
+
+  .vlabel {
+    position: absolute; z-index: 3; left: 2rem; top: 50%; transform: translateY(-50%);
+    writing-mode: vertical-rl; text-orientation: upright;
+    font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.72rem; letter-spacing: 0.55em; color: var(--color-faint);
+  }
+  @media (max-width: 1180px) { .vlabel { left: 0.6rem; } }
+  @media (max-width: 880px) { .vlabel { display: none; } }
+
+  .kicker { display: flex; align-items: center; gap: 1rem; font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.95rem; letter-spacing: 0.42em; color: var(--color-ink-soft); margin: 0 0 2.2rem; font-weight: 500; }
+  .kicker::before { content: ""; width: 2.4rem; height: 1px; background: var(--color-shu, var(--color-line-strong)); display: inline-block; }
+
+  .hero-title { font-family: var(--font-display, "Yuji Syuku", serif); font-weight: 400; font-size: clamp(2.7rem, 7.2vw, 6.4rem); line-height: 1.14; color: var(--color-ink); max-width: 14em; letter-spacing: 0.03em; margin: 0; }
+  .hero-title .soft { color: var(--color-ink-soft); }
+  .hero-lead { margin: 2.6rem 0 0; max-width: 34rem; border-top: 1px solid var(--color-line); padding-top: 1.8rem; font-size: 0.98rem; line-height: 2; color: var(--color-muted); letter-spacing: 0.02em; }
+
+  .scrollcue { position: absolute; z-index: 4; left: 50%; bottom: 2.4rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--color-faint); font-size: 0.66rem; letter-spacing: 0.34em; }
+  .scrollcue .ln { width: 1px; height: 2.4rem; background: linear-gradient(var(--color-line-strong), transparent); animation: tsng-cue 2.2s cubic-bezier(.22,.61,.36,1) infinite; transform-origin: top; }
+  @keyframes tsng-cue { 0%, 100% { transform: scaleY(.4); opacity: .5; } 50% { transform: scaleY(1); opacity: 1; } }
+
+  /* ── 索引 ── */
+  .index { position: relative; z-index: 3; padding-block: 6rem 2rem; }
+  .idx-head { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; padding-bottom: 2.4rem; }
+  .idx-head h2 { font-family: var(--font-mincho, "Shippori Mincho", serif); font-weight: 500; font-size: 1.05rem; letter-spacing: 0.4em; color: var(--color-muted); margin: 0; }
+  .idx-head .en { font-size: 0.72rem; letter-spacing: 0.28em; color: var(--color-faint); }
+
+  .row { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0 2.5rem; border-top: 1px solid var(--color-line); padding: 2.4rem 1.4rem; transition: padding-left .45s cubic-bezier(.22,.61,.36,1); overflow: hidden; }
+  .index .row:last-of-type { border-bottom: 1px solid var(--color-line); }
+  .row .sweep { position: absolute; inset: 0; z-index: 0; background: var(--color-surface); transform: translateX(-101%); transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  .row:hover .sweep { transform: translateX(0); }
+  .row > * { position: relative; z-index: 1; }
+  .row .num { font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; font-size: clamp(1.4rem, 2.4vw, 2rem); color: var(--color-faint); transition: color .35s ease; }
+  .row:hover .num { color: var(--color-shu, var(--color-ink)); }
+  .row .body { display: flex; align-items: baseline; gap: 1.4rem 2rem; flex-wrap: wrap; }
+  .row .ja { font-family: var(--font-display, "Yuji Syuku", serif); font-weight: 400; font-size: clamp(2rem, 4.2vw, 3.4rem); color: var(--color-ink); line-height: 1; }
+  .row .body .en { font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.82rem; letter-spacing: 0.34em; color: var(--color-muted); transition: color .3s ease; }
+  .row:hover .body .en { color: var(--color-ink-soft); }
+  .row .desc { font-size: 0.86rem; letter-spacing: 0.06em; color: var(--color-muted); margin-left: auto; }
+  .row .go { display: flex; align-items: center; gap: 0.7rem; color: var(--color-faint); font-size: 0.95rem; transition: color .3s ease; }
+  .row:hover .go { color: var(--color-ink); }
+  .row .go .arr { display: inline-block; transition: transform .45s cubic-bezier(.16,1,.3,1); }
+  .row:hover .go .arr { transform: translateX(0.5rem); }
+  .row:hover { padding-left: 2.4rem; }
+  @media (max-width: 880px) { .row .desc { margin-left: 0; width: 100%; } }
+
+  /* ── 結び ── */
+  .coda { position: relative; z-index: 3; padding-block: 8rem 2rem; }
+  .coda .line { font-family: var(--font-display, "Yuji Syuku", serif); font-weight: 400; font-size: clamp(1.5rem, 3.4vw, 2.6rem); line-height: 1.8; color: var(--color-ink-soft); max-width: 24em; letter-spacing: 0.04em; }
+  .coda .line b { color: var(--color-ink); font-weight: 400; }
+  .coda .sig { margin-top: 2.6rem; display: flex; align-items: center; gap: 1rem; color: var(--color-faint); font-size: 0.74rem; letter-spacing: 0.2em; }
+  .coda .sig .r-line { flex: 1; height: 1px; background: var(--color-line); max-width: 8rem; }
+
+  /* ── 入場アニメーション ── */
+  .reveal { transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  :global(html[data-motion="on"]) .reveal { opacity: 0; transform: translateY(22px); }
+  /* .in は隠す規則（html[data-motion="on"] .reveal）と同じ祖先で限定し、詳細度で勝たせる */
+  :global(html[data-motion="on"]) .reveal.in { opacity: 1; transform: none; }
+
+  .hero .r { transition: opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1), clip-path 1.1s cubic-bezier(.16,1,.3,1); }
+  :global(html[data-pre="1"]) .hero .r { opacity: 0; transform: translateY(26px); }
+  :global(html[data-pre="1"]) .hero .brush { clip-path: inset(0 100% 0 0); transform: translateY(30px); }
+  .hero .kicker { transition-delay: .12s; }
+  .hero .hero-title { transition-delay: .28s; }
+  .hero .hero-lead { transition-delay: .52s; }
+  .vlabel { transition: opacity 1.2s cubic-bezier(.16,1,.3,1); transition-delay: .95s; }
+  :global(html[data-pre="1"]) .vlabel { opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .hero .r, .vlabel { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
+    .scrollcue .ln { animation: none !important; }
+  }
+</style>

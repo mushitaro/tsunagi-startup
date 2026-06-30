@@ -19,6 +19,7 @@ description:
     Inquiries are handled via the TSUNAGI Discord. Based in Hokuto, Yamanashi, with intentionally limited intake.
 status: live
 url: https://m3.tsunagi.app
+linkType: site
 tags:
   - BMW
   - E46 M3
@@ -26,4 +27,4 @@ tags:
   - チューニング
   - DME
 featured: true
-order: 5
+order: 1

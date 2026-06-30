@@ -35,11 +35,12 @@ export const ui = {
     'catalog.filter.all': 'すべて',
     'catalog.empty': '該当するプロダクトはありません。',
     'catalog.visit': 'アプリを開く',
+    'catalog.visitSite': 'サイトを開く',
     'catalog.repo': 'リポジトリ',
     'catalog.back': 'TSUKURU に戻る',
 
     'content.title': 'TSUTAERU',
-    'content.lead': 'アプリ開発と運用、コンサルティングのアプローチ。',
+    'content.lead': 'ストーリー — 開発と運用、その思想を綴る',
     'content.empty': '記事はまだありません。',
     'content.readmore': '続きを読む',
     'content.back': 'TSUTAERU に戻る',
@@ -49,11 +50,10 @@ export const ui = {
     'content.toc': '目次',
 
     'consulting.title': 'TSUNAGU',
-    'consulting.lead':
-      'TSUNAGI のプロダクト開発で培った知見で、アプリのデザイン・開発・運用を受託します。',
+    'consulting.lead': 'UXリアライゼーション — デザイン・開発・運用を受託',
     'consulting.contact.title': 'Discord で相談する',
     'consulting.contact.desc':
-      'お問い合わせは Discord に特化しています。サーバーに参加して直接ご相談いただくか、下のフォームからご連絡ください。',
+      'お問い合わせは Discord に特化しています。サーバーに参加して、直接ご相談ください。',
     'consulting.contact.join': 'Discord サーバーに参加',
 
     'access.free': '無料',
@@ -125,11 +125,12 @@ export const ui = {
     'catalog.filter.all': 'All',
     'catalog.empty': 'No matching products.',
     'catalog.visit': 'Open app',
+    'catalog.visitSite': 'Open site',
     'catalog.repo': 'Repository',
     'catalog.back': 'Back to TSUKURU',
 
     'content.title': 'TSUTAERU',
-    'content.lead': 'Approaches to app development, operations, and consulting.',
+    'content.lead': 'Stories — notes on building and operating',
     'content.empty': 'No articles yet.',
     'content.readmore': 'Read more',
     'content.back': 'Back to TSUTAERU',
@@ -139,11 +140,10 @@ export const ui = {
     'content.toc': 'Contents',
 
     'consulting.title': 'TSUNAGU',
-    'consulting.lead':
-      'We bring the know-how from building TSUNAGI products to your app design, development, and operations.',
+    'consulting.lead': 'UX realization — design, build and operations on commission',
     'consulting.contact.title': 'Talk to us on Discord',
     'consulting.contact.desc':
-      'Inquiries are handled via Discord. Join the server to talk directly, or send a message with the form below.',
+      'Inquiries are handled via Discord. Join the server to talk directly.',
     'consulting.contact.join': 'Join the Discord server',
 
     'access.free': 'Free',

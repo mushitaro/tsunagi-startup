@@ -27,7 +27,8 @@ export async function getApps(): Promise<AppEntry[]> {
   const apps = await getCollection('apps');
   return apps.sort((a, b) => {
     if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-    if (a.data.order !== b.data.order) return a.data.order - b.data.order;
+    // order は大きいほど上（先頭）に並べる
+    if (a.data.order !== b.data.order) return b.data.order - a.data.order;
     return a.id.localeCompare(b.id);
   });
 }

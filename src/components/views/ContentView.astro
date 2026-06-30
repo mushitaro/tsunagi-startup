@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { getArticles, entrySlug, formatDate } from '../../lib/content';
+import { SITE_URL, breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const articles = await getArticles(locale);
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const crumbs = breadcrumbSchema([
+  { name: 'tsunagi', url: `${base}/` },
+  { name: t('content.title'), url: `${base}/tsutaeru` },
+]);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('content.title')}
+  description={t('content.lead')}
+  jsonLd={crumbs}
+>
+  <div class="wrap py-20 md:py-28">
+    <header class="border-b border-line pb-10">
+      <p class="index-num text-2xl uppercase text-faint">02</p>
+      <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('content.title')}</h1>
+      <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('content.lead')}</p>
+    </header>
+
+    {
+      articles.length > 0 ? (
+        <div>
+          {articles.map((article) => (
+            <a
+              href={localizedPath(`/tsutaeru/${entrySlug(article.id)}`, locale)}
+              class="group grid grid-cols-[auto_1fr] items-baseline gap-x-6 border-b border-line py-9 transition-colors hover:bg-surface md:grid-cols-[8rem_1fr] md:gap-x-10"
+            >
+              <time
+                class="index-num text-[13px] text-faint"
+                datetime={article.data.publishedAt.toISOString()}
+              >
+                {formatDate(article.data.publishedAt, locale)}
+              </time>
+              <div>
+                <h2 class="text-2xl font-bold leading-snug text-ink transition-colors group-hover:text-ink md:text-3xl">
+                  {article.data.title}
+                </h2>
+                <p class="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted">
+                  {article.data.summary}
+                </p>
+                {article.data.tags.length > 0 && (
+                  <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+                    {article.data.tags.map((tag) => (
+                      <span class="text-[11px] tracking-wide text-faint">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="mt-12 text-muted">{t('content.empty')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

@@ -1,0 +1,212 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { getConsulting } from '../../lib/content';
+import { SITE_URL, breadcrumbSchema, serviceSchema, faqSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const DISCORD_INVITE = 'https://discord.gg/a9bjUB4ndf';
+
+const services = await getConsulting(locale);
+const rendered = await Promise.all(
+  services.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+
+// 進め方（デリバリーの考え方）。TSUNAGI は「データ」ではなく『作業』にフォーカスする。
+// いまのアナログ作業こそ既に洗練されたもの。それを観察し、磨き込むイメージでモックを作る。
+const approach = {
+  ja: {
+    label: '進め方',
+    intro: 'いま行っているアナログな作業は、すでに洗練されている。テクノロジーを使って、その練度をさらに高めていく。',
+    paras: [
+      `受託でよくある失敗って、相談を受けてすぐに「じゃあこういう仕組みを入れましょう」と、新しい画面やツールの話から始めてしまうことなんですよね。でも実を言うと、長く続いてきた手作業の中には、その人たちが何年もかけて工夫を重ねてきた、すでに磨かれたやり方がちゃんと入っていて、それを丸ごと別の仕組みで置き換えてしまうと、せっかく効いていた部分まで一緒に消えてしまうことが多いんです。だから TSUNAGI では、置き換えることを先に考える代わりに、いま現場でやっている作業そのものを受け継ぐ、という発想から入ります。新しく生み出すというより、すでにあるものの良さを残すところから始めたい、という感じです。`,
+      `そのために最初にやるのは、けっこう地味なんですが、いま実際に行われている作業を注意深く観察することです。誰が、どんな順番で、どこで手を止めて、どこを無意識に飛ばしているのか。台帳に書き込む、付箋を貼り替える、電話で確認してから入力する、そういう一見ささいな動きの中に、その現場なりの理由がだいたい隠れているんですよね。やっている本人に「どうやってるんですか」と聞いても、当たり前すぎて言葉にならないことが多いので、聞くより先に、まず横で見せてもらうのが早い気がしています。そうやって、本当に効いている要の作業はどこなのかを見立てて、あったらいい機能を足すのではなくて、毎日の作業のどこに手間があって、どこは今のままで十分なのかを、必要十分なところまで絞り込んでいきます。`,
+      `観察で要が見えてきたら、それをそのまま洗練させるイメージで、たたき台になるモックアップを作ります。ここで大事なのは、これは完成品ではなくて、関係する人たちで「やりたいのはこういうことですよね」と認識を揃えるための叩き台だということなんです。だから最初から作り込みすぎず、小さく作って、実際に少し使ってもらいながら、いまの作業の流れに合うように画面や順番を調整していきます。正直、頭の中だけで考えた理想の画面より、現場の人が一回触って「ここはこうじゃない」と言ってくれたほうが、ずっと早く正解に近づくんですよね。作業を置き換えるのではなく、作業のほうに画面を寄せていく、という進め方です。`,
+      `そして導入は、一度作って終わり、にはしません。だいたい初期導入として半年から1年ほどは、初期設定をしたあとも実際に使ってもらいながら、画面の微調整や AI のチューニングを続けていきます。小さく始めて、運用しながら少しずつ育てていく形です。これは公開後も使われ方を見て改善していく、ふだんのやり方とも地続きで、要するに、いまの作業を受け継ぎ、必要十分なところまで見立て、使い心地を磨き込む、というのをそのまま一つの案件の中でやっているだけなんです。`,
+    ],
+    servicesLabel: '提供範囲',
+    faqLabel: 'よくある質問',
+    faq: [
+      {
+        q: 'どんなことを相談できますか？',
+        a: 'アプリやツールの新規開発から、いまある仕組みの改修、公開後の運用改善まで相談できます。ただ、いきなり「こういう機能を作りましょう」という話からは入りません。まずはいま現場でやっている作業を見せてもらって、そこから一緒に考えていく形になります。',
+      },
+      {
+        q: '要件がまだ固まっていなくても大丈夫ですか？',
+        a: '大丈夫です。むしろ、全部決めてからお持ちいただくより、固まっていない段階で作業を見せてもらえたほうが、本当に必要なものを一緒に見立てやすいんです。「あったらいい機能」を足すよりも、毎日の作業のどこに手間があるかを起点にします。',
+      },
+      {
+        q: 'いまのやり方は、できれば変えたくないのですが。',
+        a: 'それで大丈夫です。長く続いてきた作業には、その現場なりに磨かれたやり方が入っているので、置き換えるのではなく受け継ぐのが前提です。仕組みに人を合わせるのではなく、作業のほうに画面を寄せていきます。',
+      },
+      {
+        q: 'どのくらいの期間がかかりますか？',
+        a: '小さく作って、実際に使ってもらいながら調整していくので、一度で完成、という形ではありません。初期導入として半年から1年ほどを目安に、初期設定のあとも画面の微調整や AI のチューニングを続けながら、運用のなかで育てていきます。',
+      },
+      {
+        q: '問い合わせの方法は？',
+        a: 'お問い合わせは Discord に特化しています。サーバーに参加して、直接ご相談ください。',
+      },
+    ],
+    works: '実績は TSUKURU のプロダクト群をご覧ください',
+  },
+  en: {
+    label: 'How we work',
+    intro: 'The analog work you do today is already refined. We use technology to take its craft a step further.',
+    paras: [
+      `A common failure in contract work is jumping straight to "let's put a new system in place" the moment you hear the request, leading with talk of new screens and tools. But honestly, the manual work that has carried on for a long time already holds a refined way of doing things, worked out and improved over many years by the people doing it, and when you replace all of that wholesale with some other system, the very parts that were working well tend to disappear along with it. So at TSUNAGI, instead of thinking first about replacement, we start from the idea of inheriting the work people are actually doing on the ground. Rather than inventing something new, we'd rather begin by keeping what's good about what already exists.`,
+      `To do that, the first thing we do, and it's fairly unglamorous, is to carefully observe the work as it's actually being done. Who does what, in what order, where they pause, and what they skip without thinking about it. Writing into a ledger, moving a sticky note, confirming by phone before entering data, those seemingly trivial motions usually hold a reason that's particular to that workplace. When you ask the person doing it "how do you do this?", it's often too obvious to them to put into words, so rather than asking, it feels faster to first have them show you alongside them. That way we curate where the essential work that's really doing the work actually lies, and instead of adding nice-to-have features, we pare things down to what is necessary and sufficient, asking where the daily effort piles up and where things are already fine as they are.`,
+      `Once the essentials come into view, we build a mockup as a rough draft, with the image of refining that observed work just as it is. What matters here is that this isn't a finished product, it's a draft for getting everyone involved aligned on "this is the thing we want to do, right?". So rather than over-building it from the start, we make it small, have people actually use it a little, and adjust the screens and the order so they fit the way the work currently flows. Honestly, rather than an ideal screen worked out purely in someone's head, having a person on the ground touch it once and say "no, it's not like this here" gets us to the right answer far faster. The approach is not to replace the work, but to bring the screen closer to the work.`,
+      `And the rollout isn't build-it-once-and-done. Usually, for the initial rollout of around six months to a year, even after the initial setup we keep going with fine adjustments to the screens and tuning of the AI while people actually use it. We start small and grow it little by little as it's run in practice. This is continuous with our usual way of watching how things get used and improving even after launch, so in short, we're simply doing, within a single engagement, exactly this: inheriting the current work, curating it down to what is necessary and sufficient, and honing how it feels to use.`,
+    ],
+    servicesLabel: 'What we cover',
+    faqLabel: 'FAQ',
+    faq: [
+      {
+        q: 'What kinds of things can I ask about?',
+        a: 'Everything from building a new app or tool, to reworking an existing system, to improving operations after launch. That said, we don’t start from "let’s build this feature." We begin by having you show us the work being done on the ground, and we think it through together from there.',
+      },
+      {
+        q: 'Is it okay if the requirements aren’t settled yet?',
+        a: 'That’s fine, and often better. Rather than deciding everything beforehand, showing us the work while it is still unsettled makes it easier to curate what is really needed together. We start from where the daily effort piles up, not from a list of nice-to-have features.',
+      },
+      {
+        q: 'I’d rather not change the way we currently work.',
+        a: 'That is exactly the point. Work that has carried on for a long time holds a way of doing things refined for that workplace, so the premise is to inherit it, not replace it. Instead of fitting people to a system, we bring the screen closer to the work.',
+      },
+      {
+        q: 'How long does it take?',
+        a: 'Since we build small and adjust while you actually use it, there is no single "done" moment. As a rough guide, we plan an initial rollout of about six months to a year, and after the initial setup we keep fine-tuning the screens and the AI, growing it through everyday operation.',
+      },
+      {
+        q: 'How do I get in touch?',
+        a: 'Inquiries are handled via Discord. Join the server and talk to us directly.',
+      },
+    ],
+    works: 'See our work in TSUKURU',
+  },
+}[locale];
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const jsonLd = [
+  serviceSchema(locale),
+  breadcrumbSchema([
+    { name: 'tsunagi', url: `${base}/` },
+    { name: t('consulting.title'), url: `${base}/tsunagu` },
+  ]),
+  faqSchema(approach.faq.map((f) => ({ question: f.q, answer: f.a }))),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('consulting.title')}
+  description={t('consulting.lead')}
+  jsonLd={jsonLd}
+>
+  <div class="wrap py-20 md:py-28">
+    <header class="border-b border-line pb-10">
+      <p class="index-num text-2xl uppercase text-faint">03</p>
+      <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('consulting.title')}</h1>
+      <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('consulting.lead')}</p>
+    </header>
+
+    <!-- 進め方（デリバリーの考え方） -->
+    <section class="mt-16" aria-labelledby="approach-h">
+      <p class="text-sm font-semibold tracking-wide text-muted">{approach.label}</p>
+      <h2
+        id="approach-h"
+        class="mt-5 max-w-3xl text-2xl font-bold leading-[1.4] text-ink md:text-[2rem]"
+      >
+        {approach.intro}
+      </h2>
+      <div class="mt-9 max-w-2xl space-y-5 text-[1.0625rem] leading-relaxed text-ink-soft">
+        {approach.paras.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+
+    <!-- 提供範囲（サービス） -->
+    <section class="mt-20" aria-labelledby="services-h">
+      <p id="services-h" class="border-b border-line pb-4 text-sm font-semibold tracking-wide text-muted">
+        {approach.servicesLabel}
+      </p>
+      <div class="[&>:first-child]:border-t-0">
+        {
+          rendered.map(({ entry, Content }, i) => (
+            <section class="grid gap-x-10 gap-y-3 border-t border-line py-12 last:border-b md:grid-cols-[auto_1fr]">
+              <span class="index-num text-2xl text-faint">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="text-2xl font-bold text-ink">{entry.data.title}</h3>
+                <p class="mt-2 font-semibold text-ink-soft">{entry.data.summary}</p>
+                <div class="article-body mt-4 text-[1rem]">
+                  <Content />
+                </div>
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ポートフォリオへの導線 -->
+    <a
+      href={localizedPath('/tsukuru', locale)}
+      class="mt-10 flex items-center justify-between gap-4 border border-line px-7 py-7 transition-colors hover:bg-surface"
+    >
+      <span class="text-sm font-semibold tracking-wide text-ink">{approach.works}</span>
+      <span class="text-sm text-faint">→</span>
+    </a>
+
+    <!-- よくある質問 -->
+    <section class="mt-20" aria-labelledby="faq-h">
+      <p id="faq-h" class="border-b border-line pb-4 text-sm font-semibold tracking-wide text-muted">
+        {approach.faqLabel}
+      </p>
+      <div>
+        {
+          approach.faq.map((f) => (
+            <details class="group border-b border-line [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-bold text-ink transition-colors hover:text-ink-soft">
+                <span>{f.q}</span>
+                <span
+                  aria-hidden="true"
+                  class="shrink-0 text-xl leading-none text-faint transition-transform duration-200 group-open:rotate-45"
+                >
+                  +
+                </span>
+              </summary>
+              <p class="max-w-2xl pb-7 text-[15px] leading-relaxed text-ink-soft">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 問い合わせ（Discord） -->
+    <section id="contact" class="mt-20 scroll-mt-24" aria-labelledby="contact-h">
+      <div class="border border-line bg-surface px-8 py-16 text-ink md:px-16">
+        <p class="index-num text-xs uppercase text-faint">Discord</p>
+        <h2 id="contact-h" class="mt-5 text-2xl font-bold leading-snug md:text-3xl">
+          {t('consulting.contact.title')}
+        </h2>
+        <p class="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+          {t('consulting.contact.desc')}
+        </p>
+        <a
+          href={DISCORD_INVITE}
+          target="_blank"
+          rel="noopener"
+          class="mt-9 inline-block bg-brand px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
+        >
+          {t('consulting.contact.join')} ↗
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

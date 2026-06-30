@@ -1,0 +1,98 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { type ArticleEntry, entrySlug, formatDate } from '../../lib/content';
+import { SITE_URL, articleSchema, breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  locale: Locale;
+  article: ArticleEntry;
+}
+const { locale, article } = Astro.props;
+const t = useTranslations(locale);
+const d = article.data;
+const slug = entrySlug(article.id);
+const isPaid = d.access === 'paid';
+
+// 無料記事のみ本文を描画する。有料（将来用）は本文を出さず要約のみ。
+const { Content } = await render(article);
+
+const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
+const canonical = `${base}/tsutaeru/${slug}`;
+const jsonLd = [
+  articleSchema({
+    headline: d.title,
+    description: d.summary,
+    url: canonical,
+    locale,
+    datePublished: d.publishedAt,
+    dateModified: d.updatedAt,
+    image: d.coverImage,
+    isPaid,
+  }),
+  breadcrumbSchema([
+    { name: 'tsunagi', url: `${base}/` },
+    { name: t('content.title'), url: `${base}/tsutaeru` },
+    { name: d.title, url: canonical },
+  ]),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={d.title}
+  description={d.summary}
+  ogType="article"
+  ogImage={d.coverImage}
+  jsonLd={jsonLd}
+>
+  <article class="wrap-narrow py-20 md:py-28">
+    <a
+      href={localizedPath('/tsutaeru', locale)}
+      class="text-[13px] font-semibold tracking-wide text-muted transition-colors hover:text-ink"
+    >
+      ← {t('content.back')}
+    </a>
+
+    <header class="mt-10 border-b border-line pb-9">
+      {d.category && <p class="index-num text-[12px] uppercase tracking-[0.16em] text-faint">{d.category}</p>}
+      <h1 class="mt-4 text-4xl font-bold leading-[1.2] text-ink md:text-5xl">{d.title}</h1>
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-[12px] tracking-wide text-faint">
+        <span>
+          {t('content.published')}{' '}
+          <time class="index-num" datetime={d.publishedAt.toISOString()}>{formatDate(d.publishedAt, locale)}</time>
+        </span>
+        {d.updatedAt && (
+          <span>
+            {t('content.updated')}{' '}
+            <time class="index-num" datetime={d.updatedAt.toISOString()}>{formatDate(d.updatedAt, locale)}</time>
+          </span>
+        )}
+      </div>
+    </header>
+
+    {
+      isPaid ? (
+        <div class="mt-10">
+          <p class="text-[1.05rem] leading-relaxed text-ink-soft">{d.summary}</p>
+          <p class="mt-8 border-t border-line pt-6 text-sm text-muted">{t('paywall.title')}</p>
+        </div>
+      ) : (
+        <div class="article-body mt-10">
+          <Content />
+        </div>
+      )
+    }
+
+    {
+      d.tags.length > 0 && (
+        <div class="mt-14 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-6">
+          {d.tags.map((tag) => (
+            <span class="text-[11px] tracking-wide text-faint">{tag}</span>
+          ))}
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

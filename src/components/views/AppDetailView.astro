@@ -24,6 +24,7 @@ const statusMap = {
   planned: { ja: '構想中', en: 'Planned', tone: 'line' as const },
 };
 const status = statusMap[d.status];
+const visitLabel = d.linkType === 'site' ? t('catalog.visitSite') : t('catalog.visit');
 
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
 const canonical = `${base}/tsukuru/${app.id}`;
@@ -85,7 +86,7 @@ const jsonLd = [
               rel="noopener"
               class="bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-paper transition-colors hover:bg-brand-ink"
             >
-              {t('catalog.visit')} ↗
+              {visitLabel} ↗
             </a>
           )}
           {d.repo && (

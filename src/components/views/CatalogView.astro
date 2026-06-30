@@ -67,9 +67,9 @@ const crumbs = breadcrumbSchema([
           </div>
 
           <div class="grid gap-5 sm:grid-cols-2" data-app-grid>
-            {apps.map((app, i) => (
+            {apps.map((app) => (
               <div data-status={app.data.status}>
-                <AppCard app={app} locale={locale} index={i} />
+                <AppCard app={app} locale={locale} />
               </div>
             ))}
           </div>

@@ -6,9 +6,8 @@ import Badge from './Badge.astro';
 interface Props {
   app: AppEntry;
   locale: Locale;
-  index?: number;
 }
-const { app, locale, index } = Astro.props;
+const { app, locale } = Astro.props;
 const d = app.data;
 
 const name = pick(d.name, locale);
@@ -29,7 +28,7 @@ const status = statusMap[d.status];
 >
   <div class="flex items-center justify-between">
     <span class="index-num text-lg text-faint">
-      {index !== undefined ? String(index + 1).padStart(2, '0') : ''}
+      {String(d.order).padStart(2, '0')}
     </span>
     <Badge tone={status.tone}>{status[locale]}</Badge>
   </div>

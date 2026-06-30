@@ -10,6 +10,8 @@
     "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
     "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  /* 縦組みラベル・小見出し用ミンチョ（ランディング洗練版） */
+  --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
 
   --color-paper: #141310;
   --color-surface: #1c1b17;
@@ -27,6 +29,11 @@
 
   --color-ok: #f3f1ea;
   --color-warn: #f3f1ea;
+
+  /* 朱（落款のアクセント）と、ヒーロー背景の透かし漢字「繋」の色 */
+  --color-shu: #bb4a34;
+  --color-shu-deep: #9a3a28;
+  --color-watermark: #1b1a15;
 
   /* 鋭角 — すべての角丸を 0 に */
   --radius-xs: 0;
