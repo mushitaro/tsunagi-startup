@@ -4,6 +4,7 @@ import { type Locale, useTranslations, switchLocalePath } from '../i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Analytics from '../components/Analytics.astro';
 
 interface Props {
   title: string;
@@ -85,6 +86,7 @@ const enUrl = new URL(withSlash(switchLocalePath(path, 'en')), site).href;
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     {jsonLd && <JsonLd schema={jsonLd} />}
+    <Analytics />
   </head>
   <body class="flex min-h-screen flex-col">
     <a

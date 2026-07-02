@@ -1,0 +1,19 @@
+---
+// 計測タグ（プライバシー配慮）。ビルド時の PUBLIC_ 環境変数が設定されているときだけ出力する。
+// 値が無ければ何も描画しない（安全）。トークンはクライアントに露出する公開値（シークレットではない）。
+//
+//   PUBLIC_GSC_VERIFICATION  … Google Search Console の site verification トークン
+//   PUBLIC_CF_BEACON_TOKEN   … Cloudflare Web Analytics のトークン
+const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION;
+const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+{gsc && <meta name="google-site-verification" content={gsc} />}
+{
+  cfToken && (
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: cfToken })}
+    />
+  )
+}
