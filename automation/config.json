@@ -1,0 +1,25 @@
+{
+  "brand": "TSUNAGI",
+  "site": "https://tsunagi.app",
+  "defaultLang": "ja",
+  "channels": [
+    {
+      "id": "x",
+      "label": "X (旧Twitter)",
+      "account": "tsunagi.app",
+      "enabled": true,
+      "maxChars": 280,
+      "voice": "スタートアップスタジオ TSUNAGI の視点。簡潔で示唆に富み、誇張しない。",
+      "hashtags": ["#受託開発", "#DX", "#スタートアップ"]
+    },
+    {
+      "id": "threads",
+      "label": "Threads",
+      "account": "m3.tsunagi.app",
+      "enabled": true,
+      "maxChars": 500,
+      "voice": "BMW E46 M3 を長く乗り継ぐ愛好家コミュニティの視点。整備・所有の知見を語る。",
+      "hashtags": ["#BMW", "#E46M3", "#旧車"]
+    }
+  ]
+}
