@@ -16,8 +16,9 @@
 ## 手順
 
 ### 1. Google Analytics 4
-1. [GA4](https://analytics.google.com) でプロパティを作成し、Web データストリームに `tsunagi.app` を追加。
-2. 発行された **測定ID**（`G-XXXXXXX`）を控える。
+`tsunagi.app` の測定ID **`G-Z11WPND2Z3`** は `Analytics.astro` に既定値として設定済み。
+**追加設定なしで有効**（`main` へ反映すれば全ページで計測開始）。別IDに変えたい場合のみ
+リポジトリ Variables に `PUBLIC_GA4_ID` を設定すると上書きできる。
 
 ### 2. Google Search Console
 1. [Search Console](https://search.google.com/search-console) で `tsunagi.app` を追加。
