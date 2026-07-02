@@ -4,9 +4,11 @@
 //
 //   PUBLIC_GSC_VERIFICATION  … Google Search Console の site verification トークン
 //   PUBLIC_GA4_ID            … Google Analytics 4 の測定ID（例: G-XXXXXXX）。未指定なら tsunagi.app の既定IDを使う。
-const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION;
+// GitHub Actions の `${{ vars.X }}` は未設定でも空文字列になる（undefined にはならない）ため、
+// `??` ではなく空文字列も拾う判定にする。
+const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION || undefined;
 // tsunagi.app の GA4 測定ID（公開値）。環境変数があれば上書きできる。
-const ga4Id = import.meta.env.PUBLIC_GA4_ID ?? 'G-Z11WPND2Z3';
+const ga4Id = import.meta.env.PUBLIC_GA4_ID || 'G-Z11WPND2Z3';
 ---
 {gsc && <meta name="google-site-verification" content={gsc} />}
 {
