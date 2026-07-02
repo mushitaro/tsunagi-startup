@@ -1,0 +1,40 @@
+name: SNS投稿（承認済み）
+
+# automation/queue/ の status: approved を各SNSへ投稿する。
+# シークレットが設定されていないチャネルは自動でスキップされる（安全）。
+on:
+  schedule:
+    - cron: '0 1 * * *' # 毎日 01:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 承認済みを投稿
+        env:
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: node automation/post-approved.mjs
+
+      - name: 投稿ステータスの更新をコミット
+        run: |
+          if [ -n "$(git status --porcelain automation/queue)" ]; then
+            git config user.name  'tsunagi-automation[bot]'
+            git config user.email 'automation@users.noreply.github.com'
+            git add automation/queue
+            git commit -m 'chore(automation): 投稿済みステータスを更新'
+            git push
+          else
+            echo '更新なし'
+          fi

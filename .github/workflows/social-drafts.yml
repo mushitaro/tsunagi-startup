@@ -1,0 +1,47 @@
+name: SNSドラフト生成（半自動）
+
+# 種(seed)から各SNSの投稿ドラフトを生成し、PRとして提出する。
+# 人間は PR をレビューし、status: pending → approved にして承認する。
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 毎週月曜 00:00 UTC
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: '種ファイルのパス（空なら seeds/ の最新1件）'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: ドラフト生成
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: node automation/generate-social-drafts.mjs "${{ github.event.inputs.seed }}"
+
+      - name: PR作成
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: automation/social-drafts
+          title: 'SNSドラフト（要承認）'
+          commit-message: 'chore(automation): SNS投稿ドラフトを生成'
+          body: |
+            自動生成されたSNS投稿ドラフトです。
+
+            - `automation/queue/` の各ファイルを確認・加筆してください。
+            - 投稿してよいものは front matter を `status: pending` → `approved` に変更。
+            - マージ後、`SNS投稿（承認済み）` ワークフローが `approved` を投稿します。
+          labels: automation, social
