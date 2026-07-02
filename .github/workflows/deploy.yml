@@ -36,7 +36,7 @@ jobs:
         env:
           # 計測タグ用の公開変数（リポジトリ Variables から注入。未設定ならタグは出力されない）
           PUBLIC_GSC_VERIFICATION: ${{ vars.PUBLIC_GSC_VERIFICATION }}
-          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

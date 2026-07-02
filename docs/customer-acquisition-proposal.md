@@ -27,7 +27,7 @@ AIが編集フローに乗れる既存の静的サイト資産を使って、SEO
 ```
 
 1. **計測基盤（最優先）** — Google Search Console ＋ プライバシー配慮アナリティクス
-   （TSUNAGI=Cloudflare Web Analytics、HOSHUTARO=軽量スクリプト/GoatCounter 等）。全施策の羅針盤。
+   （両サイトとも Google Analytics 4。既に使う Search Console / Google Workspace と同一エコシステム）。全施策の羅針盤。
 2. **AIO（AI検索最適化）＝最小手間・最大レバレッジ** — `llms.txt`・JSON-LD を強化（FAQ/HowTo/Product スキーマ）、
    「設備保全のExcel脱却ツールは？」「E46 M3のDMEコーディング方法」等にAIが答える時、サイトを引用させる。
    OSSである強み（GitHub README・Zenn/Qiita）を被引用ソースに。
