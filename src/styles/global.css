@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* ── デザイントークン — 刀の洗練（黒ベース / 墨と和紙） ──
-   ダーク基調。トークン名は light 時代の名残だが、値はダーク用：
-   paper = ページ地（墨黒）, ink = 主文字（和紙白）。 */
+/* ── デザイントークン — TSUNAGI 共通パレット（#0a0a0a 基準の中立グレースケール） ──
+   TSUNAGI Design / CSL sim と同一の黒基準に統制（無彩色）。唯一の差し色は朱（落款）。
+   トークン名は light 時代の名残だが値はダーク用：paper = 地（#0a0a0a）, ink = 主文字（#e0e0e0）。 */
 @theme {
   --font-display:
     "Yuji Syuku", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
@@ -13,27 +13,27 @@
   /* 縦組みラベル・小見出し用ミンチョ（ランディング洗練版） */
   --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
 
-  --color-paper: #141310;
-  --color-surface: #1c1b17;
-  --color-ink: #f3f1ea;
-  --color-ink-soft: #c9c6bc;
-  --color-muted: #8f8c81;
-  --color-faint: #6b6962;
-  --color-line: #312f2a;
-  --color-line-strong: #46443d;
+  --color-paper: #0a0a0a;
+  --color-surface: #181818;
+  --color-ink: #e0e0e0;
+  --color-ink-soft: #c0c0c0;
+  --color-muted: #888888;
+  --color-faint: #6b6b6b;
+  --color-line: #2a2a2a;
+  --color-line-strong: #3a3a3a;
 
-  --color-brand: #f3f1ea;
+  --color-brand: #e0e0e0;
   --color-brand-ink: #ffffff;
-  --color-brand-soft: #232220;
-  --color-accent: #8f8c81;
+  --color-brand-soft: #222222;
+  --color-accent: #888888;
 
-  --color-ok: #f3f1ea;
-  --color-warn: #f3f1ea;
+  --color-ok: #e0e0e0;
+  --color-warn: #e0e0e0;
 
   /* 朱（落款のアクセント）と、ヒーロー背景の透かし漢字「繋」の色 */
   --color-shu: #bb4a34;
   --color-shu-deep: #9a3a28;
-  --color-watermark: #1b1a15;
+  --color-watermark: #161616;
 
   /* 鋭角 — すべての角丸を 0 に */
   --radius-xs: 0;
@@ -174,9 +174,9 @@
     padding: 0.12em 0.38em;
   }
   .article-body pre {
-    background: #0e0d0b;
+    background: #111111;
     border: 1px solid var(--color-line);
-    color: #e8e6dd;
+    color: #e0e0e0;
     padding: 1.1rem 1.2rem;
     overflow-x: auto;
     font-size: 0.875rem;

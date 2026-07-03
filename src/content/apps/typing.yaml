@@ -1,0 +1,29 @@
+name:
+  ja: タイピング・インベーダー
+  en: Typing Invader
+tagline:
+  ja: 迫りくるインベーダーをタイピングで迎え撃つ、子ども向けの練習ゲーム。
+  en: A kids' typing game where you fend off waves of invaders by typing.
+description:
+  ja: |
+    タイピング・インベーダーは、迫ってくるインベーダーを、画面に表示された文字のタイピングで迎え撃つ、子ども向けの練習ゲームです。遊びながら、自然とキーボードに慣れていけます。
+
+    メニューやメッセージはすべてひらがなで表示されるので、漢字がまだ読めない小さなお子さんでも一人で操作できます。最初になまえとアイコンを選んでプロフィールを作れば、きょうだいや家族で交代しながら、それぞれのスコアを楽しめます。
+
+    練習する文字は、にほんご（ひらがな）とえいご（アルファベット）から選べます。1回10問のシンプルな構成で、クリアを目指して「もういちど」を繰り返すうちに、指が文字の位置を覚えていきます。
+  en: |
+    Typing Invader is a kids' typing game where you fend off incoming invaders by typing the characters shown on screen. It's a way to get comfortable with the keyboard through play.
+
+    Every menu and message is written in hiragana, so even young children who can't yet read kanji can navigate on their own. Set up a profile by choosing a name and an icon, and the whole family can take turns while tracking their own scores.
+
+    You can choose to practice Japanese kana or the English alphabet. Each round is a simple set of ten, and replaying toward a clear screen is how little fingers learn where the keys are.
+status: live
+url: https://typing.tsunagi.app
+tags:
+  - タイピング
+  - こども向け
+  - 学習
+  - ゲーム
+featured: true
+order: 11
+launchedAt: 2026-07-04
