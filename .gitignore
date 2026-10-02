@@ -24,3 +24,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/*
 !.vscode/extensions.json
+
+# 非公開にしたコンテンツ（ローカル保管のみ。ビルド・push 対象外）
+src/content/_archive/

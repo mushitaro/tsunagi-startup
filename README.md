@@ -1,98 +1,56 @@
-# tsunagi 統合サイト
+# TSUNAGI 統合サイト
 
-`tsunagi.app`（apex）を入り口とする tsunagi の統合サイト。3セクション構成：
+`tsunagi.app`（apex）を入り口とする TSUNAGI の統合サイト。サーバー機能を持たない静的サイトで、GitHub Pages で公開している。3セクション構成：
 
 - **TSUKURU**（`/tsukuru`） — アプリ・開発中リポジトリのポートフォリオ
-- **TSUTAERU**（`/tsutaeru`） — 記事。Stripe による記事単位課金（アカウント方式）
-- **TSUNAGU**（`/tsunagu`） — アプリのデザイン・開発・運用受託。問い合わせは Discord
+- **TSUTAERU**（`/tsutaeru`） — 記事
+- **TSUNAGU**（`/tsunagu`） — アプリのデザイン・開発・運用受託。問い合わせは Discord への招待リンク
 
 日本語が既定、英語版は `/en/` 配下。SEO / AIO（`llms.txt`・構造化データ・サイトマップ）対応。
 
 ## 技術スタック
 
-- **Astro 5**（静的優先 + 一部 SSR）/ **TypeScript**
-- **Cloudflare Workers**（`@astrojs/cloudflare` v12 アダプタ）
-- **Cloudflare D1** — ユーザー・購入権・マジックリンク・レート制限
+- **Astro 5**（静的ビルドのみ）/ **TypeScript** / **MDX**
 - **Tailwind CSS v4**（PostCSS 経由）
-- **Stripe**（Checkout + Webhook、REST API を fetch で直接利用）
-- **Resend** — マジックリンク / レシートメール
-- **Discord Webhook** — 問い合わせ通知
+- **GitHub Pages**（GitHub Actions でデプロイ）
+
+決済・認証・データベース・問い合わせフォームは持たない（2026-06 に Cloudflare Workers 構成から静的サイトへ移行。削除したコードは git 履歴のコミット `1cd997b` に残っている）。
 
 ## 必要なもの
 
-Node.js 22+ / Cloudflare アカウント / Stripe アカウント / Resend アカウント / Discord（Webhook と招待リンク）
-
-## 初回セットアップ
-
-```sh
-npm install
-
-# 1. D1 データベースを作成 → 出力された database_id を wrangler.jsonc に貼る
-npx wrangler d1 create tsunagi_db
-
-# 2. セッション用 KV を作成 → 出力された id を wrangler.jsonc に貼る
-npx wrangler kv namespace create SESSION
-
-# 3. マイグレーション適用（ローカル / 本番）
-npm run db:migrate:local
-npm run db:migrate:remote
-
-# 4. ローカル開発用シークレット
-cp .dev.vars.example .dev.vars   # 中身を実値に編集
-
-# 5. 本番シークレットを Worker に登録
-npx wrangler secret put SESSION_SECRET
-npx wrangler secret put STRIPE_SECRET_KEY
-npx wrangler secret put STRIPE_WEBHOOK_SECRET
-npx wrangler secret put RESEND_API_KEY
-npx wrangler secret put DISCORD_WEBHOOK_URL
-```
-
-`wrangler.jsonc` の `vars`（`PUBLIC_SITE_URL` / `RESEND_FROM` / `DISCORD_INVITE_URL`）も実値に編集する。
-
-### Stripe Webhook
-
-Stripe ダッシュボードで Webhook エンドポイントを追加：
-
-- URL: `https://tsunagi.app/api/stripe-webhook`
-- イベント: `checkout.session.completed`
-- 署名シークレット（`whsec_...`）を `STRIPE_WEBHOOK_SECRET` に設定
-
-記事の価格はフロントマターの `price`（日本円の整数）で指定し、Stripe 側に商品登録は不要。
+Node.js 22+
 
 ## 開発
 
 ```sh
+npm install
 npm run dev      # http://localhost:4321
 ```
-
-`platformProxy` によりローカルでも D1 が使える（事前に `npm run db:migrate:local`）。
 
 ## ビルド / デプロイ
 
 ```sh
-npm run build    # astro check + astro build
-npm run deploy   # ビルドして wrangler deploy
+npm run build    # astro check + astro build（出力は dist/）
+npm run preview  # ビルド結果をローカルで確認
 ```
 
-`main` への push で GitHub Actions が自動デプロイ（`.github/workflows/deploy.yml`）。
-そのため GitHub リポジトリに以下の Secrets を登録する：
+`main` への push で GitHub Actions（`.github/workflows/deploy.yml`）が静的ビルドして GitHub Pages に公開する。
 
-- `CLOUDFLARE_API_TOKEN`（Workers 編集権限）
-- `CLOUDFLARE_ACCOUNT_ID`
+計測タグはリポジトリの Variables から注入する（`src/components/Analytics.astro`）：
 
-PR を作るとプレビュー版がアップロードされる（`preview.yml`）。
+- `PUBLIC_GA4_ID` — GA4 測定 ID。未設定なら tsunagi.app の既定 ID を使う（GA4 は常に出力される）
+- `PUBLIC_GSC_VERIFICATION` — Google Search Console の所有権確認。未設定ならタグを出力しない
+
+詳細は [docs/measurement-setup.md](./docs/measurement-setup.md)。
 
 ## 独自ドメイン
 
-Cloudflare ダッシュボードで Worker に `tsunagi.app`（apex）のカスタムドメインを割り当てる（CNAME フラット化）。`startup.tsunagi.app`（TSUNAGI App の LP）はこの Worker とは別系統で、変更しない。
+`public/CNAME`（`tsunagi.app`）で GitHub Pages に apex ドメインを割り当てている。`startup.tsunagi.app`（TSUNAGI App の LP）はこのサイトとは別系統で、変更しない。
 
 ## コンテンツの追加・運用
 
-記事・アプリ・コンサル項目の追加方法は **[AGENTS.md](./AGENTS.md)** を参照。
+記事・アプリ・受託サービス項目の追加方法は **[AGENTS.md](./AGENTS.md)** を参照。
 
-## 旧サイトからの移行
+## SNS 配信
 
-- note.com の記事は `src/content/articles/ja/` にスタブを用意済み（`draft: true`）。
-  note 本文を貼り付けて `draft` を外すと公開される。
-- 旧 URL を引き継ぐ場合は `public/_redirects` に 301 を追記する。
+`automation/` はサイト本体とは独立した SNS 半自動配信スクリプト（ビルドには影響しない）。使い方は [automation/README.md](./automation/README.md)。

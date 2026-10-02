@@ -1,0 +1,31 @@
+name:
+  ja: MX Stage
+  en: MX Stage
+tagline:
+  ja: Maximo のデータ整備を、手元の AI アシスタントと一緒に。変更は必ず人が確かめてから書き込むワークベンチ。
+  en: Correct IBM Maximo data with your own AI assistant — every change is staged, diffed and approved by a person before it is written.
+description:
+  ja: |
+    IBM Maximo（MAS Manage）のデータ整備を、Claude Desktop や ChatGPT デスクトップ、IBM Bob といった利用者の AI アシスタントと一緒に進めるためのツールです。
+
+    AI は Maximo に直接書き込まず、ブラウザの作業画面に読み込んだシート上で分析し、理由を添えて変更を提案します。変わったセルはすべて差分で見えて、Maximo へ反映されるのは人が「Maximo へ反映」を押したときだけです。反映前ならどの変更も取り消せます。
+
+    動くのは利用者の PC の中だけで、外へ通信するのは Maximo と AI アシスタントだけです。会話の中で固まった手順はスキルとして保存でき、次からは AI がそれに沿って作業します。
+  en: |
+    A tool for correcting IBM Maximo (MAS Manage) data together with your own AI assistant — Claude Desktop, ChatGPT desktop, or IBM Bob.
+
+    The AI never writes to Maximo directly. It loads data into a sheet in a browser work screen, analyses it, and proposes changes with reasons. Every changed cell is visible as a diff, and nothing reaches Maximo until a person presses Commit. Any change can be undone before then.
+
+    Everything runs on your own PC; the only outside connections are to Maximo and your AI assistant. Procedures worked out in a conversation can be saved as Skills for the AI to follow next time.
+status: live
+url: https://mxstage.tsunagi.app
+linkType: site
+repo: https://github.com/mxstage/mxstage
+tags:
+  - IBM Maximo
+  - 設備保全
+  - MCP
+  - AI アシスタント
+  - データ整備
+featured: true
+order: 3

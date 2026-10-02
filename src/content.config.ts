@@ -22,7 +22,7 @@ const apps = defineCollection({
     tags: z.array(z.string()).default([]),
     thumbnail: z.string().optional(),
     featured: z.boolean().default(false),
-    order: z.number().default(0), // 大きいほど上（先頭）。未指定は最後尾。
+    order: z.number().default(99), // 小さいほど上（先頭）で、表示番号にもなる。未指定は最後尾。
     launchedAt: z.coerce.date().optional(),
   }),
 });

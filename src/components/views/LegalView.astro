@@ -9,31 +9,29 @@ interface Props {
 const { locale, doc } = Astro.props;
 const t = useTranslations(locale);
 const title = doc === 'privacy' ? t('footer.privacy') : t('footer.terms');
-const updated = '2026-05-18';
+const updated = '2026-10-02';
 
-// ひな型。公開前に内容の確認・必要に応じて専門家のレビューを行うこと。
+// 本サイトは静的サイト（アカウント・決済・フォームなし）。機能を足したら実態に合わせて改定すること。
 type Sec = { h: string; p: string };
 const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
   privacy: {
     ja: [
-      { h: '事業者', p: '「tsunagi」（以下「当方」）が tsunagi.app（以下「本サイト」）を運営します。' },
-      { h: '取得する情報', p: 'お問い合わせ時のお名前・連絡先、アカウント作成時のメールアドレス、有料コンテンツ購入に伴う決済関連情報、およびアクセス解析情報を取得します。' },
-      { h: '利用目的', p: '本サイトの提供、本人確認、有料コンテンツの提供、お問い合わせ対応、サービス改善のために利用します。' },
-      { h: '決済情報', p: '決済は Stripe を通じて処理されます。クレジットカード番号等の情報は当方では保持しません。' },
-      { h: 'Cookie', p: 'ログイン状態の保持などのために Cookie を使用します。ブラウザの設定で無効化できますが、一部機能が利用できなくなる場合があります。' },
+      { h: '事業者', p: '「TSUNAGI」（以下「当方」）が tsunagi.app（以下「本サイト」）を運営します。' },
+      { h: '取得する情報', p: '本サイトにはアカウント登録・決済・入力フォームの機能はなく、閲覧者から氏名やメールアドレスを直接取得することはありません。アクセス解析のため、Google アナリティクスにより閲覧ページ・参照元・端末やブラウザの種類などの情報が収集されます。' },
+      { h: '利用目的', p: 'アクセス解析の情報は、本サイトの利用状況の把握と改善のためにのみ利用します。' },
+      { h: 'Cookie とアクセス解析', p: '本サイトは Google アナリティクスを利用しており、そのために Cookie が使われます。収集されるデータは個人を特定するものではなく、Google のプライバシーポリシーに基づいて管理されます。Cookie はブラウザの設定で無効化できます。' },
+      { h: '外部サービス', p: '受託のご相談は Discord で受け付けています。Discord 上でやり取りした情報は、Discord のプライバシーポリシーに従って扱われます。' },
       { h: '第三者提供', p: '法令に基づく場合等を除き、ご本人の同意なく個人情報を第三者に提供しません。' },
-      { h: '開示・訂正・削除', p: 'ご本人からの求めに応じ、保有する個人情報の開示・訂正・削除に対応します。下記の窓口へご連絡ください。' },
       { h: 'お問い合わせ', p: '本ポリシーに関するお問い合わせは、TSUNAGU ページに記載の Discord 経由で受け付けます。' },
       { h: '改定', p: '本ポリシーは必要に応じて改定します。重要な変更がある場合は本サイト上で告知します。' },
     ],
     en: [
-      { h: 'Operator', p: '"tsunagi" (the "Operator") runs tsunagi.app (the "Site").' },
-      { h: 'Information collected', p: 'We collect your name and contact details when you make an inquiry, your email address when you create an account, payment-related information for paid content, and access analytics.' },
-      { h: 'Purpose of use', p: 'To operate the Site, verify identity, deliver paid content, respond to inquiries, and improve the service.' },
-      { h: 'Payment information', p: 'Payments are processed via Stripe. The Operator does not store credit card numbers or similar details.' },
-      { h: 'Cookies', p: 'We use cookies to keep you signed in and similar purposes. You may disable them in your browser, though some features may stop working.' },
+      { h: 'Operator', p: '"TSUNAGI" (the "Operator") runs tsunagi.app (the "Site").' },
+      { h: 'Information collected', p: 'The Site has no accounts, payments, or input forms, and does not directly collect names or email addresses from visitors. For analytics, Google Analytics collects information such as pages viewed, referrers, and device and browser types.' },
+      { h: 'Purpose of use', p: 'Analytics information is used solely to understand and improve how the Site is used.' },
+      { h: 'Cookies and analytics', p: 'The Site uses Google Analytics, which relies on cookies. The data collected does not identify individuals and is handled under Google\'s privacy policy. You can disable cookies in your browser settings.' },
+      { h: 'External services', p: 'Project inquiries are handled on Discord. Information exchanged on Discord is handled under Discord\'s privacy policy.' },
       { h: 'Third parties', p: 'We do not provide personal information to third parties without your consent, except as required by law.' },
-      { h: 'Disclosure, correction, deletion', p: 'On request, we will disclose, correct, or delete the personal information we hold. Contact us via the channel below.' },
       { h: 'Contact', p: 'Inquiries about this policy are accepted via the Discord linked on the TSUNAGU page.' },
       { h: 'Revisions', p: 'This policy may be revised as needed. Significant changes will be announced on the Site.' },
     ],
@@ -41,11 +39,8 @@ const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
   terms: {
     ja: [
       { h: '適用', p: '本規約は、本サイト（tsunagi.app）の利用に関する一切の関係に適用されます。' },
-      { h: 'アカウント', p: '一部機能はメール認証によるアカウント登録が必要です。登録情報は正確かつ最新に保つものとします。' },
-      { h: '有料コンテンツ', p: '一部の記事は有料です。価格は各記事に表示されます。購入はアカウントに紐づき、ログイン中は閲覧できます。' },
-      { h: '決済', p: '決済は Stripe を通じて行われます。表示価格は日本円・税込です。' },
-      { h: '返金', p: 'デジタルコンテンツの性質上、購入後の返金は原則として行いません。不具合等がある場合は個別にご相談ください。' },
-      { h: '禁止事項', p: '有料コンテンツの無断複製・再配布、本サイトの運営を妨げる行為、法令・公序良俗に反する行為を禁止します。' },
+      { h: '禁止事項', p: '本サイトのコンテンツの無断複製・再配布、本サイトの運営を妨げる行為、法令・公序良俗に反する行為を禁止します。' },
+      { h: '外部リンク', p: '本サイトから紹介するアプリや外部サイトは、それぞれの規約に従ってご利用ください。リンク先の内容について当方は責任を負いません。' },
       { h: '知的財産', p: '本サイトのコンテンツに関する著作権その他の権利は、当方または正当な権利者に帰属します。' },
       { h: '免責', p: '当方は本サイトの情報の正確性・完全性を保証しません。利用により生じた損害について、当方の故意・重過失による場合を除き責任を負いません。' },
       { h: '準拠法', p: '本規約は日本法に準拠し、解釈されます。' },
@@ -53,11 +48,8 @@ const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
     ],
     en: [
       { h: 'Scope', p: 'These terms apply to all use of the Site (tsunagi.app).' },
-      { h: 'Accounts', p: 'Some features require an account created via email verification. You must keep your registration details accurate and current.' },
-      { h: 'Paid content', p: 'Some articles are paid. Prices are shown on each article. Purchases are tied to your account and readable while signed in.' },
-      { h: 'Payment', p: 'Payments are processed via Stripe. Displayed prices are in Japanese yen, tax included.' },
-      { h: 'Refunds', p: 'Due to the nature of digital content, purchases are generally non-refundable. Please contact us if you encounter a defect.' },
-      { h: 'Prohibited conduct', p: 'Unauthorized copying or redistribution of paid content, interference with the Site, and unlawful conduct are prohibited.' },
+      { h: 'Prohibited conduct', p: 'Unauthorized copying or redistribution of Site content, interference with the Site, and unlawful conduct are prohibited.' },
+      { h: 'External links', p: 'Apps and external sites introduced on the Site are subject to their own terms. The Operator is not responsible for the content of linked sites.' },
       { h: 'Intellectual property', p: 'Copyright and other rights in the Site content belong to the Operator or the rightful holders.' },
       { h: 'Disclaimer', p: 'The Operator does not warrant the accuracy or completeness of information on the Site, and is not liable for damages arising from use except in cases of willful misconduct or gross negligence.' },
       { h: 'Governing law', p: 'These terms are governed by and construed under the laws of Japan.' },
@@ -66,21 +58,13 @@ const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
   },
 };
 const sections = content[doc][locale];
-const draftNote =
-  locale === 'ja'
-    ? '本ページはひな型です。公開前に内容をご確認のうえ、必要に応じて専門家のレビューを受けてください。'
-    : 'This page is a template. Please review the content and seek professional review as needed before publishing.';
 ---
 
 <BaseLayout locale={locale} title={title} description={title}>
   <article class="wrap-narrow py-20 md:py-28">
-    <p class="index-num text-xs uppercase text-faint">tsunagi</p>
+    <p class="index-num text-xs uppercase text-faint">TSUNAGI</p>
     <h1 class="mt-6 text-4xl font-bold text-ink md:text-5xl">{title}</h1>
     <p class="index-num mt-4 text-[11px] text-faint">{updated}</p>
-    <p class="mt-8 border-l-2 border-line-strong pl-4 text-sm leading-relaxed text-muted">
-      {draftNote}
-    </p>
-
     <div class="mt-12">
       {
         sections.map((s, i) => (

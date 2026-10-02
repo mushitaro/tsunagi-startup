@@ -14,7 +14,6 @@ const t = useTranslations(locale);
 const copy = {
   ja: {
     kicker: 'つくり、つたえ、つなぐ',
-    vlabel: 'つくり ・ つたえ ・ つなぐ',
     titleLines: ['受け継ぎ、', '見立て、', '磨き込む。'], // soft = 2行目
     indexHead: '三つの営み',
     coda: ['良いものを', '受け継ぎ', '、必要十分を', '見立て', '、使い心地を', '磨き込む', '。そしてまた、次世代へ', '繋ぐ', '。'],
@@ -26,7 +25,6 @@ const copy = {
   },
   en: {
     kicker: 'Build. Share. Connect.',
-    vlabel: 'BUILD · SHARE · CONNECT',
     titleLines: ['Inherit,', 'curate,', 'hone.'],
     indexHead: 'Three practices',
     coda: ['We ', 'inherit', ' what is good, ', 'curate', ' what is needed, ', 'hone', ' how it feels — then ', 'connect', ' it onward.'],
@@ -49,7 +47,6 @@ const copy = {
     <!-- ───────── ヒーロー ───────── -->
     <section class="hero" id="hero">
       <div class="watermark" aria-hidden="true">繋</div>
-      <span class="vlabel">{copy.vlabel}</span>
 
       <div class="wrap hero-inner">
         <p class="kicker r">{copy.kicker}</p>
@@ -160,14 +157,6 @@ const copy = {
   }
   @media (max-width: 880px) { .watermark { font-size: 62vh; right: -0.22em; opacity: 0.85; } }
 
-  .vlabel {
-    position: absolute; z-index: 3; left: 2rem; top: 50%; transform: translateY(-50%);
-    writing-mode: vertical-rl; text-orientation: upright;
-    font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.72rem; letter-spacing: 0.55em; color: var(--color-faint);
-  }
-  @media (max-width: 1180px) { .vlabel { left: 0.6rem; } }
-  @media (max-width: 880px) { .vlabel { display: none; } }
-
   .kicker { display: flex; align-items: center; gap: 1rem; font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.95rem; letter-spacing: 0.42em; color: var(--color-ink-soft); margin: 0 0 2.2rem; font-weight: 500; }
   .kicker::before { content: ""; width: 2.4rem; height: 1px; background: var(--color-shu, var(--color-line-strong)); display: inline-block; }
 
@@ -223,11 +212,9 @@ const copy = {
   .hero .kicker { transition-delay: .12s; }
   .hero .hero-title { transition-delay: .28s; }
   .hero .hero-lead { transition-delay: .52s; }
-  .vlabel { transition: opacity 1.2s cubic-bezier(.16,1,.3,1); transition-delay: .95s; }
-  :global(html[data-pre="1"]) .vlabel { opacity: 0; }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal, .hero .r, .vlabel { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
+    .reveal, .hero .r { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
     .scrollcue .ln { animation: none !important; }
   }
 </style>
