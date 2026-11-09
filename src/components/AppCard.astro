@@ -1,6 +1,6 @@
 ---
 import { type Locale, localizedPath } from '../i18n';
-import { type AppEntry, pick } from '../lib/content';
+import { type AppEntry, pick, nameFontStyle } from '../lib/content';
 import Badge from './Badge.astro';
 
 interface Props {
@@ -12,6 +12,7 @@ const d = app.data;
 
 const name = pick(d.name, locale);
 const tagline = pick(d.tagline, locale);
+const thumbnail = d.thumbnail ? pick(d.thumbnail, locale) : undefined;
 const href = localizedPath(`/tsukuru/${app.id}`, locale);
 
 const statusMap = {
@@ -34,9 +35,9 @@ const status = statusMap[d.status];
   </div>
 
   {
-    d.thumbnail && (
+    thumbnail && (
       <img
-        src={d.thumbnail}
+        src={thumbnail}
         alt=""
         width="640"
         height="360"
@@ -47,18 +48,34 @@ const status = statusMap[d.status];
     )
   }
 
-  <h3
-    class="mt-7 text-2xl font-bold leading-snug text-ink decoration-1 underline-offset-4 group-hover:underline"
-  >
-    {name}
-  </h3>
+  <div class="mt-7 flex items-center gap-4">
+    {
+      d.icon && (
+        <img
+          src={d.icon}
+          alt=""
+          width="40"
+          height="40"
+          loading="lazy"
+          decoding="async"
+          class="size-10 shrink-0 object-contain"
+        />
+      )
+    }
+    <h3
+      class="text-2xl leading-snug text-ink decoration-1 underline-offset-4 group-hover:underline"
+      style={nameFontStyle(app)}
+    >
+      {name}
+    </h3>
+  </div>
   <p class="mt-2.5 flex-1 text-sm leading-relaxed text-muted">{tagline}</p>
 
   {
     d.tags.length > 0 && (
       <div class="mt-6 flex flex-wrap gap-x-4 gap-y-1">
         {d.tags.slice(0, 4).map((tag) => (
-          <span class="text-[11px] tracking-wide text-faint">{tag}</span>
+          <span class="text-[11px] tracking-wide text-muted">{tag}</span>
         ))}
       </div>
     )

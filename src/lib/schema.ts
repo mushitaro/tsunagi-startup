@@ -98,12 +98,12 @@ export function serviceSchema(locale: Locale) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: locale === 'ja' ? 'tsunagi 開発コンサルティング' : 'tsunagi development consulting',
+    name: locale === 'ja' ? 'TSUNAGI UXリアライゼーション' : 'TSUNAGI UX realization',
     url: `${SITE_URL}${locale === 'ja' ? '' : '/en'}/tsunagu`,
     description:
       locale === 'ja'
-        ? 'アプリのデザイン・開発・運用を受託するコンサルティングサービス。'
-        : 'Consulting services for app design, development, and operations.',
+        ? 'オープン標準 MOYAI（Apache 2.0）の無償公開、商用コア IP（MX Stage）のライセンス提供、戦略的アライアンス（知財提携・共同 R&D）。'
+        : 'MOYAI as a free open standard (Apache 2.0), commercial licensing of core IP (MX Stage), and strategic alliances (IP partnerships and joint R&D).',
     provider: organizationSchema(),
     areaServed: 'JP',
   };

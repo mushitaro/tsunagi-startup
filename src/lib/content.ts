@@ -18,8 +18,36 @@ export function entrySlug(id: string): string {
 }
 
 /** 日英併記フィールドから現在ロケールの値を取り出す。 */
-export function pick(field: { ja: string; en: string }, locale: Locale): string {
+export function pick(field: string | { ja: string; en: string }, locale: Locale): string {
+  if (typeof field === 'string') return field;
   return field[locale] ?? field.ja;
+}
+
+/** アプリの名前を製品の字体で出すための style 属性の値。 */
+export function nameFontStyle(app: AppEntry): string | undefined {
+  const f = app.data.nameFont;
+  if (!f) return undefined;
+  const parts = [`font-family:'${f.family}',var(--font-sans)`, `font-weight:${f.weight}`];
+  if (f.tracking) parts.push(`letter-spacing:${f.tracking}`);
+  return parts.join(';');
+}
+
+/** 名前の字体を読み込む Google Fonts の URL。名前に出る字だけを取り寄せる（text=）。 */
+export function nameFontsHref(apps: AppEntry[]): string | undefined {
+  const families = new Map<string, Set<number>>();
+  let text = '';
+  for (const app of apps) {
+    const f = app.data.nameFont;
+    if (!f) continue;
+    families.set(f.family, (families.get(f.family) ?? new Set()).add(f.weight));
+    text += app.data.name.ja + app.data.name.en;
+  }
+  if (families.size === 0) return undefined;
+  const query = [...families]
+    .map(([family, weights]) => `family=${family.replace(/ /g, '+')}:wght@${[...weights].sort((a, b) => a - b).join(';')}`)
+    .join('&');
+  const chars = encodeURIComponent([...new Set(text)].join(''));
+  return `https://fonts.googleapis.com/css2?${query}&text=${chars}&display=swap`;
 }
 
 /* ── Catalog（apps） ─────────────────────────────── */

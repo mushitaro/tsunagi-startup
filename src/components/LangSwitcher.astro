@@ -18,7 +18,7 @@ const path = Astro.url.pathname;
           aria-current={l === locale ? 'true' : undefined}
           class:list={[
             'uppercase transition-colors',
-            l === locale ? 'text-ink' : 'text-faint hover:text-ink',
+            l === locale ? 'text-ink' : 'text-muted hover:text-ink',
           ]}
         >
           {l}

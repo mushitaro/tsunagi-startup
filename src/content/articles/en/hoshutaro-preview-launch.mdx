@@ -1,0 +1,76 @@
+---
+title: "The HOSHUTARO app is out as a development preview"
+summary: "The development preview of HOSHUTARO, an app that closes the gap between how maintenance sites keep their history and the EAM, is now public. Why the hoshitori chart, and how it takes in both Excel and the EAM: the thinking behind its design."
+publishedAt: 2026-05-27
+tags:
+  - HOSHUTARO
+  - equipment maintenance
+  - hoshitori chart
+  - IBM Maximo
+category: Announcement
+access: free
+translationKey: hoshutaro-preview-launch
+---
+
+> This article was first published on the HOSHUTARO site on 27 May 2026 and is moved here as it was then. HOSHUTARO was merged into [MOYAI](/en/tsukuru/moyai) in November 2026.
+
+HOSHUTARO is an app for editing equipment and adding to or correcting maintenance history in a hoshitori chart (the equipment-by-year maintenance chart used on Japanese sites). That much you could do in Excel, but HOSHUTARO adds editing with generative AI, and a design that makes it easy to connect the data to EAM solutions such as IBM Maximo through their APIs.
+
+It is also designed to work with a lightweight AI that runs on a local PC (a local LLM), or with open-weight LLMs that can run in a private cloud, for companies worried that their internal data could be learned by or leaked to the large AI providers.
+
+HOSHUTARO's own features and tuning are still being worked on, but it has reached the point where it can be custom-developed and offered to companies, so it is now public. The app's code is open source, so you can also develop it further on your own.
+
+Documentation is still to come, but asking an AI to explain or develop it should get you a long way.
+
+## Why the hoshitori chart
+
+Oil and chemical plants, power plants, waste incineration plants, manufacturing equipment in every industry, building facilities, ships and aircraft: the maintenance staff who look after equipment on site face an enormous number of machines every day. They want to see the maintenance history of all of it at a glance. That need is the same in every industry.
+
+### What a site asks for first
+
+It used to be common sense on site to build the hoshitori chart in Excel and manage it per person or per team. That maintenance history is a key asset of the maintenance work, and as the scale grows, needs like these appear:
+
+- Keep the history as an asset for the future
+- Let it be read across departments and teams
+- Analyze the history to cut over-maintenance and surplus stock
+- Connect it to the accounting system and manage the finances properly
+
+The EAM solutions, IBM Maximo first among them, are what answered those needs.
+
+### An EAM's screens are for looking at data
+
+But an EAM's maintenance history screen is, quite literally, a view for looking at data. For the core work of maintenance staff, understanding the history and planning the next action, that screen was not enough.
+
+We were users of EAM solutions ourselves, and then took part in many rollouts as IBM Maximo delivery engineers. What that experience taught us is that **in every industry and every company, the first thing maintenance staff asked for was always the hoshitori chart**. And when moving to an EAM, the source data for the migration was also a hoshitori chart made in Excel.
+
+Even so, no packaged solution, Maximo or any other, had a hoshitori chart screen. There were similar features, but none good enough as a screen, and none was the main screen. Developing a hoshitori chart screen always went onto the "future development" list and then into a drawer. The result, as we saw again and again, was the same data managed twice, in Excel and in the EAM.
+
+<strong>That the hoshitori chart is the entry point to maintenance work is beyond doubt.</strong> HOSHUTARO was built to solve this problem.
+
+## HOSHUTARO takes in both Excel and the EAM
+
+### The gap between the project and the site
+
+Equipment maintenance optimization projects often set the goal of "moving off Excel and fully into the EAM". The site agrees when the project starts, but once operation begins, what people really feel is "Excel is easier, Excel is best".
+
+Usually a custom feature is built to download Excel from the EAM, and the problem is that the downloaded Excel keeps growing on site while its data never goes back into the EAM. As a result, the EAM project stops at the data it cleaned up at that moment, and after the project ends it becomes a data lake of one snapshot. We saw that happen many times.
+
+### Data is an asset, which is why structure matters
+
+With that in mind, HOSHUTARO is designed with **syncing data from Excel to the EAM as the core of the solution**. That design puts in everything we learned from years of converting Excel data into EAMs.
+
+On the other hand, lean too far toward the site's view and the question comes up: is an EAM even needed? If it is only a place to pile up data, you could keep CSV and Excel files in cloud storage.
+
+But data is an asset. An asset is an asset because it can produce value, and data has that value only when it is in a state that is easy to use, for analysis and for connecting to other systems. Seen that way, the database structure of an EAM makes a great deal of sense. IBM Maximo in particular feels far ahead of other solutions in how flexibly its data can be used. That is exactly why I moved from leading DX at a user company to working as an IBM Maximo solution engineer.
+
+To be frank, I still do not think Maximo's screens are good. But its data structure, and its thinking on how data is used, won me over.
+
+HOSHUTARO's data can be exported as JSON, and its fields are designed to be general and consistent. Many EAMs can import outside data as JSON or similar formats, so connecting HOSHUTARO to them is not hard.
+
+## HOSHUTARO today
+
+The basic screens and bug fixes are done, and the app can be checked running on a development PC. The feature that syncs Excel to Maximo and other systems is still in development.
+
+Connecting to the Maximo API itself is not hard. The challenge is tuning the automatic mapping of Excel data, laid out differently in every file and sheet, onto JSON fields. Experiments have confirmed that large cloud LLMs such as Gemini and Claude convert it quite accurately, but the work now uses a lightweight local LLM, tuning the prompts and orchestration while making efficient use of the NPU, GPU and CPU of an ordinary PC.
+
+Experiments with open-weight models in a private cloud have not started yet, for lack of development funds. The focus for now is on reaching solid accuracy with a local LLM.

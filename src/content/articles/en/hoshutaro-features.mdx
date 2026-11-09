@@ -1,0 +1,75 @@
+---
+title: "What HOSHUTARO lets you do"
+summary: "The kinds of data you can edit in the hoshitori chart screen, the editing work the AI helps with, and how far it can be customized: HOSHUTARO's features, explained in concrete terms."
+publishedAt: 2026-05-28
+tags:
+  - HOSHUTARO
+  - equipment maintenance
+  - IBM Maximo
+  - local LLM
+category: Product
+access: free
+translationKey: hoshutaro-features
+---
+
+> This article was first published on the HOSHUTARO site on 28 May 2026 and is moved here as it was then. HOSHUTARO was merged into [MOYAI](/en/tsukuru/moyai) in November 2026.
+
+## The kinds of data you can edit
+
+HOSHUTARO is designed with data exchange with IBM Maximo firmly in mind. Set side by side, HOSHUTARO's data and IBM Maximo's data structure correspond like this:
+
+| HOSHUTARO | IBM Maximo | Description |
+|---|---|---|
+| Asset | Asset (ASSET) | The equipment being managed. Identified by its TAG No., with a location hierarchy and an asset classification |
+| WorkOrder | Work order (parent WORKORDER) | The parent unit of a work plan that groups several assets, such as an annual inspection or an overhaul |
+| WorkOrderLine | Work order (child WORKORDER) | One scheduled line of asset × date, holding the planned and actual dates, labor hours and costs |
+| HierarchyPath | Location (LOCATION) | The hierarchy tree of where equipment is installed, such as refinery, area and unit |
+| AssetClassificationPath | Classification (CLASSSTRUCTURE) | The classification tree of equipment types, such as rotating machinery and centrifugal pumps |
+| WorkOrderClassification | Work type (WORKTYPE) | The master list of work types, such as annual inspection and overhaul |
+| Specification | Specification (ASSETSPEC) | Values specific to the equipment, such as maker, capacity and ratings |
+
+For the attributes attached to each entity, see the source code. Documentation will follow.
+
+The kinds of data HOSHUTARO can edit are deliberately kept to the minimum. With too many fields, filling in the blanks can become the goal in itself. At the same time, those detailed records are genuinely useful on site. The current fields are a choice that balances the two, and they will be adjusted as development goes on.
+
+## What the AI helps with
+
+All the data in the previous section can be edited directly in the screen, but the AI helps with the following work:
+
+- Converting Excel data into the HOSHUTARO data model
+- Linking assets to their location hierarchy and classification
+- Generating future work orders and work from past history (in research)
+- Self-learning of reasoning from the data, by automating fine-tuning (in research)
+
+These are features maintenance sites would love to have, but with a secure local model there is still a lot of trial and error. As of writing (May 2026), a standard setup looks likely to be hardware with an NVIDIA RTX 50 series GPU or better and 128 GB of memory or more. NPUs that combine low power with fast processing have also arrived, and the key looks to be the maturing of heterogeneous runtimes that make efficient use of the GPU, NPU and CPU together.
+
+Using cloud models such as Gemini or Claude means managing security and API costs. Which to choose depends on your company's data policy and budget.
+
+## What can be customized
+
+Progress in generative AI has made most things quick to customize. The value of a solution built around a hoshitori chart screen may change, but as a waypoint in a fast-moving time, these customizations are currently possible:
+
+### Integration
+
+- API integration with EAMs and CMMSs other than Maximo (products that offer an API only)
+
+### AI
+
+- Choosing the AI model
+- Your own tuning of the AI model (fine-tuning)
+- Tuning the Skills
+
+### Deployment
+
+- Choosing the deployment environment
+
+### Appearance
+
+- Logo
+- App name
+- Field names
+- UI
+
+The data model is not open to customization, because its consistency matters. That may change if AGI arrives in earnest, but for now this is the policy.
+
+With AI moving so fast, there is a worry that today's solution will soon be out of date. But building a culture that takes in new technology and keeps evolving the company's work day by day is the real asset. It would be good if bringing in HOSHUTARO were a first step toward that.

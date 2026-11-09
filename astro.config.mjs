@@ -16,4 +16,10 @@ export default defineConfig({
   },
   // サイトマップは src/pages/sitemap.xml.ts で自前生成する。
   integrations: [mdx()],
+  // 掲載をやめたページの転送（静的ビルドでは meta refresh の HTML になる）。
+  // HOSHUTARO は 2026-11 に MOYAI（Enterprise MCP）へ統合した。
+  redirects: {
+    '/tsukuru/hoshutaro': '/tsukuru/moyai',
+    '/en/tsukuru/hoshutaro': '/en/tsukuru/moyai',
+  },
 });

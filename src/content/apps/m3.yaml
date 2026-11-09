@@ -2,29 +2,36 @@ name:
   ja: M
   en: M
 tagline:
-  ja: 愛車を通じて見える世界。BMW E46 M3 の整備・診断・DME チューニングと、長く乗り続けるための哲学。
-  en: The world seen through one car — BMW E46 M3 maintenance, diagnostics, DME tuning, and the philosophy of keeping it for the long run.
+  ja: 愛車という文化遺産を、永遠に。BMW E46 M3 の整備・診断・チューニングのツールをオープンソースで公開し、エンスージアストのスポンサーシップで開発を進めています。
+  en: Your car as cultural heritage, for good. Open-source tools for maintaining, diagnosing and tuning the BMW E46 M3, developed with the sponsorship of enthusiasts.
 description:
   ja: |
-    BMW E46 M3 を中心に、愛車に長く気持ちよく乗り続けるための整備・診断・DME コーディング・マッピング・計測を扱うサイト。
+    内燃車を、人と AI とバイオ燃料の調和技術で走らせ続けるための場所です。BMW E46 M3 を最初の一台に、DME のチューニング（MSS54HP CSL CONVERT /// TUNER）、診断、SMG II のマッピング、ECU やメーターの移植といったツールをつくり、コードと Skill をオープンソースで公開しています。オーナーの AI エージェントが TSUNAGI///Matrix を通じてツールを使い、愛車の不調やチューニングを一緒に考えます。
 
-    CSL 換装や M-track mode コーディング、VANOS 設定、駆動系の故障と費用の目安まで、DIY で踏み込むための実践的なノウハウを発信。記録・計画・知見の共有を通じて、オーナーシップそのものを楽しむことを目指す。
+    開発は MESH のスポンサーシップで進めています。MILE は一回きりの支援で、年会費や自動更新はありません。MILE を置いた機能やツール（MILESTONE）は MILEAGE で進み具合を公開していて、支援した方は開発中のワークス版のツールを使えます。他の車種や、ショップ独自のツールを開発・運営したい事業者は、Mainstay（オペレーター）として参加できます。
 
-    相談は TSUNAGI の Discord に特化。山梨・北杜を拠点に、品質を保てる範囲で受け付けている。
+    開発の軸は三本です。車と人と AI をつなぐ MATRIX、パートナーと生を感じる場所 MEETUPHUB、生ごみからバイオ燃料をつくる MIXTURE。E46 M3 で磨いた技術が、ほかの愛車も持続可能にしていきます。
   en: |
-    A site centered on the BMW E46 M3 — maintenance, diagnostics, DME coding, mapping, and measurement for keeping a beloved car running well for the long term.
+    A place for keeping combustion cars running, with technology that harmonises people, AI and biofuel. Starting with the BMW E46 M3, it builds tools for DME tuning (MSS54HP CSL CONVERT /// TUNER), diagnostics, SMG II mapping, and moving ECUs and instrument clusters, and publishes the code and Skills as open source. The owner's own AI agent uses the tools through TSUNAGI///Matrix and works through the car's faults and tuning together with them.
 
-    It shares hands-on know-how for going DIY: CSL conversion, M-track mode coding, VANOS settings, and drivetrain failure and cost guidance. Through recording, planning, and sharing, the goal is to enjoy ownership itself.
+    Development runs on sponsorship through MESH. MILE is a one-time contribution, with no annual fee and no automatic renewal. The features and tools that MILE is placed on (MILESTONEs) show their progress in the MILEAGE, and supporters can use the WORKS builds of the tools in development. Businesses that want to build and run tools for other models, or tools of their own as a shop, take part as Mainstay (operators).
 
-    Inquiries are handled via the TSUNAGI Discord. Based in Hokuto, Yamanashi, with intentionally limited intake.
+    Development runs along three axes: MATRIX, connecting car, owner and AI; MEETUPHUB, where you and your partner feel alive; and MIXTURE, the devices that turn food waste into biofuel. The technology refined on the E46 M3 makes other cars sustainable too.
 status: live
 url: https://m3.tsunagi.app
 linkType: site
 tags:
   - BMW
   - E46 M3
-  - メンテナンス
-  - チューニング
-  - DME
+  - スポンサーシップ
+  - オープンソース
+  - AIエージェント
+thumbnail:
+  ja: /images/apps/m3-ja.png
+  en: /images/apps/m3-en.png
+icon: /images/apps/m3-icon.png
+nameFont:
+  family: Archivo
+  weight: 800
 featured: true
 order: 1

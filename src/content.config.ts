@@ -20,10 +20,22 @@ const apps = defineCollection({
     linkType: z.enum(['app', 'site']).default('app'),
     repo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
-    thumbnail: z.string().optional(),
+    // カードの主画像・詳細ページの見出し画像・OG 画像。ja と en で替えるときは { ja, en }。
+    thumbnail: z.union([z.string(), bilingual]).optional(),
+    icon: z.string().optional(), // 名前の左に出す製品のアイコン（製品の色のまま）
+    // 名前を製品の字体で出す（Google Fonts の書体名・太さ・字間）。
+    nameFont: z
+      .object({ family: z.string(), weight: z.number().default(400), tracking: z.string().optional() })
+      .optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99), // 小さいほど上（先頭）で、表示番号にもなる。未指定は最後尾。
     launchedAt: z.coerce.date().optional(),
+    // 詳細ページに出す紹介動画（任意）。
+    video: z.object({ title: bilingual, url: z.string().url() }).optional(),
+    // 詳細ページに出すエディション（任意）。label はライセンスや提供形態の短い札。
+    editions: z
+      .array(z.object({ name: z.string(), label: z.string(), body: bilingual }))
+      .optional(),
   }),
 });
 

@@ -16,7 +16,25 @@ repo: https://github.com/owner/repo # リポジトリ URL（任意）
 tags: # 任意
   - タグ1
   - タグ2
-thumbnail: /images/apps/my-app.png # public/ 配下の画像パス（任意。無ければ頭文字プレースホルダ表示）
+thumbnail: # カードの主画像（1280×720。任意。詳細ページの見出し画像と OG 画像にもなる。言語で替えないなら文字列 1 つでよい）
+  ja: /images/apps/my-app-ja.png
+  en: /images/apps/my-app-en.png
+icon: /images/apps/my-app-icon.png # 名前の左に出す製品のアイコン（製品の色のまま。任意）
+# nameFont: # 名前の字体（任意。Google Fonts の書体名）
+#   family: Krona One
+#   weight: 400
+#   tracking: 0.18em
 featured: false # true で一覧の先頭に出す
 order: 4 # 並び順と表示番号（小さいほど上＝先頭。1 は「01」）
 launchedAt: 2025-01-01 # 公開日（任意）
+# video: # 詳細ページに出す紹介動画（任意）
+#   title:
+#     ja: 動画の題名
+#     en: Video title
+#   url: https://youtu.be/xxxxxxxxxxx
+# editions: # 詳細ページに出すエディション（任意。上から 01, 02…）
+#   - name: エディション名
+#     label: Apache 2.0 / Open Source # ライセンスや提供形態の短い札
+#     body:
+#       ja: 中身の説明。
+#       en: What it includes.

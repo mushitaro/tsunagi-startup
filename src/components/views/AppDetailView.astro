@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Badge from '../Badge.astro';
 import { type Locale, useTranslations, localizedPath } from '../../i18n';
-import { type AppEntry, pick, formatDate } from '../../lib/content';
+import { type AppEntry, pick, formatDate, nameFontStyle, nameFontsHref } from '../../lib/content';
 import { SITE_URL, breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
 
 interface Props {
@@ -15,6 +15,8 @@ const d = app.data;
 
 const name = pick(d.name, locale);
 const tagline = pick(d.tagline, locale);
+const thumbnail = d.thumbnail ? pick(d.thumbnail, locale) : undefined;
+const fontsHref = nameFontsHref([app]);
 const description = pick(d.description, locale);
 const paragraphs = description.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 
@@ -25,6 +27,21 @@ const statusMap = {
 };
 const status = statusMap[d.status];
 const visitLabel = d.linkType === 'site' ? t('catalog.visitSite') : t('catalog.visit');
+
+// YouTube の URL（youtu.be/ID・watch?v=ID・embed/ID）から動画 ID を取り出す。取れなければ埋め込まずリンクだけ出す。
+function youTubeId(url: string): string | undefined {
+  try {
+    const u = new URL(url);
+    if (u.hostname === 'youtu.be') return u.pathname.slice(1) || undefined;
+    if (u.hostname.endsWith('youtube.com')) {
+      return u.searchParams.get('v') ?? u.pathname.match(/^\/(?:embed|shorts)\/([\w-]+)/)?.[1];
+    }
+  } catch {
+    // URL として読めないときは埋め込まない
+  }
+  return undefined;
+}
+const videoId = d.video ? youTubeId(d.video.url) : undefined;
 
 const base = locale === 'ja' ? SITE_URL : `${SITE_URL}/en`;
 const canonical = `${base}/tsukuru/${app.id}`;
@@ -43,9 +60,10 @@ const jsonLd = [
   title={name}
   description={tagline}
   ogType="website"
-  ogImage={d.thumbnail}
+  ogImage={thumbnail}
   jsonLd={jsonLd}
 >
+  {fontsHref && <link slot="head" rel="stylesheet" href={fontsHref} />}
   <article class="wrap-narrow py-20 md:py-28">
     <a
       href={localizedPath('/tsukuru', locale)}
@@ -56,14 +74,27 @@ const jsonLd = [
 
     <header class="mt-10 border-b border-line pb-9">
       <Badge tone={status.tone}>{status[locale]}</Badge>
-      <h1 class="mt-6 text-4xl font-bold leading-[1.18] text-ink md:text-6xl">{name}</h1>
+      <div class="mt-6 flex items-center gap-5">
+        {
+          d.icon && (
+            <img
+              src={d.icon}
+              alt=""
+              width="56"
+              height="56"
+              class="size-12 shrink-0 object-contain md:size-14"
+            />
+          )
+        }
+        <h1 class="text-4xl leading-[1.18] text-ink md:text-6xl" style={nameFontStyle(app)}>{name}</h1>
+      </div>
       <p class="mt-5 text-lg leading-relaxed text-muted">{tagline}</p>
     </header>
 
     {
-      d.thumbnail && (
+      thumbnail && (
         <img
-          src={d.thumbnail}
+          src={thumbnail}
           alt={name}
           width="1280"
           height="640"
@@ -72,9 +103,61 @@ const jsonLd = [
       )
     }
 
-    <div class="mt-10 space-y-5 text-[1.05rem] leading-relaxed text-ink-soft">
+    <div class="mt-10 space-y-5 text-[1.0625rem] leading-relaxed text-ink-soft">
       {paragraphs.map((p) => <p>{p}</p>)}
     </div>
+
+    {
+      d.video && (
+        <figure class="mt-12">
+          {videoId ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
+              title={pick(d.video.title, locale)}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              class="aspect-video w-full border border-line bg-surface"
+            />
+          ) : null}
+          <figcaption class="mt-4 flex items-baseline justify-between gap-6">
+            <span>
+              <span class="block text-[11px] font-semibold tracking-wide text-muted">{t('catalog.video')}</span>
+              <span class="mt-1.5 block text-sm font-semibold leading-relaxed text-ink-soft">{pick(d.video.title, locale)}</span>
+            </span>
+            <a
+              href={d.video.url}
+              target="_blank"
+              rel="noopener"
+              class="shrink-0 text-[12px] font-semibold tracking-wide text-muted transition-colors hover:text-ink"
+            >
+              YouTube ↗
+            </a>
+          </figcaption>
+        </figure>
+      )
+    }
+
+    {
+      d.editions && d.editions.length > 0 && (
+        <section class="mt-14" aria-labelledby="editions-h">
+          <p id="editions-h" class="border-b border-line pb-4 text-sm font-semibold tracking-wide text-muted">
+            {t('catalog.editions')}
+          </p>
+          {d.editions.map((ed, i) => (
+            <div class="grid gap-x-8 gap-y-3 border-b border-line py-9 md:grid-cols-[auto_1fr]">
+              <span class="index-num text-xl text-faint">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="text-xl text-ink">{ed.name}</h3>
+                <p class="index-num mt-1.5 text-[11px] tracking-wide text-muted">{ed.label}</p>
+                <p class="mt-4 text-[1rem] leading-relaxed text-ink-soft">{pick(ed.body, locale)}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+      )
+    }
 
     {
       (d.url || d.repo) && (
@@ -107,10 +190,10 @@ const jsonLd = [
       (d.tags.length > 0 || d.launchedAt) && (
         <div class="mt-14 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-6">
           {d.tags.map((tag) => (
-            <span class="text-[11px] tracking-wide text-faint">{tag}</span>
+            <span class="text-[11px] tracking-wide text-muted">{tag}</span>
           ))}
           {d.launchedAt && (
-            <time class="index-num ml-auto text-[11px] text-faint" datetime={d.launchedAt.toISOString()}>
+            <time class="index-num ml-auto text-[11px] text-muted" datetime={d.launchedAt.toISOString()}>
               {formatDate(d.launchedAt, locale)}
             </time>
           )}

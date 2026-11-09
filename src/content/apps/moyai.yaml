@@ -1,0 +1,32 @@
+name:
+  ja: MOYAI
+  en: MOYAI
+tagline:
+  ja: 保全の記録を、紡ぎあう。現場の指定書式を生データのまま外部へ出さず、手元で星取表と公開台帳へ変換・電子署名するオープン基盤（Apache 2.0）。
+  en: Weaving maintenance records together. An open platform (Apache 2.0) that turns each site's own forms into maintenance plans (hoshitori charts) and a public ledger, signed on your own PC without sending raw data anywhere.
+description:
+  ja: |
+    全国 844 のごみ焼却施設をはじめ、し尿処理施設など、現場ごとに受け継がれてきた「指定書式」や「星取表」を否定せず、手元の環境で構造化・電子署名し、組織や自治体を越えて共有可能にするインフラ保全基盤です。
+  en: |
+    Japan's 844 operating waste incineration plants, night-soil treatment plants and many other facilities each keep the forms and maintenance plans (hoshitori charts) they have handed down over the years. MOYAI does not throw those away. It structures and signs them on your own PC, so they can be shared across organizations and municipalities: a maintenance platform for public infrastructure.
+status: live
+repo: https://github.com/mushitaro/moyai
+video:
+  title:
+    ja: 'MOYAI｜保全の記録を、紡ぎあう ― Built with Claude: Japan 2026'
+    en: 'MOYAI | Weaving maintenance records together — Built with Claude: Japan 2026'
+  url: https://youtu.be/Qn6WKnjlH6s
+tags:
+  - 設備保全
+  - Apache 2.0
+  - 星取表・電子署名
+thumbnail:
+  ja: /images/apps/moyai-ja.png
+  en: /images/apps/moyai-en.png
+icon: /images/apps/moyai-icon.svg
+nameFont:
+  family: Krona One
+  weight: 400
+  tracking: 0.18em
+featured: true
+order: 2

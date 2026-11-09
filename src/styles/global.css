@@ -10,29 +10,27 @@
     "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
     "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Consolas", monospace;
-  /* 縦組みラベル・小見出し用ミンチョ（ランディング洗練版） */
   --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  /* 書体の役割（三層）：
+     毛筆 display = 印。漢字の一字か、ヒーローの短い句だけ。大きく置き、欧文・括弧・長い文には使わない。
+     明朝 mincho  = 題。ページ・記事・項目の題（h1–h4 の既定）と、三つの営みの名前（欧文は字間を広く）。
+     ゴシック sans = 文と操作。本文・リード・ラベル・連番・ボタン・FAQ・本文中の見出し。
+     製品の名前だけは、各製品の書体（nameFont）で組む。 */
 
   --color-paper: #0a0a0a;
   --color-surface: #181818;
   --color-ink: #e0e0e0;
   --color-ink-soft: #c0c0c0;
   --color-muted: #888888;
-  --color-faint: #6b6b6b;
+  --color-faint: #6b6b6b; /* 18px 以上の太い連番と記号だけ（paper 上 3.7:1）。小さな字は muted */
   --color-line: #2a2a2a;
   --color-line-strong: #3a3a3a;
 
-  --color-brand: #e0e0e0;
-  --color-brand-ink: #ffffff;
-  --color-brand-soft: #222222;
-  --color-accent: #888888;
-
-  --color-ok: #e0e0e0;
-  --color-warn: #e0e0e0;
+  --color-brand-ink: #ffffff; /* 押せる面の hover（純白） */
+  --color-brand-soft: #222222; /* surface の hover */
 
   /* 朱（落款のアクセント）と、ヒーロー背景の透かし漢字「繋」の色 */
   --color-shu: #bb4a34;
-  --color-shu-deep: #9a3a28;
   --color-watermark: #161616;
 
   /* 鋭角 — すべての角丸を 0 に */
@@ -71,11 +69,9 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
-    /* Yuji Syuku は単一ウェイト。font-bold 等が当たっても合成太字を抑止 */
-    font-weight: 400;
-    font-synthesis-weight: none;
-    letter-spacing: 0.02em;
+    font-family: var(--font-mincho);
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
   :focus-visible {
     outline: 2px solid var(--color-ink);
@@ -105,6 +101,11 @@
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
+  /* 毛筆は単一ウェイト。題（600）の中に置いても太らせない */
+  .font-display {
+    font-weight: 400;
+    font-synthesis-weight: none;
+  }
   .index-num {
     font-family: var(--font-sans);
     font-weight: 600;
@@ -120,6 +121,12 @@
   }
   .article-body > * + * {
     margin-top: 1.4rem;
+  }
+  /* 本文中の見出しは文の流れの一部なので、ゴシックの太字 */
+  .article-body h2,
+  .article-body h3 {
+    font-family: var(--font-sans);
+    letter-spacing: 0.02em;
   }
   .article-body h2 {
     margin-top: 3rem;
@@ -174,9 +181,9 @@
     padding: 0.12em 0.38em;
   }
   .article-body pre {
-    background: #111111;
+    background: var(--color-surface);
     border: 1px solid var(--color-line);
-    color: #e0e0e0;
+    color: var(--color-ink);
     padding: 1.1rem 1.2rem;
     overflow-x: auto;
     font-size: 0.875rem;
@@ -185,6 +192,27 @@
     background: transparent;
     padding: 0;
     color: inherit;
+  }
+  /* 表：枠は罫だけ。見出しの行は muted、横に溢れるときはその表だけを横に送る */
+  .article-body table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .article-body th,
+  .article-body td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.7rem 1rem 0.7rem 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .article-body th {
+    color: var(--color-muted);
+    font-weight: 600;
+    border-bottom-color: var(--color-line-strong);
   }
   .article-body hr {
     border: 0;

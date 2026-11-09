@@ -27,5 +27,12 @@ tags:
   - MCP
   - AI アシスタント
   - データ整備
+thumbnail:
+  ja: /images/apps/mxstage-ja.png
+  en: /images/apps/mxstage-en.png
+icon: /images/apps/mxstage-icon.svg
+nameFont:
+  family: IBM Plex Sans
+  weight: 600
 featured: true
 order: 3

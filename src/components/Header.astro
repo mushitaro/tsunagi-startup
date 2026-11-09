@@ -32,7 +32,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
             href={l.href}
             aria-current={isActive(l.href) ? 'page' : undefined}
             class:list={[
-              'font-display text-[15px] tracking-wide transition-colors',
+              'font-mincho text-[13px] font-medium tracking-[0.24em] transition-colors',
               isActive(l.href)
                 ? 'text-ink underline decoration-1 underline-offset-[6px]'
                 : 'text-muted hover:text-ink',
@@ -64,7 +64,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
             links.map((l) => (
               <a
                 href={l.href}
-                class="block px-5 py-3 font-display text-[15px] tracking-wide text-ink-soft hover:bg-brand-soft hover:text-ink"
+                class="block px-5 py-3 font-mincho text-[13px] font-medium tracking-[0.24em] text-ink-soft hover:bg-brand-soft hover:text-ink"
               >
                 {l.label}
               </a>

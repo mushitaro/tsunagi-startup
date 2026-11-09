@@ -38,6 +38,8 @@ export const ui = {
     'catalog.visitSite': 'サイトを開く',
     'catalog.repo': 'リポジトリ',
     'catalog.back': 'TSUKURU に戻る',
+    'catalog.video': 'コンセプトムービー',
+    'catalog.editions': 'エディション',
 
     'content.title': 'TSUTAERU',
     'content.lead': 'ストーリー — 開発と運用、その思想を綴る',
@@ -50,7 +52,7 @@ export const ui = {
     'content.toc': '目次',
 
     'consulting.title': 'TSUNAGU',
-    'consulting.lead': 'UXリアライゼーション — デザイン・開発・運用を受託',
+    'consulting.lead': 'UXリアライゼーション — 現場を受け継ぐ設計思想と、プロダクトの社会実装',
     'consulting.contact.title': 'Discord で相談する',
     'consulting.contact.desc':
       'お問い合わせは Discord に特化しています。サーバーに参加して、直接ご相談ください。',
@@ -128,6 +130,8 @@ export const ui = {
     'catalog.visitSite': 'Open site',
     'catalog.repo': 'Repository',
     'catalog.back': 'Back to TSUKURU',
+    'catalog.video': 'Concept movie',
+    'catalog.editions': 'Editions',
 
     'content.title': 'TSUTAERU',
     'content.lead': 'Stories — notes on building and operating',
@@ -140,7 +144,8 @@ export const ui = {
     'content.toc': 'Contents',
 
     'consulting.title': 'TSUNAGU',
-    'consulting.lead': 'UX realization — design, build and operations on commission',
+    'consulting.lead':
+      'UX realization — a design philosophy that inherits the work on the ground, and putting products to work in society',
     'consulting.contact.title': 'Talk to us on Discord',
     'consulting.contact.desc':
       'Inquiries are handled via Discord. Join the server to talk directly.',

@@ -1,0 +1,71 @@
+---
+title: "Maintenance DX: look at the data before the solution"
+summary: "Choosing an EAM or CMMS is a management decision, but what decides success is less the solution itself than the blood that flows through it: the design of the data. The pitfalls of requirements definition, and a way to work by building quick prototypes with generative AI and running the business on them."
+publishedAt: 2026-06-23
+tags:
+  - equipment maintenance
+  - EAM
+  - data design
+  - mockups
+category: Approach
+access: free
+translationKey: data-before-solution
+---
+
+> This article was first published on the HOSHUTARO site on 23 June 2026 and is moved here as it was then. HOSHUTARO was merged into [MOYAI](/en/tsukuru/moyai) in November 2026.
+
+## The gap between the hopes of requirements definition and the reality after release
+
+Something I often see and hear in EAM rollout projects is development going ahead without anyone designing **which indicators to monitor with maintenance history and operating data, and what management decisions they should make possible**, or what data that would need.
+
+This is a common story too: from the middle of development onward, "this is missing, that is missing", and what people want or need to do becomes concrete one item after another. Additional development swells, the budget runs over, and the project stops before it reaches the vision it set out for.
+
+Requirements definition can take one to three years, to make the vision concrete. Everyone is full of hope at that stage. But look closely at what it contains, and it is often about the solution's features and configuration, usability, the latest technology and phased development steps: things far from the operation right after release.
+
+Projects that carry that gap forward end up forcing customizations onto a solution that does not fit the additional development and requirements found later. Feature testing and bug fixing take enormous effort from vendor and user alike, everyone gets **rollout fatigue**, and the project cannot move on to the future steps drawn in the requirements. I have seen many such cases.
+
+## Look at the blood (the data) before the solution
+
+To avoid this common problem, I think it is better to look first at **what the blood flowing inside the solution, the data, actually is**.
+
+To get a picture of running the business on data, first shape the data, even roughly, and lay it out in Excel. With that data, make the screens and reports you want in Excel or PowerPoint, run the work a little, and adjust the shape of the data and the screen layout. That is the work I think is needed.
+
+Generative AI now builds prototypes like these right away, so the cost and the time to validate can be cut sharply.
+
+## The wall of "I can't draw it without knowing the features"
+
+When I say this, I often hear: "until I know the solution's features, I can't picture what's possible or draw anything concrete." It is true that people, told they may draw freely on a blank canvas, are stuck for what to draw. (I said the same thing myself, long ago.)
+
+My view now, after a lot of failures, is this. Put into concrete words what you have felt mattered in the work built up so far. Break that down to the level of data, and then do the fit-and-gap against the solution. That process is what matters.
+
+## What breaking it down to the level of data means
+
+Take the equipment register alone, and questions like these should start to surface:
+
+- Should the equipment register also support cost, drawings and schedule management, not just fault and repair history?
+- Do you want to see maintenance cost per asset, or per purchase order?
+- To break maintenance cost down per asset, is apportioning the purchase-order amounts valid as a cost evaluation?
+- If you will record maintenance cost and labor per asset from now on, can the organization actually split its purchase orders that way?
+- Should costs be totaled per ordered job, and labor per job item?
+- Is the hierarchy of the equipment register the granularity for totaling and analyzing cost and labor, a search index for drawings and the like, or a unit useful for schedule management?
+- Can the granularity of the maintenance equipment register interface with the granularity the design and construction departments manage?
+- Can maintenance costs and modification drawings interface with the design department's granularity?
+- Does the register need to be split into the granularity each department, or the mechanical and electrical staff, want to manage?
+- After splitting by department, can the data be totaled again?
+- If you want to change the granularity, can the data be migrated easily?
+
+But inside an organization, the amount of coordination with other departments makes the road to getting there feel long. So perhaps these questions go unspoken in requirements meetings.
+
+## Build a shared picture with other departments through mockups
+
+That is exactly when to put the equipment register and maintenance history you use today into a mockup, quickly, and show it to the departments involved. It becomes easier to share a concrete picture of the work after the data is put in order, and the discussion can suddenly become productive.
+
+Today's LLMs build a mockup in minutes if you instruct them. (When I was leading development, a mockup alone cost months and millions of yen.)
+
+A mockup here is not a finished product but a draft for discussion. What has value is not perfection, but quickly reaching a state where the departments involved can look at the same picture and talk.
+
+## HOSHUTARO lowers the bar for this approach
+
+Sometimes using a model from a large vendor does not fit your organization's security policy. Even then, **a ready-made app that can run entirely locally, like HOSHUTARO**, should lower the bar for this approach a great deal.
+
+Shape your own equipment register and maintenance history quickly, on your own PC alone, and settle the design of the data first while building a shared picture with the other departments. Whether you can take that one step before choosing a solution makes a big difference to where the project ends up. That is what I believe.

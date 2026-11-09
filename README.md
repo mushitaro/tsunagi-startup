@@ -4,7 +4,7 @@
 
 - **TSUKURU**（`/tsukuru`） — アプリ・開発中リポジトリのポートフォリオ
 - **TSUTAERU**（`/tsutaeru`） — 記事
-- **TSUNAGU**（`/tsunagu`） — アプリのデザイン・開発・運用受託。問い合わせは Discord への招待リンク
+- **TSUNAGU**（`/tsunagu`） — 進め方の思想と提供形態（オープン標準 MOYAI・商用コア IP のライセンス・戦略的アライアンス）。個別の受託開発は行わない。問い合わせは Discord への招待リンク
 
 日本語が既定、英語版は `/en/` 配下。SEO / AIO（`llms.txt`・構造化データ・サイトマップ）対応。
 
@@ -49,7 +49,7 @@ npm run preview  # ビルド結果をローカルで確認
 
 ## コンテンツの追加・運用
 
-記事・アプリ・受託サービス項目の追加方法は **[AGENTS.md](./AGENTS.md)** を参照。
+記事・アプリ・TSUNAGU の提供範囲の追加方法は **[AGENTS.md](./AGENTS.md)** を参照。
 
 ## SNS 配信
 

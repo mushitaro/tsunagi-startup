@@ -9,29 +9,27 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-// ホーム固有の構造化テキスト（見出しの行分け・結びのハイライト・索引行）。
+// ホーム固有の構造化テキスト（見出しの行分け・索引行）。
 // ヒーローの文言は i18n（home.hero.*）と一致。リンク先は実ルート。
 const copy = {
   ja: {
     kicker: 'つくり、つたえ、つなぐ',
     titleLines: ['受け継ぎ、', '見立て、', '磨き込む。'], // soft = 2行目
     indexHead: '三つの営み',
-    coda: ['良いものを', '受け継ぎ', '、必要十分を', '見立て', '、使い心地を', '磨き込む', '。そしてまた、次世代へ', '繋ぐ', '。'],
     rows: [
       { num: '01', ja: '作', en: 'TSUKURU', desc: 'ポートフォリオ — プロダクトと開発中のプロジェクト', cta: '見る', href: '/tsukuru' },
       { num: '02', ja: '伝', en: 'TSUTAERU', desc: 'ストーリー — 開発と運用、その思想を綴る', cta: '読む', href: '/tsutaeru' },
-      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UXリアライゼーション — デザイン・開発・運用を受託', cta: '託す', href: '/tsunagu' },
+      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UXリアライゼーション — 現場を受け継ぐ設計思想と、プロダクトの社会実装', cta: '話す', href: '/tsunagu' },
     ],
   },
   en: {
     kicker: 'Build. Share. Connect.',
     titleLines: ['Inherit,', 'curate,', 'hone.'],
     indexHead: 'Three practices',
-    coda: ['We ', 'inherit', ' what is good, ', 'curate', ' what is needed, ', 'hone', ' how it feels — then ', 'connect', ' it onward.'],
     rows: [
       { num: '01', ja: '作', en: 'TSUKURU', desc: 'Portfolio — shipped products and works in progress', cta: 'View', href: '/tsukuru' },
       { num: '02', ja: '伝', en: 'TSUTAERU', desc: 'Stories — notes on building and operating', cta: 'Read', href: '/tsutaeru' },
-      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UX realization — design, build and operations on commission', cta: 'Talk', href: '/tsunagu' },
+      { num: '03', ja: '繋', en: 'TSUNAGU', desc: 'UX realization — a design philosophy that inherits the work on the ground, and products put to work in society', cta: 'Talk', href: '/tsunagu' },
     ],
   },
 }[locale];
@@ -98,18 +96,6 @@ const copy = {
         }
       </div>
     </section>
-
-    <!-- ───────── 結び ───────── -->
-    <section class="coda">
-      <div class="wrap">
-        <p class="line reveal">
-          {copy.coda.map((seg, i) => (i % 2 === 1 ? <b>{seg}</b> : seg))}
-        </p>
-        <div class="sig reveal">
-          <span class="r-line"></span><span>TSUNAGI — STARTUP STUDIO</span>
-        </div>
-      </div>
-    </section>
   </div>
 </BaseLayout>
 
@@ -142,8 +128,6 @@ const copy = {
 
 <style>
   /* スコープド。色・線・面はすべて global.css の @theme トークンを参照。 */
-  .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 2rem; }
-
   /* ── ヒーロー ── */
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
   .hero-inner { position: relative; z-index: 3; padding-block: 7rem; }
@@ -164,7 +148,7 @@ const copy = {
   .hero-title .soft { color: var(--color-ink-soft); }
   .hero-lead { margin: 2.6rem 0 0; max-width: 34rem; border-top: 1px solid var(--color-line); padding-top: 1.8rem; font-size: 0.98rem; line-height: 2; color: var(--color-muted); letter-spacing: 0.02em; }
 
-  .scrollcue { position: absolute; z-index: 4; left: 50%; bottom: 2.4rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--color-faint); font-size: 0.66rem; letter-spacing: 0.34em; }
+  .scrollcue { position: absolute; z-index: 4; left: 50%; bottom: 2.4rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--color-muted); font-size: 0.66rem; letter-spacing: 0.34em; }
   .scrollcue .ln { width: 1px; height: 2.4rem; background: linear-gradient(var(--color-line-strong), transparent); animation: tsng-cue 2.2s cubic-bezier(.22,.61,.36,1) infinite; transform-origin: top; }
   @keyframes tsng-cue { 0%, 100% { transform: scaleY(.4); opacity: .5; } 50% { transform: scaleY(1); opacity: 1; } }
 
@@ -172,7 +156,7 @@ const copy = {
   .index { position: relative; z-index: 3; padding-block: 6rem 2rem; }
   .idx-head { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; padding-bottom: 2.4rem; }
   .idx-head h2 { font-family: var(--font-mincho, "Shippori Mincho", serif); font-weight: 500; font-size: 1.05rem; letter-spacing: 0.4em; color: var(--color-muted); margin: 0; }
-  .idx-head .en { font-size: 0.72rem; letter-spacing: 0.28em; color: var(--color-faint); }
+  .idx-head .en { font-size: 0.72rem; letter-spacing: 0.28em; color: var(--color-muted); }
 
   .row { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0 2.5rem; border-top: 1px solid var(--color-line); padding: 2.4rem 1.4rem; transition: padding-left .45s cubic-bezier(.22,.61,.36,1); overflow: hidden; }
   .index .row:last-of-type { border-bottom: 1px solid var(--color-line); }
@@ -186,19 +170,12 @@ const copy = {
   .row .body .en { font-family: var(--font-mincho, "Shippori Mincho", serif); font-size: 0.82rem; letter-spacing: 0.34em; color: var(--color-muted); transition: color .3s ease; }
   .row:hover .body .en { color: var(--color-ink-soft); }
   .row .desc { font-size: 0.86rem; letter-spacing: 0.06em; color: var(--color-muted); margin-left: auto; }
-  .row .go { display: flex; align-items: center; gap: 0.7rem; color: var(--color-faint); font-size: 0.95rem; transition: color .3s ease; }
+  .row .go { display: flex; align-items: center; gap: 0.7rem; color: var(--color-muted); font-size: 0.95rem; transition: color .3s ease; }
   .row:hover .go { color: var(--color-ink); }
   .row .go .arr { display: inline-block; transition: transform .45s cubic-bezier(.16,1,.3,1); }
   .row:hover .go .arr { transform: translateX(0.5rem); }
   .row:hover { padding-left: 2.4rem; }
   @media (max-width: 880px) { .row .desc { margin-left: 0; width: 100%; } }
-
-  /* ── 結び ── */
-  .coda { position: relative; z-index: 3; padding-block: 8rem 2rem; }
-  .coda .line { font-family: var(--font-display, "Yuji Syuku", serif); font-weight: 400; font-size: clamp(1.5rem, 3.4vw, 2.6rem); line-height: 1.8; color: var(--color-ink-soft); max-width: 24em; letter-spacing: 0.04em; }
-  .coda .line b { color: var(--color-ink); font-weight: 400; }
-  .coda .sig { margin-top: 2.6rem; display: flex; align-items: center; gap: 1rem; color: var(--color-faint); font-size: 0.74rem; letter-spacing: 0.2em; }
-  .coda .sig .r-line { flex: 1; height: 1px; background: var(--color-line); max-width: 8rem; }
 
   /* ── 入場アニメーション ── */
   .reveal { transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }

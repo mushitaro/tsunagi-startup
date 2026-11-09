@@ -9,7 +9,7 @@ interface Props {
 const { locale, doc } = Astro.props;
 const t = useTranslations(locale);
 const title = doc === 'privacy' ? t('footer.privacy') : t('footer.terms');
-const updated = '2026-10-02';
+const updated = '2026-11-09';
 
 // 本サイトは静的サイト（アカウント・決済・フォームなし）。機能を足したら実態に合わせて改定すること。
 type Sec = { h: string; p: string };
@@ -20,7 +20,7 @@ const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
       { h: '取得する情報', p: '本サイトにはアカウント登録・決済・入力フォームの機能はなく、閲覧者から氏名やメールアドレスを直接取得することはありません。アクセス解析のため、Google アナリティクスにより閲覧ページ・参照元・端末やブラウザの種類などの情報が収集されます。' },
       { h: '利用目的', p: 'アクセス解析の情報は、本サイトの利用状況の把握と改善のためにのみ利用します。' },
       { h: 'Cookie とアクセス解析', p: '本サイトは Google アナリティクスを利用しており、そのために Cookie が使われます。収集されるデータは個人を特定するものではなく、Google のプライバシーポリシーに基づいて管理されます。Cookie はブラウザの設定で無効化できます。' },
-      { h: '外部サービス', p: '受託のご相談は Discord で受け付けています。Discord 上でやり取りした情報は、Discord のプライバシーポリシーに従って扱われます。' },
+      { h: '外部サービス', p: 'ご相談は Discord で受け付けています。Discord 上でやり取りした情報は、Discord のプライバシーポリシーに従って扱われます。また、一部のページには YouTube の動画をプライバシー強化モード（youtube-nocookie.com）で埋め込んでいます。動画を再生すると、YouTube（Google）のプライバシーポリシーに従って情報が扱われます。' },
       { h: '第三者提供', p: '法令に基づく場合等を除き、ご本人の同意なく個人情報を第三者に提供しません。' },
       { h: 'お問い合わせ', p: '本ポリシーに関するお問い合わせは、TSUNAGU ページに記載の Discord 経由で受け付けます。' },
       { h: '改定', p: '本ポリシーは必要に応じて改定します。重要な変更がある場合は本サイト上で告知します。' },
@@ -30,7 +30,7 @@ const content: Record<'privacy' | 'terms', Record<Locale, Sec[]>> = {
       { h: 'Information collected', p: 'The Site has no accounts, payments, or input forms, and does not directly collect names or email addresses from visitors. For analytics, Google Analytics collects information such as pages viewed, referrers, and device and browser types.' },
       { h: 'Purpose of use', p: 'Analytics information is used solely to understand and improve how the Site is used.' },
       { h: 'Cookies and analytics', p: 'The Site uses Google Analytics, which relies on cookies. The data collected does not identify individuals and is handled under Google\'s privacy policy. You can disable cookies in your browser settings.' },
-      { h: 'External services', p: 'Project inquiries are handled on Discord. Information exchanged on Discord is handled under Discord\'s privacy policy.' },
+      { h: 'External services', p: 'Inquiries are handled on Discord. Information exchanged on Discord is handled under Discord\'s privacy policy. Some pages also embed YouTube videos in privacy-enhanced mode (youtube-nocookie.com). When you play a video, information is handled under YouTube\'s (Google\'s) privacy policy.' },
       { h: 'Third parties', p: 'We do not provide personal information to third parties without your consent, except as required by law.' },
       { h: 'Contact', p: 'Inquiries about this policy are accepted via the Discord linked on the TSUNAGU page.' },
       { h: 'Revisions', p: 'This policy may be revised as needed. Significant changes will be announced on the Site.' },
@@ -62,14 +62,14 @@ const sections = content[doc][locale];
 
 <BaseLayout locale={locale} title={title} description={title}>
   <article class="wrap-narrow py-20 md:py-28">
-    <p class="index-num text-xs uppercase text-faint">TSUNAGI</p>
-    <h1 class="mt-6 text-4xl font-bold text-ink md:text-5xl">{title}</h1>
-    <p class="index-num mt-4 text-[11px] text-faint">{updated}</p>
+    <p class="index-num text-xs uppercase text-muted">TSUNAGI</p>
+    <h1 class="mt-6 text-4xl text-ink md:text-5xl">{title}</h1>
+    <p class="index-num mt-4 text-[11px] text-muted">{updated}</p>
     <div class="mt-12">
       {
         sections.map((s, i) => (
           <section class="border-t border-line py-8 last:border-b">
-            <h2 class="text-lg font-bold text-ink">
+            <h2 class="font-sans text-lg font-bold text-ink">
               <span class="index-num mr-3 text-xl text-faint">{String(i + 1).padStart(2, '0')}</span>
               {s.h}
             </h2>

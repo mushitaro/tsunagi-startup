@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../PageHead.astro';
 import AppCard from '../AppCard.astro';
 import { type Locale, useTranslations } from '../../i18n';
-import { getApps } from '../../lib/content';
+import { getApps, nameFontsHref } from '../../lib/content';
 import { SITE_URL, breadcrumbSchema } from '../../lib/schema';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const apps = await getApps();
+const fontsHref = nameFontsHref(apps);
 
 const statusLabels: Record<string, { ja: string; en: string }> = {
   live: { ja: '公開中', en: 'Live' },
@@ -42,12 +44,9 @@ const crumbs = breadcrumbSchema([
   description={t('catalog.lead')}
   jsonLd={crumbs}
 >
+  {fontsHref && <link slot="head" rel="stylesheet" href={fontsHref} />}
   <div class="wrap py-20 md:py-28">
-    <header class="border-b border-line pb-10">
-      <p class="index-num text-2xl uppercase text-faint">01</p>
-      <h1 class="mt-6 text-4xl font-bold text-ink md:text-6xl">{t('catalog.title')}</h1>
-      <p class="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">{t('catalog.lead')}</p>
-    </header>
+    <PageHead num="01" mark="作" title={t('catalog.title')} lead={t('catalog.lead')} />
 
     {
       apps.length > 0 ? (
@@ -61,7 +60,7 @@ const crumbs = breadcrumbSchema([
                 class="text-[13px] font-semibold tracking-wide text-muted underline-offset-[6px] transition-colors hover:text-ink aria-pressed:text-ink aria-pressed:underline aria-pressed:decoration-1"
               >
                 {f.label}
-                <span class="index-num ml-1.5 text-[11px] text-faint">{f.count}</span>
+                <span class="index-num ml-1.5 text-[11px] text-muted">{f.count}</span>
               </button>
             ))}
           </div>

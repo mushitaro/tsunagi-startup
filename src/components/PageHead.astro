@@ -1,0 +1,20 @@
+---
+// 一覧ページ（TSUKURU / TSUTAERU / TSUNAGU）の頭。トップの「三つの営み」の行と同じ組み：
+// 連番（ゴシック）・印の一字（毛筆）・名前（明朝、字間を広く）・リード（ゴシック）。
+interface Props {
+  num: string; // 01 / 02 / 03
+  mark: string; // 作 / 伝 / 繋（飾り。読み上げない）
+  title: string; // TSUKURU など。h1 の中身
+  lead: string;
+}
+const { num, mark, title, lead } = Astro.props;
+---
+
+<header class="border-b border-line pb-10">
+  <p class="index-num text-2xl text-faint">{num}</p>
+  <h1 class="mt-6 flex items-end gap-5 md:gap-8">
+    <span aria-hidden="true" class="font-display text-7xl leading-[0.9] text-ink md:text-8xl">{mark}</span>
+    <span class="pb-1 font-mincho text-base font-medium tracking-[0.34em] text-ink-soft md:text-lg">{title}</span>
+  </h1>
+  <p class="mt-7 max-w-xl text-[15px] leading-relaxed text-muted">{lead}</p>
+</header>
